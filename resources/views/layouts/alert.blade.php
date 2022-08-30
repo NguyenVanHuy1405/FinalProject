@@ -1,0 +1,12 @@
+@if (Session::has('success'))
+<div class="alert alert-success alert-dismissible" role="alert">
+    <strong>{{ session('success') }}</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
+@if (Session::has('message'))
+<div class="alert alert-danger alert-dismissible" role="alert">
+    <strong>{{ session('message') }}</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
