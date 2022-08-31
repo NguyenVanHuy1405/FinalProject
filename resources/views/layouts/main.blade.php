@@ -51,9 +51,11 @@
             @if (auth()->user())
             <li class="nav-item"><a href="{{ route('logout') }}" class="nav-link">Log Out</a></li>
             @endif
+            @if (auth()->user())
             @if (auth()->user()->hasRole('admin') || auth()->user()->hasRole('staff'))
                 <li class="nav-item my-3"><a class="nav-link"
                 href="{{ URL::to('admin/dashboard') }}">Admin</a></li>
+            @endif
             @endif
             <li class="nav-item submenu dropdown">
               <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Blog</a>
