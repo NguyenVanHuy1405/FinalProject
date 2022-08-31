@@ -65,43 +65,60 @@
             <form action="{{ URL::to('/admin/account/create') }}" method="POST">
                 {{ csrf_field() }}
                 <div class="modal-body">
-                    <div class="form-group @error('kindofroom_name') is-invalid @enderror">
-                        <label class="role" for="kindofroom_name"><b>Kind of room name:</b></label>
-                        <input type="text" name="kindofroom_name" class="form-control" id="kindofroom_name" placeholder="">
+                    <div class="form-group @error('name') is-invalid @enderror">
+                        <label class="role" for="name"><b>Name:</b></label>
+                        <input type="text" name="name" class="form-control" id="name" placeholder="">
                     </div>
-                    @if ($errors->has('kindofroom_name'))
+                    @if ($errors->has('name'))
                     <span>
-                        @error('kindofroom_name')
+                        @error('name')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </span>
                     @endif
-                    <div class="form-group @error('kindofroom_desc') is-invalid @enderror">
-                        <label class="role" for="kindofroom_desc"><b>Kind of room description:</b></label>
-                        <input type="text" name="kindofroom_desc" class="form-control" id="kindofroom_desc" placeholder="">
+                    <div class="form-group @error('email') is-invalid @enderror">
+                        <label class="role" for="email"><b>Email:</b></label>
+                        <input type="text" name="email" class="form-control" id="email" placeholder="">
                     </div>
-                    @if ($errors->has('kindofroom_desc'))
+                    @if ($errors->has('email'))
                     <span>
-                        @error('kindofroom_desc')
+                        @error('email')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </span>
                     @endif
-                    <div class="form-group @error('kindofroom_status') is-invalid @enderror">
-                        <label class="role" for="kindofroom_status"><b>Kind of room status:</b></label>
-                        <select name="kindofroom_status" class="form-control input-sm m-bot15">
-                                <option value="0">Hide kind of room</option>
-                                <option value="1">Display kind of room</option>
-                        </select>
+                    <div class="form-group @error('password') is-invalid @enderror">
+                        <label class="role" for="password"><b>Password:</b></label>
+                        <input type="password" name="password" class="form-control" id="password" placeholder="Enter password">
                     </div>
-                    @if ($errors->has('kindofroom_status'))
+                    @if ($errors->has('password'))
                     <span>
-                        @error('kindofroom_status')
+                        @error('password')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </span>
                     @endif
-                </div>
+                    <div class="form-group @error('confirm_password') is-invalid @enderror">
+                        <label class="role" for="password_confirmation"><b>Confirm Password:</b></label>
+                        <input type="password" name="password_confirmation" class="form-control" id="password_confirmation" placeholder="Please confirm password">
+                    </div>
+                    @if ($errors->has('password_confirmation'))
+                    <span>
+                        @error('password_confirmation')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                    </span>
+                    @endif
+                    <div class="form-group">
+                    <label for="exampleInputEmail1"><b>Role ID:</b></label>
+                    </br>
+                    <select name="role_id" class="classic">
+                        @foreach($roles as $key => $role) 
+                        <option value="{{$role->id}}">{{$role->role_name}}</option>
+                        @endforeach
+                    </select>
+                    </div>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" name="createkindofroom" id="createkindofroom" class="btn btn-primary">Add kind of room</button>
@@ -156,7 +173,7 @@
     });
 </script>
 <script>
-    @if($errors->has('kindofroom_name')||$errors->has('kindofroom_desc')||$errors->has('kindofroom_status'))
+    @if($errors->has('name')||$errors->has('email')||$errors->has('password')||$errors->has('password_confirmation'))
     var delayInMilliseconds = 1000;
     setTimeout(function() {
         $("#exampleModal").modal('show');

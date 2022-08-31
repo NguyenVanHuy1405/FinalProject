@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\Role;
 use App\Models\User;
 use Yajra\Datatables\Datatables;
+use App\Http\Requests\AccountRequest;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 class AccountController extends Controller
 {
@@ -14,7 +17,7 @@ class AccountController extends Controller
         return view(
             'admin.account.index',
             [
-                'roles' => Role::all(),
+                'roles' => Role::all()
             ]
         );
     }
@@ -68,17 +71,16 @@ class AccountController extends Controller
         $email = $request->email;
         $role_id = $request->role_id;
         $password = $request->password;
+        $password_confirmation = $request->password_confirmation;
         $token = Str::random(10);
         $new_user = User::create([
             'name' => $name,
             'email' => $email,
             'role_id' => $role_id,
-            'department_id' => $department_id,
             'password' => Hash::make($password),
             'remember_token' => $token
         ]);
-        SendEmailCreateAccount::dispatch($new_user, $password)->delay(now());
-        return redirect()->back()->with('flash_message', 'User created!');
+        return redirect()->back()->with('success', 'User created!');
     }
 
 }
