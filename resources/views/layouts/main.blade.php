@@ -53,7 +53,7 @@
             @endif
             @if (auth()->user())
             @if (auth()->user()->hasRole('admin') || auth()->user()->hasRole('staff'))
-                <li class="nav-item my-3"><a class="nav-link"
+                <li class="nav-item"><a class="nav-link"
                 href="{{ URL::to('admin/dashboard') }}">Admin</a></li>
             @endif
             @endif

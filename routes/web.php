@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\RoomTypeController;
 use App\Http\Controllers\Admin\KindOfRoomController;
 use App\Http\Controllers\Admin\RoomController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Admin\AccountController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,9 +28,7 @@ Route::get('/admin/login',[AdminController::class,'login'])->name('admin.login')
 
 Route::post('/admin/login',[AdminController::class,'login_post']);
 Route::get('/admin/dashboard', [AdminController::class,'index'])->name('admin.dashboard');
-//Kind Of Room
 
-//Room
 
 Route::get('/admin/room/index', [RoomController::class,'index'])->name('admin.room.index');
 Route::get('/admin/room/dt-row-data',[RoomController::class,'getDtRowData']);
@@ -64,3 +63,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'role:admin,staff'], function
     });
 
 });
+
+Route::get('/admin/account/index',[AccountController::class,'index'])->name('admin.account.index');
+Route::get('/admin/account/dt-row-data',[AccountController::class,'getDtRowData']);
+Route::get('/admin/account/update/{id}', [AccountController::class, 'edit'])->name('admin.account.update');
+Route::post('/admin/account/update/{id}', [AccountController::class, 'update']);
+Route::get('/admin/account/delete/{id}', [AccountController::class, 'delete'])->name('admin.account.delete');
+Route::get('/unaban-account/{id}',[AccountController::class,'unactive_kindofroom'])->name('aadmin.account.unban_account');
+Route::get('/ban-account/{id}',[AccountController::class,'active_kindofroom'])->name('admin.account.ban_account');

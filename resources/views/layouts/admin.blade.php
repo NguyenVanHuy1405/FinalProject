@@ -22,7 +22,7 @@
 	<link rel="stylesheet" href="{{asset('admin/css/vertical-layout-light/style.css')}}">
 	<!-- endinject -->
 	<link rel="shortcut icon" href="{{asset('home/image/favicon.png')}}" />
-
+	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	@yield('custom-css')
 </head>
@@ -134,6 +134,14 @@
 							<span class="menu-title">Dashboard</span>
 						</a>
 					</li>
+					@if(auth()->user()->hasRole('admin'))
+					<li class="nav-item  {{Request::routeIs('admin.account.index') ? 'active':'';}}">
+						<a class="nav-link" href="{{route('admin.account.index')}}">
+							<i class="mdi mdi-grid-large fa-solid fa-user"></i>
+							<span class="menu-title">Account</span>
+						</a>
+					</li>
+					@endif
 					<li class="nav-item  {{Request::routeIs('admin.roomtype.index') ? 'active':'';}}">
 						<a class="nav-link" href="{{route('admin.roomtype.index')}}">
 							<i class="mdi mdi-grid-large menu-icon"></i>
