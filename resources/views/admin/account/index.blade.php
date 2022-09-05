@@ -156,8 +156,8 @@
                     name: 'email'
                 },
                 {
-                    data: 'role_name',
-                    name: 'role_name'
+                    data: 'role',
+                    name: 'role'
                 },
                 {
                     data: 'is_lock',

@@ -24,7 +24,7 @@ class AccountController extends Controller
     }
     public function getDtRowData(Request $request)
     {
-        $users = User::join('roles','roles.id','=','users.role_id')->orderBy('users.id','desc')->get();
+        $users = User::all();
         return DataTables::of($users)
             ->editColumn('name', function ($data) {
                 return $data->name;
@@ -32,8 +32,8 @@ class AccountController extends Controller
             ->editColumn('email', function ($data) {
                 return $data->email;
             })
-            ->editColumn('role_name', function ($data) {
-                return $data->role_name;
+            ->editColumn('role', function ($data) {
+                return $data->role->role_name;
             })
             ->editColumn('is_lock', function ($data) {
                 if ($data->is_lock == 0) 
@@ -104,7 +104,7 @@ class AccountController extends Controller
             'role_id' => $role_id
         ]);
         $user->save();
-        return redirect('/admin/account/index');
+        return redirect('/admin/account/index')->with('success','Update account successfully');
     }
 
 }
