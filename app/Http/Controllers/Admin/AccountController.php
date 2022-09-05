@@ -8,6 +8,7 @@ use App\Models\Role;
 use App\Models\User;
 use Yajra\Datatables\Datatables;
 use App\Http\Requests\AccountRequest;
+use App\Http\Requests\UpdateAccountRequest;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 
@@ -24,7 +25,7 @@ class AccountController extends Controller
     public function getDtRowData(Request $request)
     {
         $users = User::join('roles','roles.id','=','users.role_id')->orderBy('users.id','desc')->get();
-        return Datatables::of($users)
+        return DataTables::of($users)
             ->editColumn('name', function ($data) {
                 return $data->name;
             })
@@ -45,16 +46,14 @@ class AccountController extends Controller
                 }
             })
             ->editColumn('action', function ($data) {
-                $res = "";
-                if (auth()->user()->hasRole(Role::ROLE_ADMIN)) {
-                    $res .= ' <a class="btn btn-warning btn-sm rounded-pill" href="' . route("admin.account.update", $data->id) . '"><i class="fa-solid fa-pen-to-square" title="Edit Account"></i></a>
-                        <form method="POST" action="' . route('admin.account.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
-                        ' . method_field('DELETE') .
-                        '' . csrf_field() .
-                        '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this account ?\')"><i class="fa-solid fa-trash-can" title="Delete Account"></i></button>
-                        </form>';
-                }
-                return $res;
+                return '
+                <a class="btn btn-warning btn-sm rounded-pill" href="' . route("admin.account.update", $data->id) . '"><i class="fa-solid fa-pen-to-square" title="Edit Account"></i> Edit</a>
+                <form method="GET" action="' . route('admin.account.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
+                ' . method_field('GET') .
+                    '' . csrf_field() .
+                    '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this kind of room ?\')"><i class="fa-solid fa-trash" title="Delete Mission"></i>Delete</button>
+                </form>
+                ';
             })
             ->rawColumns(['action','is_lock'])
             ->setRowAttr([
@@ -81,6 +80,31 @@ class AccountController extends Controller
             'remember_token' => $token
         ]);
         return redirect()->back()->with('success', 'User created!');
+    }
+    public function delete($id)
+    {
+        $data = User::find($id);
+        $data->delete();
+        return redirect()->back()->with('message', 'User deleted!');
+    }
+    public function edit($id)
+    {
+        $user = User::findOrFail($id);
+        $role_id = Role::orderBy('id','desc')->get();
+        return view('admin.account.edit', compact('user', 'role_id'));
+    }
+
+    public function update(UpdateAccountRequest $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $name = $request->name;
+        $role_id = $request->role_id;
+        $user->update([
+            'name' => $name,
+            'role_id' => $role_id
+        ]);
+        $user->save();
+        return redirect('/admin/account/index');
     }
 
 }

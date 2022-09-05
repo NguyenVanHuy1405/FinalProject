@@ -39,6 +39,8 @@ Route::post('/admin/room/update/{room_id}', [RoomController::class, 'update']);
 Route::get('/admin/room/delete/{room_id}', [RoomController::class, 'delete'])->name('admin.room.delete');
 Route::get('/unactive-room/{room_id}',[RoomController::class,'unactive_room'])->name('admin.room.unactive_room');
 Route::get('/active-room/{room_id}',[RoomController::class,'active_room'])->name('admin.room.active_room');
+Route::get('/listRoom/{id}',[RoomController::class,'listRoomByRoomType'])->name('admin.room.listRoom.index');
+
 Route::group(['prefix' => 'admin', 'middleware' => 'role:admin,staff'], function () {
     Route::group(['prefix'=>'roomtype'],function(){
         Route::get('/index', [RoomTypeController::class,'index'])->name('admin.roomtype.index');
@@ -69,6 +71,6 @@ Route::get('/admin/account/dt-row-data',[AccountController::class,'getDtRowData'
 Route::post('/admin/account/create', [AccountController::class, 'create']);
 Route::get('/admin/account/update/{id}', [AccountController::class, 'edit'])->name('admin.account.update');
 Route::post('/admin/account/update/{id}', [AccountController::class, 'update']);
-Route::get('/admin/account/delete/{id}', [AccountController::class, 'delete'])->name('admin.account.delete');
-Route::get('/unaban-account/{id}',[AccountController::class,'unactive_kindofroom'])->name('aadmin.account.unban_account');
+Route::delete('/admin/account/delete/{id}', [AccountController::class, 'delete'])->name('admin.account.delete');
+Route::get('/unban-account/{id}',[AccountController::class,'unactive_kindofroom'])->name('admin.account.unban_account');
 Route::get('/ban-account/{id}',[AccountController::class,'active_kindofroom'])->name('admin.account.ban_account');

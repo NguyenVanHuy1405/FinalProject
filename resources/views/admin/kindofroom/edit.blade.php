@@ -19,7 +19,7 @@
                 <div class="row mb-2">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item active">List kind of room</li>
+                        <li class="breadcrumb-item active">Edit kind of room</li>
                     </ol>
                 </div>
             </div>
