@@ -143,4 +143,72 @@ class RoomController extends Controller
         Room::where('id',$id)->update($room);
         return Redirect::to('/admin/room/index')->with('success','Update room successfully');
     }
+    public function listRoomByRoomType($id){
+        $room_type = RoomType::find($id);
+        if (!$room_type) abort(404); 
+        return view(
+            'admin.room.indexbyRoomType',
+            [
+                'room_type' => $room_type
+            ]
+        );
+    }
+    public function getDtRowDataByRoomType($id){
+        $roomType = Room::where('roomtype_id', $id)->get();
+        return Datatables::of($roomType)
+            ->editColumn('room_name', function ($data) {
+                return $data->room_name;
+            })
+            ->editColumn('room_price', function ($data) {
+                return $data->room_price;
+            })
+            ->editColumn('room_content', function ($data) {
+                return $data->room_content;
+            })
+            ->editColumn('room_image', function ($data) {
+                $url=asset("admin/uploads/room/$data->room_image"); 
+                return '<img src='.$url.' class="images_room" alt="room image" align="center" />';
+            })
+            ->rawColumns(['room_image'])
+            ->setRowAttr([
+                'data-row' => function ($data) {
+                    return $data->id;
+                }
+            ])
+            ->make(true);
+    }
+    public function listRoomByKindOfRoom($id){
+        $kind_of_room = KindOfRoom::find($id);
+        if (!$kind_of_room) abort(404); 
+        return view(
+            'admin.room.indexbyKindOfRoom',
+            [
+                'kind_of_room' => $kind_of_room
+            ]
+        );
+    }
+    public function getDtRowDataByKindOfRoom($id){
+        $kindOfRoom = Room::where('kindofroom_id', $id)->get();
+        return Datatables::of($kindOfRoom)
+            ->editColumn('room_name', function ($data) {
+                return $data->room_name;
+            })
+            ->editColumn('room_price', function ($data) {
+                return $data->room_price;
+            })
+            ->editColumn('room_content', function ($data) {
+                return $data->room_content;
+            })
+            ->editColumn('room_image', function ($data) {
+                $url=asset("admin/uploads/room/$data->room_image"); 
+                return '<img src='.$url.' class="images_room" alt="room image" align="center" />';
+            })
+            ->rawColumns(['room_image'])
+            ->setRowAttr([
+                'data-row' => function ($data) {
+                    return $data->id;
+                }
+            ])
+            ->make(true);
+    }
 }

@@ -39,7 +39,10 @@ Route::post('/admin/room/update/{room_id}', [RoomController::class, 'update']);
 Route::get('/admin/room/delete/{room_id}', [RoomController::class, 'delete'])->name('admin.room.delete');
 Route::get('/unactive-room/{room_id}',[RoomController::class,'unactive_room'])->name('admin.room.unactive_room');
 Route::get('/active-room/{room_id}',[RoomController::class,'active_room'])->name('admin.room.active_room');
-Route::get('/listRoom/{id}',[RoomController::class,'listRoomByRoomType'])->name('admin.room.listRoom.index');
+Route::get('/admin/room/listRoom/{id}',[RoomController::class,'listRoomByRoomType'])->name('admin.room.listRoom.index');
+Route::get('/admin/room/listRoom/{id}/dt-row-data',[RoomController::class,'getDtRowDataByRoomType']);
+Route::get('/admin/room/listRoomByKindOfRoom/{id}',[RoomController::class,'listRoomByKindOfRoom'])->name('admin.room.listRoomByKindOfRoom.index');
+Route::get('/admin/room/listRoomByKindOfRoom/{id}/dt-row-data',[RoomController::class,'getDtRowDataByKindOfRoom']);
 
 Route::group(['prefix' => 'admin', 'middleware' => 'role:admin,staff'], function () {
     Route::group(['prefix'=>'roomtype'],function(){
