@@ -85,8 +85,13 @@ class AccountController extends Controller
     public function delete($id)
     {
         $data = User::find($id);
-        $data->delete();
-        return redirect()->back()->with('message', 'User deleted!');
+        if($data->role->role_name = "admin"){
+            return redirect()->back()->with('message', 'User can not delete!');
+        }
+        else{
+            $data->delete();
+            return redirect()->back()->with('message', 'User deleted!');
+        }
     }
     public function edit($id)
     {
