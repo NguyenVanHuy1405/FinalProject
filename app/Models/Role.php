@@ -10,12 +10,12 @@ class Role extends Model
     use HasFactory;
     const ROLE_ADMIN = 'admin';
     const ROLE_STAFF = 'staff';
-
+    const ROLE_USER = 'user';
     protected $fillable = [
         'name'
     ];
 
     public function users(){
-        return $this->belongsToMany(Admin::class);
+        return $this->belongsToMany(User::class);
     }
 }

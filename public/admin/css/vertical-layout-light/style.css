@@ -28864,12 +28864,27 @@ div.tagsinput span.tag a {
   color: #484848;
 }
 
-.rtl .sidebar .nav .nav-item .nav-link i.menu-icon {
+.rtl .sidebar .nav .nav-item .nav-link i.fa-user {
   margin-left: 2rem;
   margin-right: 0;
 }
 
-.sidebar .nav .nav-item .nav-link i.menu-icon:before {
+.sidebar .nav .nav-item .nav-link i.fa-user:before {
+  vertical-align: middle;
+}
+.sidebar .nav .nav-item .nav-link i.fa-user{
+  font-size: 22px;
+  line-height: 1;
+  margin-right: 1rem;
+  color: #484848;
+}
+
+.rtl .sidebar .nav .nav-item .nav-link i.fa-user{
+  margin-left: 2rem;
+  margin-right: 0;
+}
+
+.sidebar .nav .nav-item .nav-link i.fa-user:before {
   vertical-align: middle;
 }
 

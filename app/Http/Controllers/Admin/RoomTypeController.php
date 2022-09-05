@@ -25,7 +25,7 @@ class RoomTypeController extends Controller
             return $data->id;
             })
             ->editColumn('roomtype_name', function ($data) {
-                return $data->roomtype_name;
+                return ' <a href="' . route('admin.room.listRoom.index', $data->id) . '">' . $data->roomtype_name . '</a>';
             })
             ->editColumn('roomtype_desc', function ($data) {
                 return $data->roomtype_desc;
