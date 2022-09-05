@@ -15,13 +15,12 @@
     div.label.role{
         font-size:20px;
     }
-    a.fa-thumb-styling.fa.fa-thumbs-down{
+    a.fa-times{
     font-size:20px;
     color:red;
     }
-    a.fa-thumb-styling.fa.fa-thumbs-up{
+    a.fa-check-circle{
     font-size:20px;
-    color:green;
     }
     button.create{
         height: 50px;

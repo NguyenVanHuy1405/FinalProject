@@ -28,9 +28,23 @@
 				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
 			</div>
 			<span>or use your account</span>
-            <span class="message"><b>{{ session('message') }}</b></span>
+            @if (session('error'))
+                 <div class="alert alert-danger">
+                {{ session('error') }}
+                </div>
+            @endif
 			<input type="text" name="email" placeholder="Enter Your Email" />
+			@error('email')
+                <span class="invalid-feedback" role="alert" style="display: block">
+                    <strong>{{ $message }}</strong>
+                 </span>
+            @enderror
 			<input type="password" name="password" class="zmdi zmdi-eye" placeholder="Enter Password" />
+			@error('password')
+                <span class="invalid-feedback" role="alert" style="display: block">
+                    <strong>{{ $message }}</strong>
+                 </span>
+            @enderror
 			<a href="#">Forgot your password?</a>
 			<button type="submit">Sign In</button>
 		</form>

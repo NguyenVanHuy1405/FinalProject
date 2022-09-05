@@ -24,9 +24,6 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/home', function () {return redirect()->route('home');});
 
-Route::get('/admin/login',[AdminController::class,'login'])->name('admin.login');
-
-Route::post('/admin/login',[AdminController::class,'login_post']);
 Route::get('/admin/dashboard', [AdminController::class,'index'])->name('admin.dashboard');
 
 
@@ -75,5 +72,5 @@ Route::post('/admin/account/create', [AccountController::class, 'create']);
 Route::get('/admin/account/update/{id}', [AccountController::class, 'edit'])->name('admin.account.update');
 Route::post('/admin/account/update/{id}', [AccountController::class, 'update']);
 Route::get('/admin/account/delete/{id}', [AccountController::class, 'delete'])->name('admin.account.delete');
-Route::get('/unban-account/{id}',[AccountController::class,'unactive_kindofroom'])->name('admin.account.unban_account');
-Route::get('/ban-account/{id}',[AccountController::class,'active_kindofroom'])->name('admin.account.ban_account');
+Route::get('/unban-account/{id}',[AccountController::class,'unlock_account'])->name('admin.account.unban_account');
+Route::get('/ban-account/{id}',[AccountController::class,'lock_account'])->name('admin.account.ban_account');

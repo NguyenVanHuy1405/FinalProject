@@ -32,6 +32,14 @@ p {
 	letter-spacing: 0.5px;
 	margin: 20px 0 30px;
 }
+div.alert-danger{
+	color:red;
+	font-weight: bold;
+}
+span.invalid-feedback{
+	color:red;
+	font-weight: bold;
+}
 
 span {
 	font-size: 12px;
