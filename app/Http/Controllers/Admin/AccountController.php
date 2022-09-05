@@ -51,7 +51,7 @@ class AccountController extends Controller
                 <form method="GET" action="' . route('admin.account.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
                 ' . method_field('GET') .
                     '' . csrf_field() .
-                    '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this kind of room ?\')"><i class="fa-solid fa-trash" title="Delete Mission"></i>Delete</button>
+                    '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this account ?\')"><i class="fa-solid fa-trash" title="Delete Account"></i>Delete</button>
                 </form>
                 ';
             })
