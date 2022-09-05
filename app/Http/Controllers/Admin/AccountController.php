@@ -85,7 +85,7 @@ class AccountController extends Controller
     public function delete($id)
     {
         $data = User::find($id);
-        if($data->role->role_name = "admin"){
+        if($data->role->role_name == Role::ROLE_ADMIN){
             return redirect()->back()->with('message', 'User can not delete!');
         }
         else{
@@ -117,8 +117,14 @@ class AccountController extends Controller
         return Redirect::to('/admin/account/index')->with('success','Unlock account successfully');
     }
     public function lock_account($id){
-        User::where('id',$id)->update(['is_lock'=>0]);
-        return Redirect::to('/admin/account/index')->with('message','Lock account successfully');
+        $lock = User::find($id);
+        if($lock->role->role_name == Role::ROLE_ADMIN){
+            return Redirect::to('/admin/account/index')->with('message','Can not lock admin!!!');
+        }
+        else{
+            $lock->update(['is_lock'=>0]);
+            return Redirect::to('/admin/account/index')->with('message','Lock account successfully');
+        }
     }
 
 }
