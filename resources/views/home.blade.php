@@ -145,7 +145,7 @@
           <h2>Rooms $ Suites</h2>
         </div>
         <div class="button">
-          <button class="btn1" onclick="window.location.href = '/bookingroom';">VIEW ALL</button>
+          <button class="btn1" onclick="window.location.href = '/bookingRoom';">VIEW ALL</button>
         </div>
       </div>
 

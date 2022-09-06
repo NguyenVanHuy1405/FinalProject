@@ -44,7 +44,7 @@
           <ul class="nav navbar-nav menu_nav ml-auto">
             <li class="nav-item active"><a class="nav-link" href="{{URL::to('/')}}">Home</a></li>
             <li class="nav-item "><a class="nav-link" href="about.html">About us</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{URL::to('/bookingroom')}}">Booking Room</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{URL::to('/bookingRoom')}}">Booking Room</a></li>
             @if (!auth()->user())
               <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Sign in</a></li>
             @endif

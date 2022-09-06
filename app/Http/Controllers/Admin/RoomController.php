@@ -16,8 +16,13 @@ use App\Http\Requests\UpdateRoomRequest as UpdateRoom;
 class RoomController extends Controller
 {
     public function index(){
-        $itemRoom = Room::orderBy('id','desc')->get();
-        return view('admin.room.index',compact('itemRoom'));
+        return view(
+            'admin.room.index',
+            [
+                'roomType' => RoomType::all(),
+                'kindOfRoom' => KindOfRoom::all()
+            ]
+        );
     }
     public function create(){
         $roomType = RoomType::orderBy('id','desc')->get();
@@ -51,17 +56,16 @@ class RoomController extends Controller
     }
     public function getDtRowData(Request $request)
     {
-        $room = Room::join('room_types','room_types.id','=','rooms.roomtype_id')->
-        join('kind_of_rooms','kind_of_rooms.id','=','rooms.kindofroom_id')->orderBy('rooms.id','desc')->get();
-        return Datatables::of($room)
+        $room = Room::all();
+        return DataTables::of($room)
             ->editColumn('room_name', function ($data) {
                 return $data->room_name;
             })
-            ->editColumn('roomtype_name', function ($data) {
-                return $data->roomtype_name;
+            ->editColumn('roomtype', function ($data) {
+                return $data->roomtype->roomtype_name;
             })
-            ->editColumn('kindofroom_name', function ($data) {
-                return $data->kindofroom_name;
+            ->editColumn('kindofroom', function ($data) {
+                return $data->kindofroom->kindofroom_name;
             })
             ->editColumn('room_price', function ($data) {
                 return $data->room_price;

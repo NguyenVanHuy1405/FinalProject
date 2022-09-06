@@ -80,12 +80,12 @@
                     name: 'room_name',
                 },
                 {
-                    data: 'roomtype_name',
-                    name: 'roomtype_name'
+                    data: 'roomtype',
+                    name: 'roomtype'
                 },
                 {
-                    data: 'kindofroom_name',
-                    name: 'kindofroom_name'
+                    data: 'kindofroom',
+                    name: 'kindofroom'
                 },
                 {
                     data: 'room_price',
