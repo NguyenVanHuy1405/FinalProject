@@ -103,7 +103,11 @@
                         <li>Eco Tax <span>{{Cart::tax(0,',','.').' '.'VND'}}</span></li>
                         <li>Total <span>{{Cart::total(0,',','.').' '.'VND'}}</span></li>
                     </ul>
-                    <a class="btn btn-default check_out"  href="">Check Out</a>
+                    @if (!auth()->user())
+                    <a class="btn btn-default check_out"  href="{{URL::to('/register')}}">Check Out</a>
+                    @else
+                    <a class="btn btn-default check_out"  href="{{URL::to('/checkout')}}">Check Out</a>
+                    @endif
                 </div>
             </div>
         </div>

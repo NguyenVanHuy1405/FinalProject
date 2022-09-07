@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\RoomTypeController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,11 +22,10 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Auth::routes(['logout' => false]);
+Auth::routes(['logout' => false,'register'=>false]);
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/home', function () {return redirect()->route('home');});
-
 Route::group(['prefix' => 'admin', 'middleware' => 'role:admin,staff'], function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 
@@ -90,3 +90,4 @@ Route::post('/save-cart', [CartController::class,'save_cart']);
 Route::get('/show-cart', [CartController::class,'show_cart']);
 Route::get('/delete-to-cart/{rowId}', [CartController::class,'delete_cart']);
 Route::post('/update-cart', [CartController::class,'update_cart']);
+Route::get('/register', [RegisterController::class, 'register_user'])->name('register');
