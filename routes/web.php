@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\RoomController;
 use App\Http\Controllers\Admin\RoomTypeController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -85,3 +86,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'role:admin'], function () {
 
 Route::get('/bookingRoom',[HomeController::class,'booking_room']);
 Route::get('/detailRoom/{id}',[HomeController::class,'detail_room']);
+Route::post('/save-cart', [CartController::class,'save_cart']);
+Route::get('/show-cart', [CartController::class,'show_cart']);
+Route::get('/delete-to-cart/{rowId}', [CartController::class,'delete_cart']);
+Route::post('/update-cart', [CartController::class,'update_cart']);

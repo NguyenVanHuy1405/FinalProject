@@ -34,8 +34,9 @@ class HomeController extends Controller
     public function detail_room($id){
         $roomType = RoomType::where('roomtype_status','1')->orderBy('id','desc')->get();
         $kindofRoom = KindOfRoom::where('kindofroom_status','1')->orderBy('id','desc')->get();
-        $room = Room::join('room_types','room_types.id','=','rooms.roomtype_id')->
+        $room_id = Room::join('room_types','room_types.id','=','rooms.roomtype_id')->
         join('kind_of_rooms','kind_of_rooms.id','=','rooms.kindofroom_id')->where('rooms.id',$id)->get();
+        $room = Room::where('rooms.id',$id)->get();
     foreach($room as $key => $value){
         $roomtype_id = $value->roomtype_id;
      }
@@ -43,6 +44,6 @@ class HomeController extends Controller
      $related_room = Room::join('room_types','room_types.id','=','rooms.roomtype_id')->
      join('kind_of_rooms','kind_of_rooms.id','=','rooms.kindofroom_id')
      ->where('room_types.id',$roomtype_id)->whereNotIn('rooms.id',[$id])->get();
-     return view('booking.detailRoom',compact('roomType','kindofRoom','room','related_room'));
+     return view('booking.detailRoom',compact('roomType','kindofRoom','room','room_id','related_room'));
     }
 }

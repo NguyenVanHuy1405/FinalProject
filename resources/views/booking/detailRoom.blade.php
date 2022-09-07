@@ -3,7 +3,7 @@
 <style>
     img.img-fluid {
         height: 350px;
-        width: 700px;
+        width: 600px;
     }
 
     img.img-body {
@@ -41,7 +41,7 @@
         <div class="page-cover text-center">
             <h2 class="page-cover-tittle">DETAILS ROOM</h2>
             <ol class="breadcrumb">
-                <li><a href="{{URL::to('/bookingroom')}}">Back to booking room</a></li>
+                <li><a href="{{URL::to('/bookingRoom')}}">Back to booking room</a></li>
             </ol>
         </div>
     </div>
@@ -60,17 +60,19 @@
                     @endforeach
                     <div class="col-lg-3  col-md-3">
                         <div class="blog_info text-right">
-                            @foreach($room as $key => $kind)
+                            @foreach($room_id as $key => $kind)
                             <div class="post_tag">
                                 <div class="room_tag"><b>Room Type:</b> {{$kind->roomtype_name}}</div>
                             </div>
                             <div class="post_tag">
                                 <div class="room_tag"><b>Kind of room:</b> {{$kind->kindofroom_name}}</div>
                             </div>
+                            @endforeach
+                            @foreach($room as $key => $value)
                             <form action="{{URL::to('/save-cart')}}" method="post">
                                 {{csrf_field()}}
                                 <div class="post_tag">
-                                    <div class="room_tag" name="room_price"><b>Room Price: </b>{{number_format($kind->room_price).' '.'VND/'}}night</div>
+                                    <div class="room_tag" name="room_price"><b>Room Price: </b>{{number_format($value->room_price).' '.'VND/'}}night</div>
                                 </div>
                                 <div class="form-group post_tag">
                                     <label><b>Arrival Date:</b></label> <br>
@@ -94,7 +96,7 @@
                                     </span>
                                     @endif
                                 </div>
-                                <input name="roomid_hidden" type="hidden" value="{{$kind->room_id}}">
+                                <input name="roomId_hidden" type="hidden" value="{{$value->id}}">
                                 <div class="post_tag">
                                     <button type="submit" class="btn theme_btn button_hover">Book Room Now</button>
                                 </div>
@@ -266,7 +268,7 @@
                     <aside class="single-sidebar-widget tag_cloud_widget">
                         <h4 class="widget_title">Tag Rooms</h4>
                         <ul class="list_style">
-                            @foreach($room as $key => $tag)
+                            @foreach($room_id as $key => $tag)
                             <li><a class="tag" href="{{URL::to('/show-roomtype/'.$tag->roomtype_id)}}">{{$tag->roomtype_name}}</a></li>
                             <li><a class="tag" href="{{URL::to('/show-roomtype/'.$tag->kindofroom_id)}}">{{$tag->kindofroom_name}}</a></li>
                             @endforeach

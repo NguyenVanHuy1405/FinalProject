@@ -1109,9 +1109,6 @@ section#cart_items{
   max-width: 100%;
 }
 
-.blog_details {
-  padding-top: 20px;
-}
 
 .blog_details h2 {
   font-size: 24px;
@@ -1256,6 +1253,7 @@ section#cart_items{
   line-height: 20px;
   color: #222222;
   margin-bottom: 4px;
+  margin-top:-4px;
   -webkit-transition: all 0.3s linear;
   -o-transition: all 0.3s linear;
   transition: all 0.3s linear;
@@ -1479,11 +1477,6 @@ section#cart_items{
 .single-post-area .social-links li a:hover {
   color: #222222;
 }
-
-.single-post-area .blog_details {
-  padding-top: 26px;
-}
-
 .single-post-area .blog_details p {
   margin-bottom: 10px;
 }
