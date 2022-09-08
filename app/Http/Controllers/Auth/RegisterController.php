@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\CustomerRegisterRequest as CustomerRequest;
+use App\Http\Requests\LoginCustomerRequest as LoginRequest;
+use Illuminate\Support\Facades\Redirect;
 
 class RegisterController extends Controller
 {
@@ -19,25 +23,37 @@ class RegisterController extends Controller
         return view(
             'auth.register',
             [
-                'roles' => Role::where('name',Role::ROLE_STAFF)
+                'roles' => Role::where('role_name',Role::ROLE_USER)
             ]
         );
+    }
+    public function customer_login(LoginRequest $request){
+        $credentials = $request->only('email','password');
+        if(Auth::attempt($credentials)){
+            return Redirect::to('/checkout');
+        }
+        return Redirect::to('/register')->with('error','Email or password is not correct. Please try again!');
     } 
-    public function create(Request $request)
+    public function create(CustomerRequest $request)
     {
         $name = $request->name;
         $email = $request->email;
         $password = $request->password;
         $password_confirmation = $request->password_confirmation;
+        $role_id = Role::where('role_name',Role::ROLE_USER)->first()->id;
         $phone = $request->phone;
         $token = Str::random(10);
         $new_user = User::create([
             'name' => $name,
             'email' => $email,
             'password' => Hash::make($password),
-            'phone' => $phone,
+            'role_id' =>$role_id,
+            'phone_number' => $phone,
             'remember_token' => $token,
         ]);
-        return redirect()->back()->with('success', 'User created!');
+        return Redirect::to('/checkout');
+    }
+    public function checkout(){
+
     }
 }

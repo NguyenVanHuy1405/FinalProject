@@ -19,7 +19,7 @@
 <body>
 <div class="container" id="container">
 	<div class="form-container sign-up-container">
-		<form action="{{ route('register') }}" method="post">
+		<form action="{{URL::to('/createUserAccount')}}" method="post">
             {{ csrf_field() }}
 			<h1>Create User Account</h1>
 			<div class="social-container">
@@ -28,16 +28,46 @@
 				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
 			</div>
 			<span>or use your email for registration</span>
+			@if (session('success'))
+                 <div class="alert alert-success">
+                {{ session('success') }}
+                </div>
+            @endif
 			<input type="text" name="name" placeholder="Name" />
+			@error('name')
+                <span class="invalid-feedback" role="alert" style="display: block">
+                    <strong>{{ $message }}</strong>
+                 </span>
+            @enderror
 			<input type="email" name="email" placeholder="Email" />
+			@error('email')
+                <span class="invalid-feedback" role="alert" style="display: block">
+                    <strong>{{ $message }}</strong>
+                 </span>
+            @enderror
 			<input type="password" name="password" placeholder="Password" />
+			@error('password')
+                <span class="invalid-feedback" role="alert" style="display: block">
+                    <strong>{{ $message }}</strong>
+                 </span>
+            @enderror
 			<input type="password" name="password_confirmation" placeholder="Confirm your password" />
+			@error('password_confirmation')
+                <span class="invalid-feedback" role="alert" style="display: block">
+                    <strong>{{ $message }}</strong>
+                 </span>
+            @enderror
 			<input type="text" name="phone" placeholder="Phone number" />
+			@error('phone')
+                <span class="invalid-feedback" role="alert" style="display: block">
+                    <strong>{{ $message }}</strong>
+                 </span>
+            @enderror
 			<button type="submit">Sign Up</button>
 		</form>
 	</div>
 	<div class="form-container sign-in-container">
-		<form action="{{ route('login') }}" method="post">
+		<form action="{{ route('loginCustomer') }}" method="post">
             {{ csrf_field() }}
 			<h1>Sign in</h1>
 			<div class="social-container">
@@ -46,9 +76,18 @@
 				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
 			</div>
 			<span>or use your account</span>
-            <span class="message"><b>{{ session('message') }}</b></span>
 			<input type="text" name="email" placeholder="Enter Your Email" />
+			@error('email')
+                <span class="invalid-feedback" role="alert" style="display: block">
+                    <strong>{{ $message }}</strong>
+                 </span>
+            @enderror
 			<input type="password" name="password" class="zmdi zmdi-eye" placeholder="Enter Password" />
+			@error('password')
+                <span class="invalid-feedback" role="alert" style="display: block">
+                    <strong>{{ $message }}</strong>
+                 </span>
+            @enderror
 			<a href="#">Forgot your password?</a>
 			<button type="submit">Sign In</button>
 		</form>
