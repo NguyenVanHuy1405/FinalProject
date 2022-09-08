@@ -54,6 +54,6 @@ class RegisterController extends Controller
         return Redirect::to('/checkout');
     }
     public function checkout(){
-
+        return view('checkout.show_checkout');
     }
 }

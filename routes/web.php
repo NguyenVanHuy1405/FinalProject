@@ -92,5 +92,5 @@ Route::get('/delete-to-cart/{rowId}', [CartController::class,'delete_cart']);
 Route::post('/update-cart', [CartController::class,'update_cart']);
 Route::get('/register', [RegisterController::class, 'register_user'])->name('register');
 Route::post('/createUserAccount', [RegisterController::class, 'create']);
-Route::get('/checkout', [RegisterController::class, 'checkout'])->name('register');
+Route::get('/checkout', [RegisterController::class, 'checkout']);
 Route::post('/loginCustomer',[RegisterController::class,'customer_login'])->name('loginCustomer');
