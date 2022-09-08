@@ -245,12 +245,13 @@ td.cart_product {
 					<div class="col-sm-4">
 						<div class="shopper-info">
 							<p>Booking Information</p>
-							<form>
+							<form action="{{URL::to('/save-checkout')}}" method="post">
+              {{ csrf_field() }}
 								<input class="booking_info" name="booking_email" type="text" placeholder="Email">
 								<input class="booking_info" name="booking_name" type="text" placeholder="Name">
 								<input class="booking_info" name="booking_address" type="text" placeholder="Address">
 								<input class="booking_info" name="booking_phone" type="text" placeholder="Phone Number">
-								<textarea class="note" name="message"  placeholder="Notes on your booking" rows="10"></textarea>
+								<textarea class="note" name="booking_note"  placeholder="Notes on your booking" rows="10"></textarea>
 							    <input type="submit" value="Send" name="send_booking" class="btn btn-primary btn-sm">
 							</form>
 						</div>
