@@ -15,7 +15,7 @@ class Booking extends Model
         'booking_name',
         'booking_email',
         'booking_address',
-        'booking_phone',
-        'booking_note',
+        'booking_number',
+        'booking_notes',
     ];
 }

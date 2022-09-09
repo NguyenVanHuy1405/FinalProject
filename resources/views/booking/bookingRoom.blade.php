@@ -13,6 +13,13 @@
     h6.sec_h6{
         margin-top: 10px ;
     }
+    section.hotel_booking_area{
+        margin-top:20px;
+        padding-left:60px;
+    }
+    p.set_p{
+        font-size:18px;
+    }
 </style>
 @endsection
 @section('content')
@@ -104,25 +111,23 @@
     <div class="container">
         <div class="section_title text-center">
             <h2 class="title_color">All room in Royal Hotel</h2>
-            <p>We all live in an age that belongs to the young at heart. Life that is becoming extremely fast,</p>
+            <p class="set_p"><marquee direction="left" height="50" width="450" bgcolor="#ffffe6">
+            We all live in an age that belongs to the young at heart. Life that is becoming extremely fast
+            </marquee></p>
         </div>
-        <div class="row accomodation_two">
-            @foreach($all_room as $key => $value)
-            <div class="col-lg-3 col-sm-6">
-                <div class="accomodation_item text-center">
-                    <div class="hotel_img">
-                        <img src="{{URL::to('admin/uploads/room/'.$value->room_image)}}" alt="">
-                        <a href="#" class="btn theme_btn button_hover">Book Now</a>
-                    </div>
-                    <a href="#">
-                        <h4 class="sec_h4">{{$value->room_name}}</h4>
-                    </a>
-                    <h6>{{number_format($value->room_price).' '.'VND/'}}<small><b>night</b></small></h6>
-                    <a href="{{URL::to('/detailroom/'.$value->room_id)}}" class="btn theme_btn button_hover">Detail Room</a>
-                </div>
-            </div>
-            @endforeach
+        @foreach($all_room as $key => $value)
+        <div class="content grid">
+        <div class="box">
+          <div class="img">
+            <img src="{{URL::to('admin/uploads/room/'.$value->room_image)}}" alt="">
+          </div>
+          <div class="text">
+            <h4>Name Room:{{$value->room_name}}</h4>
+            <p>{{number_format($value->room_price).' '.'VND/'}}<small><b>night</b></small></p>
+            <a href="{{URL::to('/detailRoom/'.$value->id)}}" class="btn theme_btn button_hover">Book Now</a>
+          </div>
         </div>
+        @endforeach
     </div>
 </section>
 @endsection

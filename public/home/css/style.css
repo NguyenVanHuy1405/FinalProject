@@ -3838,7 +3838,10 @@ button {
   width: 400px;
   height: 450px;
 }
-
+.section_gap img{
+  width: 400px;
+  height: 450px;
+}
 .room .box {
   box-shadow: 0 13px 43px 0 rgb(37 46 89/10%);
 }
@@ -4140,7 +4143,7 @@ footer li:hover {
 }
 #cart_items .cart_info {
   border: 1px solid #E6E4DF;
-  margin-bottom: 50px
+  margin-bottom: 30px
 }
 
 
@@ -4365,6 +4368,10 @@ footer li:hover {
 
 .check_out {
   margin-left: 20px
+}
+
+.section_gap p{
+  font-size:20px;
 }
 
 

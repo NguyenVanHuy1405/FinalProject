@@ -229,6 +229,11 @@ span.error{
   margin-top:10px;
   margin-bottom:10px;
 }
+h2.payment{
+    color:#696763;
+    padding-bottom:30px;
+    font-family: 'Roboto Slab', serif;
+}
 </style>
 @endsection
 @section('content')
@@ -237,47 +242,9 @@ span.error{
 			<div class="breadcrumbs">
 				<ol class="breadcrumb">
 				  <li><a href="#">Home</a></li>
-				  <li class="active_cart">Check out</li>
+				  <li class="active_cart">Payment</li>
 				</ol>
 			</div><!--/breadcrums-->
-			<div class="register-req">
-				<p>Please use Register And Checkout to easily get access to your order history, or use Checkout as Guest</p>
-			</div><!--/register-req-->
-
-			<div class="shopper-informations">
-				<div class="row">
-					<div class="col-sm-4">
-						<div class="shopper-info">
-							<p>Booking Information</p>
-							<form action="{{URL::to('/save-checkout')}}" method="post">
-              {{ csrf_field() }}
-								<input class="booking_info" name="booking_email" type="hidden" value="{{ auth()->user()->email }}">
-                <input class="booking_info" name="booking_name" type="hidden" value="{{ auth()->user()->name }}">
-                <input class="booking_info" name="booking_address" type="text" placeholder="Address">
-                @if ($errors->has('booking_address'))
-                  <span class="error">
-                    @error('booking_address')
-                      <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                  </span>
-                @endif
-                </input>
-                <input class="booking_info" name="booking_phone" type="text" placeholder="Phone Number">
-                @if ($errors->has('booking_phone'))
-                  <span class="error">
-                    @error('booking_phone')
-                      <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                  </span>
-                @endif
-               </input>
-                <textarea class="note" name="booking_note"  placeholder="Notes on your booking" rows="10"></textarea>
-							  <input type="submit" value="Send" name="send_booking" class="btn btn-primary btn-sm">
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
 			<div class="review-payment">
 				<h2>Review & Payment</h2>
 			</div>
@@ -334,6 +301,19 @@ span.error{
                     @endforeach
                 </tbody>
             </table>
+        </div>
+            <h2 class="payment">Choice a payment method</h2>
+			<div class="payment-options">
+					<span>
+						<label><input type="checkbox" name="payment_option" value="Banking" > Direct Bank Transfer</label>
+					</span>
+					<span>
+						<label><input type="checkbox" name="payment_option" value="Cash" > Payment in cash</label>
+					</span>
+					<span>
+						<label><input type="checkbox" name="payment_option" value="Paypal"> Paypal</label>
+					</span>
+				</div>
 		</div>
 	</section> <!--/#cart_items-->
 @endsection

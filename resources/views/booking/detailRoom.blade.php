@@ -259,7 +259,7 @@
                             <div class="media-body">
                                 <h3 class="room_name"><b>Room name:</b>{{$related->room_name}}</h3>
                                 <p class="text_room"><b>Room price:</b>{{number_format($related->room_price)}} VNĐ</p>
-                                <a href="#" class="btn btn-primary booking">Book Room Now</a>
+                                <a href="{{URL::to('/detailRoom/'.$related->id)}}" class="btn btn-primary booking">Book Room Now</a>
                             </div>
                         </div>
                         @endforeach
