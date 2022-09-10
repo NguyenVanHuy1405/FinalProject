@@ -303,17 +303,40 @@ h2.payment{
             </table>
         </div>
             <h2 class="payment">Choice a payment method</h2>
+      <form action="{{URL::to('/order-place')}}" method="post">
+      {{ csrf_field() }}     
 			<div class="payment-options">
 					<span>
-						<label><input type="checkbox" name="payment_option" value="Banking" > Direct Bank Transfer</label>
+						<label><input type="checkbox" name="payment_option" value="1" > Direct Bank Transfer</label>
 					</span>
 					<span>
-						<label><input type="checkbox" name="payment_option" value="Cash" > Payment in cash</label>
+						<label><input type="checkbox" name="payment_option" value="2" > Payment in cash</label>
 					</span>
 					<span>
-						<label><input type="checkbox" name="payment_option" value="Paypal"> Paypal</label>
+						<label><input type="checkbox" name="payment_option" value="3"> Paypal</label>
 					</span>
-				</div>
+          <input type="submit" value="Payment" name="send_payment" class="btn btn-primary btn-sm">
+			</div>
+      </form>
 		</div>
-	</section> <!--/#cart_items-->
+	</section>
+@endsection
+@section('custom-js')
+<script>
+$("input:checkbox").on('click', function() {
+  // in the handler, 'this' refers to the box clicked on
+  var $box = $(this);
+  if ($box.is(":checked")) {
+    // the name of the box is retrieved using the .attr() method
+    // as it is assumed and expected to be immutable
+    var group = "input:checkbox[name='" + $box.attr("name") + "']";
+    // the checked state of the group/box on the other hand will change
+    // and the current value is retrieved using .prop() method
+    $(group).prop("checked", false);
+    $box.prop("checked", true);
+  } else {
+    $box.prop("checked", false);
+  }
+});
+</script>
 @endsection

@@ -97,3 +97,4 @@ Route::post('/loginCustomer',[RegisterController::class,'customer_login'])->name
 Route::get('/checkout', [CheckoutController::class, 'checkout']);
 Route::post('/save-checkout',[CheckoutController::class,'save_checkout']);
 Route::get('/payment',[CheckoutController::class,'payment']);
+Route::post('/order-place',[CheckoutController::class,'order_place']);

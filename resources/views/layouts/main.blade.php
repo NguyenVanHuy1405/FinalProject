@@ -155,6 +155,7 @@
   <script src="{{asset('home/js/stellar.js')}}"></script>
   <script src="{{asset('home/vendors/lightbox/simpleLightbox.min.js')}}"></script>
   <script src="{{asset('home/js/custom.js')}}"></script>
+  @yield('custom-js')
 </body>
 
 </html>

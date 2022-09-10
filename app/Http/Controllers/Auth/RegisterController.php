@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CustomerRegisterRequest as CustomerRequest;
 use App\Http\Requests\LoginCustomerRequest as LoginRequest;
 use Illuminate\Support\Facades\Redirect;
+use Session;
 
 class RegisterController extends Controller
 {

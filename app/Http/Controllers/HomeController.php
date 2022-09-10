@@ -37,7 +37,7 @@ class HomeController extends Controller
         $room_id = Room::join('room_types','room_types.id','=','rooms.roomtype_id')->
         join('kind_of_rooms','kind_of_rooms.id','=','rooms.kindofroom_id')->where('rooms.id',$id)->get();
         $room = Room::where('rooms.id',$id)->get();
-        foreach($room as $key => $value){
+        foreach($room_id as $key => $value){
             $roomtype_id = $value->roomtype_id;
          }
      
