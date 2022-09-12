@@ -160,6 +160,12 @@
 							<span class="menu-title">Room</span>
 						</a>
 					</li>
+					<li class="nav-item  {{Request::routeIs('admin.managerBooking.index') ? 'active':'';}} ">
+						<a class="nav-link" href="{{route('admin.managerBooking.index')}}">
+							<i class="mdi mdi-grid-large menu-icon"></i>
+							<span class="menu-title">Manager Booking</span>
+						</a>
+					</li>
 				</ul>
 			</nav>
 			<!-- partial -->

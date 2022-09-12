@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title','Checkout booking room')
+@section('title','Thanks for booking')
 @section('custom-css')
 <style>
 	.step-one {

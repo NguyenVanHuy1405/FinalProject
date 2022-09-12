@@ -20,7 +20,7 @@ class RoomController extends Controller
             'admin.room.index',
             [
                 'roomType' => RoomType::all(),
-                'kindOfRoom' => KindOfRoom::all()
+                'kindOfRoom' => KindOfRoom::all(),
             ]
         );
     }

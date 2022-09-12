@@ -10,6 +10,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -98,3 +99,15 @@ Route::get('/checkout', [CheckoutController::class, 'checkout']);
 Route::post('/save-checkout',[CheckoutController::class,'save_checkout']);
 Route::get('/payment',[CheckoutController::class,'payment']);
 Route::post('/order-place',[CheckoutController::class,'order_place']);
+
+Route::get('/admin/manager-booking', [AdminController::class, 'manager_booking'])->name('admin.managerBooking.index');
+Route::get('/admin/booking/dt-row-data', [AdminController::class, 'getDtRowData']);
+Route::get('/admin/manager-booking/detail/{id}', [AdminController::class, 'detail_booking'])->name('admin.managerBooking.detail');
+Route::get('/admin/booking/detail/dt-row-data', [AdminController::class, 'getDtRowDataDetail']);
+
+//edit profile
+
+Route::get('/profile-account', [UserController::class, 'index']);
+Route::post('/', [UserController::class, 'uploadAvatar'])->name('user.uploadAvatar');
+
+

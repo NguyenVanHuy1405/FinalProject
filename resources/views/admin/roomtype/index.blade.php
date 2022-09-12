@@ -142,7 +142,7 @@
                 },
                 {
                     data: 'roomtype_desc',
-                    name: 'roomtype_desc'
+                    name: 'roomtype_desc',
                 },
                 {
                     data: 'roomtype_status',
