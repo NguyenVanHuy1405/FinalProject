@@ -107,7 +107,11 @@ Route::get('/admin/booking/detail/dt-row-data', [AdminController::class, 'getDtR
 
 //edit profile
 
-Route::get('/profile-account', [UserController::class, 'index']);
+Route::get('/profile-account', [UserController::class, 'index'])->name('user.profile');
 Route::post('/', [UserController::class, 'uploadAvatar'])->name('user.uploadAvatar');
+Route::get('/phone/update', [UserController::class, 'changePhoneNumber']);
+Route::post('/phone/update', [UserController::class, 'changePhoneNumber'])->name('user.phone.update');
+Route::get('/password/edit', [UserController::class, 'changePassword']);
+Route::post('/password/update', [UserController::class, 'updatePassword'])->name('user.password.update');
 
 

@@ -58,11 +58,18 @@
             @endif
             @endif
             <li class="nav-item submenu dropdown">
-              <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Blog</a>
-              <ul class="dropdown-menu">
-                <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
-                <li class="nav-item"><a class="nav-link" href="blog-single.html">Blog Details</a></li>
-              </ul>
+                <button class="btn" type="button" id="dropdownMenuButton2"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+                  <a class="nav-link dropdown-toggle d-flex align-items-center" href="{{ route('user.profile') }}"
+                  id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown"
+                  aria-expanded="false">
+
+                  <img class="img-account-profile rounded-circle mb-2"
+                  src="{{ auth()->user()->avatar == null? asset('/home/image/avatar.png'): asset('/storage/image/' . Auth::user()->avatar) }}"
+                  alt="{{ asset('public/home/image/avatar.png') }}"
+                  style="width: 30px; height: 30px; object-fit: cover;" loading="lazy">
+                </a>
+                </button>
             </li>
           </ul>
         </div>
@@ -71,7 +78,7 @@
   </header>
   @yield('content')
   <section class="map top" style="margin-top: 100px">
-  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3834.3875678032373!2d108.2446921146838!3d16.04536568889569!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314217d7d6a7c835%3A0x95ee506ecb07793c!2sRoyal%20Hotel%20%26%20Apartment!5e0!3m2!1svi!2s!4v1660649163206!5m2!1svi!2s" 
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3834.3875678032373!2d108.2446921146838!3d16.04536568889569!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314217d7d6a7c835%3A0x95ee506ecb07793c!2sRoyal%20Hotel%20%26%20Apartment!5e0!3m2!1svi!2s!4v1660649163206!5m2!1svi!2s"
   width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
   </section>
   <footer class="footer-area section_gap">

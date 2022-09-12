@@ -49,14 +49,7 @@
 			<div class="navbar-menu-wrapper d-flex align-items-top">
 				<ul class="navbar-nav">
 					<li class="nav-item font-weight-semibold d-none d-lg-block ms-0">
-						<h1 class="welcome-text">Good Morning, <span class="text-black fw-bold">
-								<?php
-								$name = Session::get('name');
-								if ($name) {
-									echo $name;
-								}
-								?>
-							</span></h1>
+						<h1 class="welcome-text">Good Morning, <span class="text-black fw-bold">{{Auth::user()->name}}</span></h1>
 						<h3 class="welcome-sub-text">Your performance summary this week </h3>
 					</li>
 				</ul>
@@ -71,26 +64,12 @@
 					</li>
 					<li class="nav-item dropdown d-none d-lg-block user-dropdown">
 						<a class="nav-link" id="UserDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-							<img class="img-xs rounded-circle" src="{{asset('admin/images/faces/face8.jpg')}}" alt="Profile image"> </a>
+							<img class="img-xs rounded-circle" src="{{asset('/storage/image/' . Auth::user()->avatar)}}" alt="Profile image"> </a>
 						<div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
 							<div class="dropdown-header text-center">
-								<img class="img-md rounded-circle" src="{{asset('admin/images/faces/face8.jpg')}}" alt="Profile image">
-								<p class="mb-1 mt-3 font-weight-semibold"><b>
-									<?php
-									$name = Session::get('name');
-									if ($name) {
-										echo $name;
-									}
-									?>
-								</b></p>
-								<p class="fw-light text-muted mb-0">
-									<?php
-									$email = Session::get('email');
-									if ($email) {
-										echo $email;
-									}
-									?>
-								</p>
+								<img class="img-xs rounded-circle" src="{{asset('/storage/image/' . Auth::user()->avatar)}}" alt="Profile image">
+								<p class="mb-1 mt-3 font-weight-semibold"><b>{{Auth::user()->name}}</b></p>
+								<p class="fw-light text-muted mb-0">{{Auth::user()->email}}</p>
 							</div>
 							<a href="{{URL::to('/details-profile')}}" class="dropdown-item"><i class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i> My Profile</a>
 							<a href="{{URL::to('/logout')}}" class="dropdown-item"><i class="dropdown-item-icon mdi mdi-power text-primary me-2"></i>Sign Out</a>

@@ -23,8 +23,9 @@
                 <!-- Account details card-->
                 <div class="card mb-4">
                     <div class="card-header">Account Details</div>
+                    @include('layouts.alertProfile')
                     <div class="card-body">
-                        <form action="" method="POST">
+                        <form action="{{route('user.phone.update')}}" method="POST">
                             @csrf
                             <div class="mb-3">
                                 <label class="small mb-1 fw-bold" for="name">Username:</label>
@@ -53,7 +54,9 @@
                                     </span>
                                 @endif
                             </div>
-                            <center><button type="submit" class="btn btn-success">Edit my profile</button></center>
+                            <center><button type="submit" class="btn btn-success">Edit my profile</button>
+                            <a class="btn btn-primary" style=margin-top:20px; href="{{URL::to('/password/edit')}}">Change password</a>
+                           </center>
                         </form>
                     </div>
                 </div>
