@@ -12,6 +12,7 @@ class RoomType extends Model
     protected $primaryKey = 'id';
     protected $fillable = [
         'roomtype_name',
+        'meta_keywords',
         'roomtype_desc',
         'roomtype_status',
     ];

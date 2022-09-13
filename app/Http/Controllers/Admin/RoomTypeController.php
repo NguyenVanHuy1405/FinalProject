@@ -29,9 +29,6 @@ class RoomTypeController extends Controller
             ->editColumn('roomtype_name', function ($data) {
                 return ' <a href="' . route('admin.room.listRoom.index', $data->id) . '">' . $data->roomtype_name . '</a>';
             })
-            ->editColumn('roomtype_desc', function ($data) {
-                return $data->roomtype_desc;
-            })
             ->editColumn('roomtype_status', function ($data) {
                 if ($data->roomtype_status == 0) 
                 {
@@ -65,6 +62,7 @@ class RoomTypeController extends Controller
         $data = $request->all();
         $roomtype = new RoomType();
         $roomtype->roomtype_name = $data['roomtype_name'];
+        $roomtype->meta_keywords = $data['keywords'];
         $roomtype->roomtype_desc = $data['roomtype_desc'];
         $roomtype->roomtype_status = $data['roomtype_status'];
         $roomtype->save();

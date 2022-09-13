@@ -78,6 +78,17 @@
                         @enderror
                     </span>
                     @endif
+                    <div class="form-group @error('keywords') is-invalid @enderror">
+                        <label class="role" for="roomtype_name"><b>Meta Keywords</b></label>
+                        <input type="text" name="keywords" class="form-control" id="roomtype_name" placeholder="">
+                    </div>
+                    @if ($errors->has('keywords'))
+                    <span>
+                        @error('keywords')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                    </span>
+                    @endif
                     <div class="form-group @error('roomtype_desc') is-invalid @enderror">
                         <label class="role" for="roomtype_desc"><b>Room type description:</b></label>
                         <input type="text" name="roomtype_desc" class="form-control" id="roomtype_desc" placeholder="">
@@ -141,10 +152,6 @@
                     name: 'roomtype_name',
                 },
                 {
-                    data: 'roomtype_desc',
-                    name: 'roomtype_desc',
-                },
-                {
                     data: 'roomtype_status',
                     name: 'roomtype_status'
                 },
@@ -158,7 +165,7 @@
     });
 </script>
 <script>
-    @if($errors->has('roomtype_name')||$errors->has('roomtype_desc')||$errors->has('roomtype_status'))
+    @if($errors->has('roomtype_name')||$errors->has('keywords')||$errors->has('roomtype_desc')||$errors->has('roomtype_status'))
     var delayInMilliseconds = 1000;
     setTimeout(function() {
         $("#exampleModal").modal('show');
