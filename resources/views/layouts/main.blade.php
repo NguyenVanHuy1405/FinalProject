@@ -5,8 +5,16 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Seo Meta -->
+  <meta name="keywords" content="{{$meta_keywords}}">
+  <meta name="description" content="{{$meta_description}}"/>
+  <meta name="robots" content="INDEX,FOLLOW"/>
+  <meta name="canonical" href="{{$url_canonical}}"/>
+  <title>{{$meta_title}}</title>
+  <meta name="author" content=""/>
+  <link rel="icon" type="image/x-icon" href=""/>
+  <!-- End seo meta -->
   <link rel="icon" href="{{asset('home/image/favicon.png')}}" type="image/png">
-  <title>@yield('title')</title>
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="{{asset('home/css/bootstrap.css')}}">
   <link rel="stylesheet" href="{{asset('home/vendors/linericon/style.css')}}">
@@ -57,6 +65,7 @@
                 href="{{ URL::to('admin/dashboard') }}">Admin</a></li>
             @endif
             @endif
+            @if (auth()->user())
             <li class="nav-item submenu dropdown">
                 <button class="btn" type="button" id="dropdownMenuButton2"
                   data-bs-toggle="dropdown" aria-expanded="false">
@@ -71,6 +80,7 @@
                 </a>
                 </button>
             </li>
+            @endif
           </ul>
         </div>
       </nav>

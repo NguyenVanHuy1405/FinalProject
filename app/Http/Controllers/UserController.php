@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\PhoneChangeRequest;
+use App\Http\Requests\PasswordChangeRequest;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -53,23 +55,23 @@ class UserController extends Controller
         return view('user.changepassword');
     }
 
-    // public function updatePassword(PasswordChangeRequest $request)
-    // {
-    //     $user = Auth::user();
-    //     //If two passwords are the same
-    //     //Hash::check --> Check whether the old password entered by user is correct or not
-    //     if(!(Hash::check($request['old-password'], $user->password))) {
-    //         return redirect()->back()->with(['class' => 'danger', 'message' => 'The password currently used does not matches with the provided password.']);
-    //     }       
-    //     //Sring compare: Old password and the new one
-    //     if(strcmp($request['old-password'], $request['new-password']) == 0){
-    //         return redirect()->back()->with(['class' => 'danger', 'message' => 'The new password cannot be the same with current password.']);
-    //     }
-    //     //bcrypt --> password-hashing function
-    //     $user->password = bcrypt($request['new-password']);
-    //     DB::table('users')->where('id', $user->id)->update(['password' => $user->password]);
-    //     return redirect()->back()->with(['class' => 'success', 'message' => 'Password changed successfully !']);
-    // }
+    public function updatePassword(PasswordChangeRequest $request)
+    {
+        $user = Auth::user();
+        //If two passwords are the same
+        //Hash::check --> Check whether the old password entered by user is correct or not
+        if(!(Hash::check($request['old-password'], $user->password))) {
+            return redirect()->back()->with('message','The password currently used does not matches with the provided password.');
+        }       
+        //Sring compare: Old password and the new one
+        if(strcmp($request['old-password'], $request['new-password']) == 0){
+            return redirect()->back()->with('message','The new password cannot be the same with current password.');
+        }
+        //bcrypt --> password-hashing function
+        $user->password = bcrypt($request['new-password']);
+        User::where('id', $user->id)->update(['password' => $user->password]);
+        return redirect()->back()->with('success','Password changed successfully !');
+    }
 
 
 }

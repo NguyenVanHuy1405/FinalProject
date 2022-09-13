@@ -20,16 +20,24 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('home');
+        $meta_keywords = "Royal, Royal Hotel";
+        $meta_description ="Owning a chain of hotels stretching across Vietnam, meeting most of the needs of guests.";
+        $url_canonical = $request->url();
+        $meta_title = "Royal Hotel";
+        return view('home',compact('meta_keywords','meta_description','url_canonical','meta_title'));
     }
-    public function booking_room(){
+    public function booking_room(Request $request){
+        $meta_keywords = "Royal, Royal Hotel";
+        $meta_description ="Owning a chain of hotels stretching across Vietnam, meeting most of the needs of guests.";
+        $url_canonical = $request->url();
+        $meta_title = "Booking room in Royal Hotel";
         $roomType = RoomType::where('roomtype_status','1')->orderBy('id','desc')->get();
         $kindOfRoom = KindOfRoom::where('kindofroom_status','1')->orderBy('id','desc')->get();
         $room = Room::where('room_status','1')->orderby('id','desc')->limit(3)->get();
         $all_room = Room::where('room_status','1')->orderby('id','desc')->get();
-        return view('booking.bookingRoom',compact('roomType','kindOfRoom','room','all_room'));
+        return view('booking.bookingRoom',compact('roomType','kindOfRoom','room','all_room','meta_keywords','meta_description','url_canonical','meta_title'));
     }
     public function detail_room($id){
         $roomType = RoomType::where('roomtype_status','1')->orderBy('id','desc')->get();

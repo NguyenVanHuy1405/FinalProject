@@ -114,4 +114,7 @@ Route::post('/phone/update', [UserController::class, 'changePhoneNumber'])->name
 Route::get('/password/edit', [UserController::class, 'changePassword']);
 Route::post('/password/update', [UserController::class, 'updatePassword'])->name('user.password.update');
 
+Route::get('/show-roomtype/{roomtype_id}', [RoomTypeController::class,'show_roomtype']);
+Route::get('/show-kindofroom/{kindofroom_id}', [KindOfRoomController::class,'show_kindofroom']);
+
 

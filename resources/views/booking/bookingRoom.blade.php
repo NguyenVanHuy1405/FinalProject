@@ -20,6 +20,9 @@
     p.set_p{
         font-size:18px;
     }
+    h2.title_all{
+        margin-top:-50px;
+    }
 </style>
 @endsection
 @section('content')
@@ -45,14 +48,14 @@
             We all live in an age that belongs to the young at heart. Life that is becoming extremely fast
         </marquee></p>
       </div>
-      @foreach($room as $key => $value)
       <div class="content grid">
+      @foreach($room as $key => $value)
         <div class="box">
           <div class="img">
             <img src="{{URL::to('admin/uploads/room/'.$value->room_image)}}" alt="">
           </div>
           <div class="text">
-            <h4>Name Room:{{$value->room_name}}</h4>
+            <h4>{{$value->room_name}}</h4>
             <p>{{number_format($value->room_price).' '.'VND/'}}<small><b>night</b></small></p>
             <a href="{{URL::to('/detailRoom/'.$value->id)}}" class="btn theme_btn button_hover">Book Now</a>
           </div>
@@ -84,7 +87,7 @@
                                     <select class="wide" name="links" size="1" onchange="window.location.href=this.value;">
                                         <option data-display="Room Type">Room Type</option>
                                         @foreach($roomType as $key => $value)
-                                        <option value="{{URL::to('/show-roomtype/'.$value->roomtype_id)}}">{{$value->roomtype_name}}</option>
+                                        <option value="{{URL::to('/show-roomtype/'.$value->id)}}">{{$value->roomtype_name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -92,7 +95,7 @@
                                     <select class="wide" name="links" size="1" onchange="window.location.href=this.value;">
                                         <option data-display="Kind of Room">Kind of Room</option>
                                         @foreach($kindOfRoom as $key => $value)
-                                        <option value="{{URL::to('/show-kindofroom/'.$value->kindofroom_id)}}">{{$value->kindofroom_name}}</option>
+                                        <option value="{{URL::to('/show-kindofroom/'.$value->id)}}">{{$value->kindofroom_name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -107,27 +110,28 @@
 <!--================Booking Tabel Area  =================-->
 
 <!--================ Accomodation Area  =================-->
-<section class="accomodation_area section_gap">
+<section class="room top" id="room">
     <div class="container">
-        <div class="section_title text-center">
-            <h2 class="title_color">All room in Royal Hotel</h2>
-            <p class="set_p"><marquee direction="left" height="50" width="450" bgcolor="#ffffe6">
+      <div class="section_title text-center">
+        <h2 class="title_all">ALL ROOM</h2>
+        <p class="set_p"><marquee direction="left" height="50" width="450" bgcolor="#ffffe6">
             We all live in an age that belongs to the young at heart. Life that is becoming extremely fast
-            </marquee></p>
-        </div>
-        @foreach($all_room as $key => $value)
-        <div class="content grid">
+        </marquee></p>
+      </div>
+      <div class="content grid">
+      @foreach($all_room as $key => $value)
         <div class="box">
           <div class="img">
             <img src="{{URL::to('admin/uploads/room/'.$value->room_image)}}" alt="">
           </div>
           <div class="text">
-            <h4>Name Room:{{$value->room_name}}</h4>
+            <h4>{{$value->room_name}}</h4>
             <p>{{number_format($value->room_price).' '.'VND/'}}<small><b>night</b></small></p>
             <a href="{{URL::to('/detailRoom/'.$value->id)}}" class="btn theme_btn button_hover">Book Now</a>
           </div>
         </div>
         @endforeach
+      </div>
     </div>
-</section>
+  </section>
 @endsection

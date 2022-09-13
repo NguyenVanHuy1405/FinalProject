@@ -68,10 +68,12 @@
 						<div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
 							<div class="dropdown-header text-center">
 								<img class="img-xs rounded-circle" src="{{asset('/storage/image/' . Auth::user()->avatar)}}" alt="Profile image">
+								@if (auth()->user())
 								<p class="mb-1 mt-3 font-weight-semibold"><b>{{Auth::user()->name}}</b></p>
 								<p class="fw-light text-muted mb-0">{{Auth::user()->email}}</p>
+								@endif
 							</div>
-							<a href="{{URL::to('/details-profile')}}" class="dropdown-item"><i class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i> My Profile</a>
+							<a href="{{URL::to('/profile-account')}}" class="dropdown-item"><i class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i> My Profile</a>
 							<a href="{{URL::to('/logout')}}" class="dropdown-item"><i class="dropdown-item-icon mdi mdi-power text-primary me-2"></i>Sign Out</a>
 						</div>
 					</li>
@@ -113,6 +115,7 @@
 							<span class="menu-title">Dashboard</span>
 						</a>
 					</li>
+					@if (auth()->user())
 					@if(auth()->user()->hasRole('admin'))
 					<li class="nav-item  {{Request::routeIs('admin.account.index') ? 'active':'';}}">
 						<a class="nav-link" href="{{route('admin.account.index')}}">
@@ -120,6 +123,7 @@
 							<span class="menu-title">Account</span>
 						</a>
 					</li>
+					@endif
 					@endif
 					<li class="nav-item  {{Request::routeIs('admin.roomtype.index') ? 'active':'';}}">
 						<a class="nav-link" href="{{route('admin.roomtype.index')}}">

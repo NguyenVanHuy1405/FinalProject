@@ -99,11 +99,11 @@ class KindofRoomController extends Controller
         KindOfRoom::where('id',$id)->update(['kindofroom_status'=>0]);
         return Redirect::to('/admin/kindofroom/index')->with('message','Unactive kind of room successfully');
     }
-    public function show_kindofroom($id){
+    public function show_kindofroom($kindofroom_id){
         $roomType = RoomType::where('roomtype_status','1')->orderBy('id','desc')->get();
         $kindofRoom = KindOfRoom::where('kindofroom_status','1')->orderBy('id','desc')->get();
-        $kindofroom_by_id = Room::join('kind_of_rooms','rooms.id','=','kind_of_rooms.id')->where('rooms.id',$id)->get();
-        $kindofroom_name =KindOfRoom::where('kind_of_rooms.id',$id)->limit(1)->get();
+        $kindofroom_by_id = Room::join('kind_of_rooms','rooms.kindofroom_id','=','kind_of_rooms.id')->where('rooms.kindofroom_id',$kindofroom_id)->get();
+        $kindofroom_name =KindOfRoom::where('kind_of_rooms.id',$kindofroom_id)->limit(1)->get();
         return view('booking.showKindofRoom',compact('roomType','kindofRoom','kindofroom_by_id','kindofroom_name'));
     }
 }

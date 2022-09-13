@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\RoomType;
+use App\Models\KindOfRoom;
+use App\Models\Room;
 use App\Http\Requests\RoomTypeRequest;
 use Session;
 use Illuminate\Support\Facades\Redirect;
@@ -98,11 +100,17 @@ class RoomTypeController extends Controller
         RoomType::where('id',$id)->update(['roomtype_status'=>0]);
         return Redirect::to('/admin/roomtype/index')->with('message','Unactive roomtype successfully');
     }
-    public function show_roomtype($id){
+    public function show_roomtype($roomtype_id, Request $request){
         $roomType = RoomType::where('roomtype_status','1')->orderBy('id','desc')->get();
         $kindofRoom = KindOfRoom::where('kindofroom_status','1')->orderBy('id','desc')->get();
-        $roomtype_by_id = Room::join('room_types','rooms.id','=','room_types.id')->where('rooms.id',$id)->get();
-        $roomtype_name =RoomType::where('room_types.id',$id)->limit(1)->get();
-        return view('booking.showRoomtype',compact('roomType','kindofRoom','roomtype_by_id','roomtype_name'));
+        $roomtype_by_id = Room::join('room_types','rooms.roomtype_id','=','room_types.id')->where('rooms.roomtype_id',$roomtype_id)->get();
+        foreach($roomtype_by_id as $value){
+            $meta_keywords = $value->meta_keywords;
+            $meta_description = $value->roomtype_desc;
+            $url_canonical = $request->url();
+            $meta_title = "List room by room type";
+        }
+        $roomtype_name =RoomType::where('room_types.id',$roomtype_id)->limit(1)->get();
+        return view('booking.showRoomtype',compact('roomType','kindofRoom','roomtype_by_id','roomtype_name','meta_keywords','meta_description','url_canonical','meta_title'));
     }
 }
