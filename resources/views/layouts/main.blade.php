@@ -14,6 +14,14 @@
   <meta name="author" content=""/>
   <link rel="icon" type="image/x-icon" href=""/>
   <!-- End seo meta -->
+  <!-- Share Facebook -->
+  <meta property="og:site_name" content="{{$meta_keywords}}" />
+  <meta property="og:description" content="{{$meta_description}}" />
+  <meta property="og:title" content="{{$meta_title}}" />
+  <meta property="og:url" content="{{$url_canonical}}" />
+  <meta property="og:type" content="website" />
+
+  <!-- Share Facebook -->
   <link rel="icon" href="{{asset('home/image/favicon.png')}}" type="image/png">
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="{{asset('home/css/bootstrap.css')}}">
@@ -172,6 +180,8 @@
   <script src="{{asset('home/js/stellar.js')}}"></script>
   <script src="{{asset('home/vendors/lightbox/simpleLightbox.min.js')}}"></script>
   <script src="{{asset('home/js/custom.js')}}"></script>
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v14.0&appId=1097822581150555&autoLogAppEvents=1" nonce="vVCs9jOC"></script>
   @yield('custom-js')
 </body>
 

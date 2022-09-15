@@ -31,6 +31,9 @@
     li.a.tag {
         font-size: 16px;
     }
+    div.fb-share-button{
+        margin-bottom:10px;
+    }
 </style>
 @endsection
 @section('title','Detail room')
@@ -105,6 +108,11 @@
                             <ul class="blog_meta list_style">
                                 <li><a href="#">1.2M Views<i class="lnr lnr-eye"></i></a></li>
                                 <li><a href="#">06 Comments<i class="lnr lnr-bubble"></i></a></li>
+                                <div class="fb-share-button" 
+                                data-href="https://developers.facebook.com/docs/plugins/" 
+                                data-layout="button_count" data-size="large"><a 
+                                target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{$url_canonical}}&amp;src=sdkpreparse" 
+                                class="fb-xfbml-parse-ignore">Chia sẻ</a></div>
                             </ul>
                         </div>
                     </div>
