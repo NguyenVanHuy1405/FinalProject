@@ -1,69 +1,117 @@
 @extends('layouts.main')
 @section('custom-css')
-<style>
-    div.d-flex{
-        padding-top:100px;
-    }
-    </style>
+      <link rel="stylesheet" href="{{asset('home/css/contact.css')}}">
 @endsection
 @section('content')
-<div class="container d-flex justify-content-center text-center">
-    <div class="card">
-        <div class="card-header">
-            <h5 class="card-title">Contact Us</h5>
-        </div>
-        <div class="card-body">
-            <form method="post" action="{{route('contact')}}">
-                {{csrf_field()}}
-                <div class="row">
-                    <div class="col-md-12" style="padding: 10px;">
-                        <input type="text" class="form-control @error('name') is-invalid @enderror" placeholder="Name" name="name">
-                        @error('name')
-                        <span class="invalid-feedback d-flex justify-content-left" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                    <div class="col-md-12" style="padding: 10px;">
-                        <input type="text" class="form-control @error('email') is-invalid @enderror" placeholder="Email" name="email">
-                        @error('email')
-                        <span class="invalid-feedback d-flex justify-content-left" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                    <div class="col-md-12" style="padding: 10px;">
-                        <input type="text" class="form-control @error('phone_number') is-invalid @enderror" placeholder="Phone Number" name="phone_number">
-                        @error('phone_number')
-                        <span class="invalid-feedback d-flex justify-content-left" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                    <div class="col-md-12" style="padding: 10px;">
-                        <input type="text" class="form-control @error('subject') is-invalid @enderror" placeholder="Subject" name="subject">
-                        @error('subject')
-                        <span class="invalid-feedback d-flex justify-content-left" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                    <div class="col-md-12" style="padding: 10px;">
-                        <textarea rows="6" class="form-control @error('user_message') is-invalid @enderror" placeholder="Please send us a message..." name="user_message"></textarea>
-                        @error('user_message')
-                        <span class="invalid-feedback d-flex justify-content-left" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                    <div class="update ml-auto mr-auto" style="padding: 10px;">
-                        <button type="submit" class="btn btn-success btn-round">Submit</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-6 text-center mb-5">
+					<h2 class="heading-section">Contact With Us</h2>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-md-12">
+					<div class="wrapper_contact">
+						<div class="row mb-5">
+							<div class="col-md-3">
+								<div class="dbox w-100 text-center">
+			        		<div class="icon d-flex align-items-center justify-content-center">
+			        			<span class="fa fa-map-marker"></span>
+			        		</div>
+			        		<div class="text">
+				            <p><span>Address:</span>Son Tra, Da Nang</p>
+				          </div>
+			          </div>
+							</div>
+							<div class="col-md-3">
+								<div class="dbox w-100 text-center">
+			        		<div class="icon d-flex align-items-center justify-content-center">
+			        			<span class="fa fa-phone"></span>
+			        		</div>
+			        		<div class="text">
+				            <p><span>Phone:</span> <a href="tel://1234567920">+ 1235 2355 98</a></p>
+				          </div>
+			          </div>
+							</div>
+							<div class="col-md-3">
+								<div class="dbox w-100 text-center">
+			        		<div class="icon d-flex align-items-center justify-content-center">
+			        			<span class="fa fa-paper-plane"></span>
+			        		</div>
+			        		<div class="text">
+				            <p><span>Email:</span> <a href="mailto:info@yoursite.com">RoyalHotel@gmail.com</a></p>
+				          </div>
+			          </div>
+							</div>
+							<div class="col-md-3">
+								<div class="dbox w-100 text-center">
+			        		<div class="icon d-flex align-items-center justify-content-center">
+			        			<span class="fa fa-globe"></span>
+			        		</div>
+			        		<div class="text">
+				            <p><span>Website</span> <a href="#">yoursite.com</a></p>
+				          </div>
+			          </div>
+							</div>
+						</div>
+						<div class="row no-gutters">
+							<div class="col-md-7">
+								<div class="contact-wrap w-100 p-md-5 p-4">
+									<h3 class="mb-4">Contact Us</h3>
+									<form method="post" action="{{ route('contact') }}" class="contactForm">
+                                    {{csrf_field()}}
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+													<label class="label" for="name">Full Name</label>
+													<input type="text" class="form-control" name="name" id="name" placeholder="Name">
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<label class="label" for="email">Email Address</label>
+													<input type="email" class="form-control" name="email" id="email" placeholder="Email">
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<label class="label" for="subject">Subject</label>
+													<input type="text" class="form-control" name="subject" id="subject" placeholder="Subject">
+												</div>
+											</div>
+                                            <div class="col-md-6">
+												<div class="form-group">
+													<label class="label" for="email">Phone</label>
+													<input type="text" class="form-control" name="phone_number" id="email" placeholder="Email">
+												</div>
+											</div>
+											<div class="col-md-12">
+												<div class="form-group">
+													<label class="label" for="#">Message</label>
+													<textarea name="user_message" class="form-control" id="message" cols="30" rows="4" placeholder="Message"></textarea>
+												</div>
+											</div>
+											<div class="col-md-12">
+												<div class="form-group">
+													<input type="submit" value="Send Message" class="btn btn-primary">
+													<div class="submitting"></div>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+							<div class="col-md-5 d-flex align-items-stretch">
+								<div class="info-wrap w-100 p-5 img" style="background-image: url(../home/image/home1.jpg);">
+			          </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 @endsection
 
 @section('custom-js')

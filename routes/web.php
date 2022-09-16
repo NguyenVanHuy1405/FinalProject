@@ -120,4 +120,5 @@ Route::get('/show-kindofroom/{kindofroom_id}', [KindOfRoomController::class,'sho
 
 Route::get('/contactUs',[ContactController::class,'index']);
 Route::post('/sendContact',[ContactController::class,'send_contact'])->name('contact');
+Route::get('/send_email',[ContactController::class,'send_email']);
 

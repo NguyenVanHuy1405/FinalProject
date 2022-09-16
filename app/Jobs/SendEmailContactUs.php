@@ -11,19 +11,19 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
 
-class SendEmailConTact implements ShouldQueue
+class SendEmailContactUs implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
     protected $contact;
     protected $receivers;
+
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($receivers, $contact)
+    public function __construct($contact, $receivers)
     {
-        //
         $this->contact = $contact;
         $this->receivers = $receivers;
     }

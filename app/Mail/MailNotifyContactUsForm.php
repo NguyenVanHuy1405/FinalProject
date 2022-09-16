@@ -20,9 +20,8 @@ class MailNotifyContactUsForm extends Mailable
      */
     public function __construct($receiver, $contact)
     {
-        //
         $this->receiver = $receiver;
-        $this->contact = $contact;
+        $this->contact = $contact; 
     }
 
     /**
@@ -34,6 +33,6 @@ class MailNotifyContactUsForm extends Mailable
     {
         return $this->from(ENV('MAIL_USERNAME'))
         ->subject('Mail from Royal Hotel')
-        ->view('emails.contact_email');
+        ->view('mails.contact_email');
     }
 }
