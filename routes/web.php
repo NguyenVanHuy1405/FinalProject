@@ -11,6 +11,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -117,4 +118,6 @@ Route::post('/password/update', [UserController::class, 'updatePassword'])->name
 Route::get('/show-roomtype/{roomtype_id}', [RoomTypeController::class,'show_roomtype']);
 Route::get('/show-kindofroom/{kindofroom_id}', [KindOfRoomController::class,'show_kindofroom']);
 
+Route::get('/contactUs',[ContactController::class,'index']);
+Route::post('/sendContact',[ContactController::class,'send_contact'])->name('contact');
 

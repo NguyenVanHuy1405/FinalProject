@@ -89,6 +89,7 @@
                 </button>
             </li>
             @endif
+            <li class="nav-item "><a class="nav-link" href="{{URL::to('contactUs')}}">Contact us</a></li>
           </ul>
         </div>
       </nav>
