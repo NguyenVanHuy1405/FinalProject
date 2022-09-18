@@ -1,112 +1,143 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="icon" href="{{asset('home/image/favicon.png')}}" type="image/png">
-  <title>Login Royal Hotel</title>
-
-  <link rel="stylesheet" href="{{asset('home/css/login.css')}}">
-  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css" integrity="sha512-UTNP5BXLIptsaj5WdKFrkFov94lDx+eBvbKyoe1YAfjeRPC+gT5kyZ10kOHCfNZqEui1sxmqvodNUx3KbuYI/A==" crossorigin="anonymous"
-    referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+	<title>Login for customer</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+    <link rel="icon" href="{{asset('home/image/favicon.png')}}" type="image/png">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="home/customerLogin/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+    <script src="https://kit.fontawesome.com/8f48d37969.js" crossorigin="anonymous"></script>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="home/customerLogin/fonts/iconic/css/material-design-iconic-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="home/customerLogin/vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="home/customerLogin/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="home/customerLogin/vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="home/customerLogin/vendor/select2/select2.min.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="home/customerLogin/vendor/daterangepicker/daterangepicker.css')}}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="home/customerLogin/css/util.css">
+	<link rel="stylesheet" type="text/css" href="home/customerLogin/css/main.css">
+<!--===============================================================================================-->
 </head>
 <body>
-<div class="container" id="container">
-	<div class="form-container sign-up-container">
-		<form action="{{URL::to('/createUserAccount')}}" method="post">
-            {{ csrf_field() }}
-			<h1>Create User Account</h1>
-			<div class="social-container">
-				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-				<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-			</div>
-			<span>or use your email for registration</span>
-			@if (session('success'))
-                 <div class="alert alert-success">
-                {{ session('success') }}
-                </div>
-            @endif
-			<input type="text" name="name" placeholder="Name" />
-			@error('name')
-                <span class="invalid-feedback" role="alert" style="display: block">
-                    <strong>{{ $message }}</strong>
-                 </span>
-            @enderror
-			<input type="email" name="email" placeholder="Email" />
-			@error('email')
-                <span class="invalid-feedback" role="alert" style="display: block">
-                    <strong>{{ $message }}</strong>
-                 </span>
-            @enderror
-			<input type="password" name="password" placeholder="Password" />
-			@error('password')
-                <span class="invalid-feedback" role="alert" style="display: block">
-                    <strong>{{ $message }}</strong>
-                 </span>
-            @enderror
-			<input type="password" name="password_confirmation" placeholder="Confirm your password" />
-			@error('password_confirmation')
-                <span class="invalid-feedback" role="alert" style="display: block">
-                    <strong>{{ $message }}</strong>
-                 </span>
-            @enderror
-			<input type="text" name="phone" placeholder="Phone number" />
-			@error('phone')
-                <span class="invalid-feedback" role="alert" style="display: block">
-                    <strong>{{ $message }}</strong>
-                 </span>
-            @enderror
-			<button type="submit">Sign Up</button>
-		</form>
-	</div>
-	<div class="form-container sign-in-container">
-		<form action="{{ route('loginCustomer') }}" method="post">
-            {{ csrf_field() }}
-			<h1>Sign in</h1>
-			<div class="social-container">
-				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-				<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-			</div>
-			<span>or use your account</span>
-			<input type="text" name="email" placeholder="Enter Your Email" />
-			@error('email')
-                <span class="invalid-feedback" role="alert" style="display: block">
-                    <strong>{{ $message }}</strong>
-                 </span>
-            @enderror
-			<input type="password" name="password" class="zmdi zmdi-eye" placeholder="Enter Password" />
-			@error('password')
-                <span class="invalid-feedback" role="alert" style="display: block">
-                    <strong>{{ $message }}</strong>
-                 </span>
-            @enderror
-			<a href="#">Forgot your password?</a>
-			<button type="submit">Sign In</button>
-		</form>
-	</div>
-	<div class="overlay-container">
-		<div class="overlay">
-			<div class="overlay-panel overlay-left">
-				<h1>Welcome Back!</h1>
-				<p>To keep connected with us please login with your personal info</p>
-				<button class="ghost" id="signIn">Sign In</button>
-			</div>
-			<div class="overlay-panel overlay-right">
-				<h1>Hello, Friend!</h1>
-				<p>Enter your personal details and start journey with us</p>
-				<button class="ghost" id="signUp">Sign Up</button>
+	
+	<div class="limiter">
+		<div class="container-login100" style="background-image: url('home/image/home1.jpg');">
+			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+			    <form action="{{URL::to('/createUserAccount')}}" method="post">
+					{{csrf_field()}}
+					<span class="login100-form-title p-b-49">
+						Login
+					</span>
+					@include('layouts.alertProfile')
+					<div class="wrap-input100 validate-input m-b-23">
+						<span class="label-input100">Name</span>
+						<input class="input100" type="text" name="name" placeholder="Input your name">
+						<span class="focus-input100" data-symbol="&#xf206;"></span>
+						@error('name')
+                            <span class="invalid-feedback" role="alert" style="display: block">
+                               <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+					</div>
+					<div class="wrap-input100 validate-input m-b-23">
+						<span class="label-input100">Email</span>
+						<input class="input100" type="text" name="email" placeholder="Input your username">
+						<span class="focus-input100" data-symbol="&#xf206;"></span>
+						@error('email')
+                            <span class="invalid-feedback" role="alert" style="display: block">
+                               <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+					</div>
+
+					<div class="wrap-input100 validate-input">
+						<span class="label-input100">Password</span>
+						<input class="input100" type="password" name="password" placeholder="Input your password">
+						<span class="focus-input100" data-symbol="&#xf190;"></span>
+						@error('password')
+                            <span class="invalid-feedback" role="alert" style="display: block">
+                               <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+					</div>
+					<div class="wrap-input100 validate-input">
+						<span class="label-input100">Confirm Password</span>
+						<input class="input100" type="password" name="password_confirmation" placeholder="Confirm password">
+						<span class="focus-input100" data-symbol="&#xf190;"></span>
+						@error('password_confirmation')
+                            <span class="invalid-feedback" role="alert" style="display: block">
+                               <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+					</div>
+					<div class="wrap-input100 validate-input">
+						<span class="label-input100">Phone Number</span>
+						<input class="input100" type="text" name="phone" placeholder="Input your phone number">
+						<span class="focus-input100" data-symbol="&#xf190;"></span>
+						@error('phone')
+                            <span class="invalid-feedback" role="alert" style="display: block">
+                               <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+					</div>
+					<div class="g-recaptcha" name="g-recaptcha-response" data-sitekey="{{env('CAPTCHA_KEY')}}"></div>
+                    <br/>
+                    @if($errors->has('g-recaptcha-response'))
+                      <span class="invalid-feedback" style="display:block">
+	                      <strong>{{$errors->first('g-recaptcha-response')}}</strong>
+                      </span>
+                    @endif
+					<div class="container-login-form-btn">
+						<div class="wrap-login100-form-btn">
+							<div class="login100-form-bgbtn"></div>
+							<button class="login100-form-btn">
+								Register
+							</button>
+						</div>
+					</div>
+					<div class="flex-col-c p-t-155">
+						<span class="txt1 p-b-17"><b>
+							If you have already account, please login.
+						</b></span>
+
+						<a href="{{URL::to('loginCustomer')}}" class="txt2">
+							Sign Up
+						</a>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
-</div>
-<script src="{{asset('home/js/login.js')}}"></script>
-<script src="https://code.iconify.design/iconify-icon/1.0.0-beta.3/iconify-icon.min.js"></script>
+	
+
+	<div id="dropDownSelect1"></div>
+	
+<!--===============================================================================================-->
+	<script src="{{asset('home/customerLogin/vendor/jquery/jquery-3.2.1.min.js')}}"></script>
+<!--===============================================================================================-->
+	<script src="{{asset('home/customerLogin/vendor/animsition/js/animsition.min.js')}}"></script>
+<!--===============================================================================================-->
+	<script src="{{asset('home/customerLogin/vendor/bootstrap/js/popper.js')}}"></script>
+	<script src="{{asset('home/customerLogin/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
+<!--===============================================================================================-->
+	<script src="{{asset('home/customerLogin/vendor/select2/select2.min.js')}}"></script>
+<!--===============================================================================================-->
+	<script src="{{asset('home/customerLogin/vendor/daterangepicker/moment.min.js')}}"></script>
+	<script src="{{asset('home/customerLogin/daterangepicker/daterangepicker.js')}}vendor/"></script>
+<!--===============================================================================================-->
+	<script src="{{asset('home/customerLogin/vendor/countdowntime/countdowntime.js')}}"></script>
+<!--===============================================================================================-->
+	<script src="{{asset('home/customerLogin/js/main.js')}}"></script>
+	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 </body>
+</html>

@@ -93,7 +93,8 @@ Route::post('/save-cart', [CartController::class,'save_cart']);
 Route::get('/show-cart', [CartController::class,'show_cart']);
 Route::get('/delete-to-cart/{rowId}', [CartController::class,'delete_cart']);
 Route::post('/update-cart', [CartController::class,'update_cart']);
-Route::get('/register', [RegisterController::class, 'register_user'])->name('register');
+Route::get('/loginCustomer', [RegisterController::class, 'login_user']);
+Route::get('/registerAccount', [RegisterController::class, 'register_user'])->name('register');
 Route::post('/createUserAccount', [RegisterController::class, 'create']);
 Route::post('/loginCustomer',[RegisterController::class,'customer_login'])->name('loginCustomer');
 Route::get('/checkout', [CheckoutController::class, 'checkout']);
@@ -121,4 +122,5 @@ Route::get('/show-kindofroom/{kindofroom_id}', [KindOfRoomController::class,'sho
 Route::get('/contactUs',[ContactController::class,'index']);
 Route::post('/sendContact',[ContactController::class,'send_contact'])->name('contact');
 Route::get('/send_email',[ContactController::class,'send_email']);
+Route::get('/customer/activeAccount/{user}/{token}',[RegisterController::class,'active_account'])->name('customer.activeAccount');
 

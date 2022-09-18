@@ -18,7 +18,7 @@ class ContactController extends Controller
         $meta_title = "Royal Hotel";
         return view('contact',compact('meta_keywords','meta_description','url_canonical','meta_title'));
     }
-    public function send_contact(Request $request) {
+    public function send_contact(ContactRequest $request) {
         $contact = Contact::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -31,17 +31,6 @@ class ContactController extends Controller
         // echo $receivers;
         //dispatch --> push a new job into the job queue (or dispatch the job)
         SendEmailContactUs::dispatch($contact, $receivers)->delay(now());
-        return redirect()->back()->with(['class' => 'success', 'message' => 'Thank you for contact us!']);
-    }
-    public function send_email(){
-        $to_name = "Royal Hotel";
-        $to_email ="huynvgcd191294@fpt.edu.vn";
-
-        $data = array("name"=>"Mail from customers","body"=>"Mail send about booking room");
-        Mail::send('mails.test_send_mail',$data,function($message) use ($to_name,$to_email){
-            $message->to($to_email)->subject('Test email');
-            $message->from($to_email,$to_name);
-        });
-        return redirect()->back()->with(['class' => 'success', 'message' => 'Thank you for contact us!']);
+        return redirect()->back()->with('success','Thank you for contact us!');
     }
 }

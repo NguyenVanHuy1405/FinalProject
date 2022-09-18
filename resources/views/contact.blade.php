@@ -50,7 +50,7 @@
 			        			<span class="fa fa-globe"></span>
 			        		</div>
 			        		<div class="text">
-				            <p><span>Website</span> <a href="#">yoursite.com</a></p>
+				            <p><span>Website</span> <a href="#">RoyalHotel.com</a></p>
 				          </div>
 			          </div>
 							</div>
@@ -59,6 +59,7 @@
 							<div class="col-md-7">
 								<div class="contact-wrap w-100 p-md-5 p-4">
 									<h3 class="mb-4">Contact Us</h3>
+                                    @include('layouts.alertProfile')
 									<form method="post" action="{{ route('contact') }}" class="contactForm">
                                     {{csrf_field()}}
 										<div class="row">
@@ -66,30 +67,55 @@
 												<div class="form-group">
 													<label class="label" for="name">Full Name</label>
 													<input type="text" class="form-control" name="name" id="name" placeholder="Name">
+                                                    @error('name')
+                                                       <span class="invalid-feedback d-flex justify-content-left" role="alert">
+                                                              <strong>{{ $message }}</strong>
+                                                       </span>
+                                                    @enderror
 												</div>
 											</div>
 											<div class="col-md-6">
 												<div class="form-group">
 													<label class="label" for="email">Email Address</label>
 													<input type="email" class="form-control" name="email" id="email" placeholder="Email">
+                                                    @error('email')
+                                                       <span class="invalid-feedback d-flex justify-content-left" role="alert">
+                                                              <strong>{{ $message }}</strong>
+                                                       </span>
+                                                    @enderror
 												</div>
 											</div>
 											<div class="col-md-6">
 												<div class="form-group">
 													<label class="label" for="subject">Subject</label>
 													<input type="text" class="form-control" name="subject" id="subject" placeholder="Subject">
+                                                    @error('subject')
+                                                       <span class="invalid-feedback d-flex justify-content-left" role="alert">
+                                                              <strong>{{ $message }}</strong>
+                                                       </span>
+                                                    @enderror
 												</div>
 											</div>
                                             <div class="col-md-6">
 												<div class="form-group">
 													<label class="label" for="email">Phone</label>
 													<input type="text" class="form-control" name="phone_number" id="email" placeholder="Email">
+                                                    @error('phone_number')
+                                                       <span class="invalid-feedback d-flex justify-content-left" role="alert">
+                                                              <strong>{{ $message }}</strong>
+                                                       </span>
+                                                    @enderror
 												</div>
 											</div>
 											<div class="col-md-12">
 												<div class="form-group">
 													<label class="label" for="#">Message</label>
 													<textarea name="user_message" class="form-control" id="message" cols="30" rows="4" placeholder="Message"></textarea>
+                                                    @error('user_message')
+                                                       <span class="invalid-feedback d-flex justify-content-left" role="alert">
+                                                              <strong>{{ $message }}</strong>
+                                                       </span>
+                                                    @enderror
 												</div>
 											</div>
 											<div class="col-md-12">
