@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Room;
 use App\Models\KindOfRoom;
 use App\Models\RoomType;
+use Auth;
 use File;
 
 class HomeController extends Controller
@@ -28,7 +29,7 @@ class HomeController extends Controller
         $url_canonical = $request->url();
         $meta_title = "Royal Hotel";
         // $image_og = File::get(asset('/home/image/r1.jpg'));
-        return view('home',compact('meta_keywords','meta_description','url_canonical','meta_title'));
+        return view('home',compact('meta_keywords','meta_description','url_canonical','meta_title','user'));
     }
     public function booking_room(Request $request){
         $meta_keywords = "Royal, Royal Hotel";

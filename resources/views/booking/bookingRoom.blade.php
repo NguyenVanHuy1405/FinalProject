@@ -50,7 +50,15 @@
       </div>
       <div class="content grid">
       @foreach($room as $key => $value)
+      <form>
         <div class="box">
+        @csrf
+          <input type="hidden" value="{{$value->id}}" class="cart_room_id_{{$value->id}}">
+          <input type="hidden" value="{{$value->room_name}}" class="cart_room_name_{{$value->id}}">
+          <input type="hidden" value="{{$value->room_image}}" class="cart_room_image_{{$value->id}}">
+          <input type="hidden" value="{{$value->room_price}}" class="cart_room_price_{{$value->id}}">
+        
+
           <div class="img">
             <img src="{{URL::to('admin/uploads/room/'.$value->room_image)}}" alt="">
           </div>
@@ -60,6 +68,7 @@
             <a href="{{URL::to('/detailRoom/'.$value->id)}}" class="btn theme_btn button_hover">Book Now</a>
           </div>
         </div>
+      </form>  
         @endforeach
       </div>
     </div>

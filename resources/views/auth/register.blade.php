@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Login for customer</title>
+	<title>Register Account</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -35,7 +35,7 @@
 			    <form action="{{URL::to('/createUserAccount')}}" method="post">
 					{{csrf_field()}}
 					<span class="login100-form-title p-b-49">
-						Login
+						Register
 					</span>
 					@include('layouts.alertProfile')
 					<div class="wrap-input100 validate-input m-b-23">

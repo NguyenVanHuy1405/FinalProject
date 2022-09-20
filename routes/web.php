@@ -93,14 +93,21 @@ Route::post('/save-cart', [CartController::class,'save_cart']);
 Route::get('/show-cart', [CartController::class,'show_cart']);
 Route::get('/delete-to-cart/{rowId}', [CartController::class,'delete_cart']);
 Route::post('/update-cart', [CartController::class,'update_cart']);
+
+//Register the controller
 Route::get('/loginCustomer', [RegisterController::class, 'login_user']);
 Route::get('/registerAccount', [RegisterController::class, 'register_user'])->name('register');
 Route::post('/createUserAccount', [RegisterController::class, 'create']);
 Route::post('/loginCustomer',[RegisterController::class,'customer_login'])->name('loginCustomer');
+Route::get('/facebook/login',[RegisterController::class,'login_facebook'])->name('login_facebook');
+Route::get('/facebook/callback',[RegisterController::class,'callback_facebook']);
+
+
 Route::get('/checkout', [CheckoutController::class, 'checkout']);
 Route::post('/save-checkout',[CheckoutController::class,'save_checkout']);
 Route::get('/payment',[CheckoutController::class,'payment']);
 Route::post('/order-place',[CheckoutController::class,'order_place']);
+Route::post('/add-booking-ajax',[CartController::class,'add_booking_ajax']);
 
 Route::get('/admin/manager-booking', [AdminController::class, 'manager_booking'])->name('admin.managerBooking.index');
 Route::get('/admin/booking/dt-row-data', [AdminController::class, 'getDtRowData']);

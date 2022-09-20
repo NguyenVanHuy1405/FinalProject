@@ -33,6 +33,7 @@
   <link rel="stylesheet" href="{{asset('home/vendors/owl-carousel/owl.carousel.min.css')}}">
   <!-- main css -->
   <link rel="stylesheet" href="{{asset('home/css/style.css')}}">
+  <link rel="stylesheet" href="{{asset('home/css/sweetalert.css')}}">
   <link rel="stylesheet" href="{{asset('home/css/responsive.css')}}">
   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css" integrity="sha512-UTNP5BXLIptsaj5WdKFrkFov94lDx+eBvbKyoe1YAfjeRPC+gT5kyZ10kOHCfNZqEui1sxmqvodNUx3KbuYI/A==" crossorigin="anonymous"
@@ -64,9 +65,7 @@
             @if (!auth()->user())
               <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Sign in</a></li>
             @endif
-            @if (auth()->user())
-            <li class="nav-item"><a href="{{ route('logout') }}" class="nav-link">Log Out</a></li>
-            @endif
+            <li class="nav-item "><a class="nav-link" href="{{URL::to('contactUs')}}">Contact us</a></li>
             @if (auth()->user())
             @if (auth()->user()->hasRole('admin') || auth()->user()->hasRole('staff'))
                 <li class="nav-item"><a class="nav-link"
@@ -74,6 +73,25 @@
             @endif
             @endif
             @if (auth()->user())
+            @if (auth()->user()->provider_id == !null )
+            <li class="nav-item submenu dropdown">
+                <button class="btn" type="button" id="dropdownMenuButton2"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+                  <a class="nav-link dropdown-toggle d-flex align-items-center" href="{{ route('user.profile') }}"
+                  id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown"
+                  aria-expanded="false">
+
+                  <img class="img-account-profile rounded-circle mb-2"
+                  src="{{ auth()->user()->avatar == null? asset('/home/image/avatar.png'): asset( Auth::user()->avatar) }}"
+                  alt="{{ asset('public/home/image/avatar.png')}}"
+                  style="width: 30px; height: 30px; object-fit: cover;" loading="lazy">
+                </a>
+                </button>
+            </li>
+            @endif
+            @endif
+            @if (auth()->user())
+            @if (auth()->user()->provider_id == null)
             <li class="nav-item submenu dropdown">
                 <button class="btn" type="button" id="dropdownMenuButton2"
                   data-bs-toggle="dropdown" aria-expanded="false">
@@ -83,13 +101,16 @@
 
                   <img class="img-account-profile rounded-circle mb-2"
                   src="{{ auth()->user()->avatar == null? asset('/home/image/avatar.png'): asset('/storage/image/' . Auth::user()->avatar) }}"
-                  alt="{{ asset('public/home/image/avatar.png') }}"
+                  alt="{{ asset('public/home/image/avatar.png')}}"
                   style="width: 30px; height: 30px; object-fit: cover;" loading="lazy">
                 </a>
                 </button>
             </li>
             @endif
-            <li class="nav-item "><a class="nav-link" href="{{URL::to('contactUs')}}">Contact us</a></li>
+            @endif
+            @if (auth()->user())
+            <li class="nav-item"><a href="{{ route('logout') }}" class="nav-link">Log Out</a></li>
+            @endif
           </ul>
         </div>
       </nav>
@@ -186,6 +207,7 @@
   <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v14.0&appId=1097822581150555&autoLogAppEvents=1" nonce="bwHz9FNl"></script>
   <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v14.0&appId=1097822581150555&autoLogAppEvents=1" nonce="c8zF8Qu9"></script>
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <script src="{{asset('home/js/sweetalert.min.js')}}"></script>
   @yield('custom-js')
 </body>
 

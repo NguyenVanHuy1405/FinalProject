@@ -26,8 +26,12 @@ class CartController extends Controller
         Cart::setGlobalTax(0);
         return Redirect::to('/show-cart');
     }
-    public function show_cart(){
-        return view('booking.showCart');
+    public function show_cart(Request $request){
+        $meta_keywords = "Royal, Royal Hotel";
+        $meta_description ="Owning a chain of hotels stretching across Vietnam, meeting most of the needs of guests.";
+        $url_canonical = $request->url();
+        $meta_title = "Royal Hotel";      
+        return view('booking.showCart',compact('meta_keywords','meta_description','url_canonical','meta_title'));
     }
     public function delete_cart($rowId){ 
         Cart::update($rowId,0);
@@ -38,5 +42,8 @@ class CartController extends Controller
         $qty = $request->cart_quantity;
         Cart::update($rowId,$qty);
         return Redirect::to('/show-cart');
+    }
+    public function add_booking_ajax(CartRequest $request){
+        
     }
 }

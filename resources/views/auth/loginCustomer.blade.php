@@ -82,7 +82,7 @@
 					</div>
 
 					<div class="flex-c-m">
-						<a href="#" class="login100-social-item bg1">
+						<a href="{{route('login_facebook')}}" class="login100-social-item bg1">
 							<i class="fa fa-facebook"></i>
 						</a>
 

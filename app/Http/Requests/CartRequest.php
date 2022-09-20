@@ -25,7 +25,7 @@ class CartRequest extends FormRequest
     {
         return [
             'arrivalDate' => 'required|after_or_equal:'.now(),
-            'departureDate' => 'required|after_or_equal:'.'arrivalDate',
+            'departureDate' => 'required|after_or_equal:'.'arrivalDate',   
         ];
     }
     public function messages(){

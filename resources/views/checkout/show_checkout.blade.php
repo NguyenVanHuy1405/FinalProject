@@ -1,5 +1,4 @@
 @extends('layouts.main')
-@section('title','Checkout booking room')
 @section('custom-css')
 <style>
 	.step-one {

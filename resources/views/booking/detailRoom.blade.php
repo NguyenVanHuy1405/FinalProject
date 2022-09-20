@@ -5,29 +5,23 @@
         height: 350px;
         width: 600px;
     }
-
     img.img-body {
         height: 350px;
         width: 360px;
     }
-
     div.room_tag {
         font-size: 14px;
     }
-
     p.excert {
         font-size: 16px;
     }
-
     img.image_recomend {
         width: 125px;
         height: 75px;
     }
-
     a.booking {
         font-size: 12px;
     }
-
     li.a.tag {
         font-size: 16px;
     }

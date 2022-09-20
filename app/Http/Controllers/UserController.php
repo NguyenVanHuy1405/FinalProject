@@ -17,15 +17,16 @@ class UserController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(){
+    public function index(Request $request){
         $user = Auth::user();
+        $meta_keywords = "Royal, Royal Hotel";
+        $meta_description ="Owning a chain of hotels stretching across Vietnam, meeting most of the needs of guests.";
+        $url_canonical = $request->url();
+        $meta_title = "Detail profile account";
 
         //Get user's role
         $user_role = DB::table('roles')->select('role_name')->where('id', $user->role_id)->value('role_name');
-        // echo '<pre>';
-        // print_r($user_role);
-        // echo '</pre>';
-        return view('user.index', compact('user', 'user_role'));
+        return view('user.index', compact('user', 'user_role','meta_keywords','meta_description','url_canonical','meta_title'));
     }
 
     public function uploadAvatar(Request $request)

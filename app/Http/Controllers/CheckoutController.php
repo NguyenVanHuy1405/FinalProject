@@ -19,8 +19,12 @@ class CheckoutController extends Controller
     {
         $this->middleware('auth');
     }
-    public function checkout(){
-        return view('checkout.show_checkout');
+    public function checkout(Request $request){
+        $meta_keywords = "Royal, Royal Hotel, Checkout booking room";
+        $meta_description ="Owning a chain of hotels stretching across Vietnam, meeting most of the needs of guests.";
+        $url_canonical = $request->url();
+        $meta_title = "Checkout booking room";
+        return view('checkout.show_checkout',compact('meta_keywords','meta_description','url_canonical','meta_title'));
     }
     public function save_checkout(BookingRequest $request){
         $data = array();
@@ -35,7 +39,11 @@ class CheckoutController extends Controller
         return Redirect::to('/payment');
     }
     public function payment(){
-        return view('checkout.payment');
+        $meta_keywords = "Royal, Royal Hotel, Checkout booking room";
+        $meta_description ="Owning a chain of hotels stretching across Vietnam, meeting most of the needs of guests.";
+        $url_canonical = $request->url();
+        $meta_title = "Payment for booking room";
+        return view('checkout.payment',compact('meta_keywords','meta_description','url_canonical','meta_title'));
     }
     public function order_place(Request $request){
         //payment
