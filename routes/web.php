@@ -99,8 +99,15 @@ Route::get('/loginCustomer', [RegisterController::class, 'login_user']);
 Route::get('/registerAccount', [RegisterController::class, 'register_user'])->name('register');
 Route::post('/createUserAccount', [RegisterController::class, 'create']);
 Route::post('/loginCustomer',[RegisterController::class,'customer_login'])->name('loginCustomer');
+
+//facebook loginCustomer 
 Route::get('/facebook/login',[RegisterController::class,'login_facebook'])->name('login_facebook');
 Route::get('/facebook/callback',[RegisterController::class,'callback_facebook']);
+
+//google loginCustomer
+
+Route::get('/google/login',[RegisterController::class,'login_google'])->name('login_google');
+Route::get('/google/callback',[RegisterController::class,'callback_google']);
 
 
 Route::get('/checkout', [CheckoutController::class, 'checkout']);

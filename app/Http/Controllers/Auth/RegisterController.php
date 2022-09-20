@@ -86,6 +86,8 @@ class RegisterController extends Controller
             return Redirect::to('/loginCustomer')->with('message', 'Your verification code is not valid.');
         }
     }
+
+    //facebook loginCustomer 
     public function login_facebook()
     {
         return Socialite::driver('facebook')->redirect();
@@ -112,6 +114,38 @@ class RegisterController extends Controller
         $user->avatar = $data->avatar;
         $user->save();
     }
-    Auth::login($user);
-}
+        Auth::login($user);
+   }
+
+   //google loginCustomer
+   public function login_google()
+   {
+       return Socialite::driver('google')->redirect();
+   }
+
+   public function callback_google()
+   {
+      $user = Socialite::driver('google')->user();
+
+      $this->login_user_google($user);
+      return redirect('/checkout');
+   }
+   protected function login_user_google($data)
+    {
+       $role_id = Role::where('role_name', Role::ROLE_USER)->first()->id;
+       $user = User::where('email','=', $data->email)->first();
+       if (!$user) {
+        $user = new User();
+        $user->name = $data->name;
+        $user->email = $data->email;
+        $user->provider_id = $data->id;
+        $user->password ='';
+        $user->role_id = $role_id;
+        $user->avatar = $data->avatar;
+        $user->save();
+    }
+        Auth::login($user);
+   }
+
+
 }

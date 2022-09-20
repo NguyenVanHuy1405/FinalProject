@@ -29,7 +29,7 @@ class HomeController extends Controller
         $url_canonical = $request->url();
         $meta_title = "Royal Hotel";
         // $image_og = File::get(asset('/home/image/r1.jpg'));
-        return view('home',compact('meta_keywords','meta_description','url_canonical','meta_title','user'));
+        return view('home',compact('meta_keywords','meta_description','url_canonical','meta_title'));
     }
     public function booking_room(Request $request){
         $meta_keywords = "Royal, Royal Hotel";

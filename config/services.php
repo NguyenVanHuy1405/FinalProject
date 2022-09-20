@@ -35,5 +35,10 @@ return [
         'client_secret' => '9583dbec719bb4e46d28142323be953b', 
         'redirect' => 'https://huy.developer.tutorial.com/facebook/callback'
         ],
+    'google' => [
+        'client_id' => '414685837941-tmt7gh3ld6n5pv2dndui69tvg0pk25aj.apps.googleusercontent.com',
+        'client_secret' => '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', 
+        'redirect' => 'https://huy.developer.tutorial.com/google/callback'
+        ],
 
 ];
