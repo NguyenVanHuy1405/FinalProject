@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\KindOfRoomController;
 use App\Http\Controllers\Admin\RoomController;
 use App\Http\Controllers\Admin\RoomTypeController;
+use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CartController;
@@ -133,8 +134,17 @@ Route::post('/password/update', [UserController::class, 'updatePassword'])->name
 Route::get('/show-roomtype/{roomtype_id}', [RoomTypeController::class,'show_roomtype']);
 Route::get('/show-kindofroom/{kindofroom_id}', [KindOfRoomController::class,'show_kindofroom']);
 
+//send email 
 Route::get('/contactUs',[ContactController::class,'index']);
 Route::post('/sendContact',[ContactController::class,'send_contact'])->name('contact');
 Route::get('/send_email',[ContactController::class,'send_email']);
 Route::get('/customer/activeAccount/{user}/{token}',[RegisterController::class,'active_account'])->name('customer.activeAccount');
 
+
+Route::get('/admin/coupon/index',[CouponController::class,'index']);
+Route::post('/admin/coupon/save-coupon',[CouponController::class,'save_coupon'])->name('admin.coupon.saveCoupon');
+Route::get('/admin/coupon/dt-row-data', [CouponController::class, 'getDtRowData']);
+Route::get('/admin/coupon/delete/{id}', [CouponController::class, 'deleteCoupon'])->name('admin.coupon.delete');
+
+Route::post('/check-coupon',[CartController::class,'check_coupon'])->name('checkCoupon');
+Route::get('delete-coupon',[CartController::class, 'deleteCoupon']);

@@ -7,6 +7,8 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\CartRequest;
 use App\Models\Room;
+use App\Models\Coupon;
+use Session;
 use Cart;
 class CartController extends Controller
 {
@@ -43,7 +45,44 @@ class CartController extends Controller
         Cart::update($rowId,$qty);
         return Redirect::to('/show-cart');
     }
-    public function add_booking_ajax(CartRequest $request){
-        
+  public function check_coupon(Request $request)
+  {
+    $data = $request->all();
+    $coupon = Coupon::where('coupon_code',$data['coupon'])->first();
+    if($coupon){
+        $count_coupon = $coupon->count();
+        if($count_coupon > 0){
+            $coupon_session = Session::get('coupon');
+            if($coupon_session==true){
+                $is_avaiable = 0;
+                if($is_avaiable==0){
+                    $cou[] = array(
+                        'coupon_code' => $coupon->coupon_code,
+                        'coupon_condition' => $coupon->coupon_condition,
+                        'coupon_number' => $coupon->coupon_number,
+                    );
+                    Session::put('coupon',$cou);
+                }
+            }else{
+                $cou[] = array(
+                    'coupon_code' => $coupon->coupon_code,
+                    'coupon_condition' => $coupon->coupon_condition,
+                    'coupon_number' => $coupon->coupon_number,
+                );
+                Session::put('coupon',$cou);
+            }
+            Session::save();
+            return redirect()->back()->with('success','Add coupon success');
+        } 
+    }else{
+        return redirect()->back()->with('message','There is no coupon with this code');
+    } 
+  }
+  public function deleteCoupon(){
+    $coupon = Session::get('coupon');
+    if($coupon == true){
+        Session::forget('coupon');
+        return redirect()->back()->with('success','Delete coupon success');
     }
+  }
 }

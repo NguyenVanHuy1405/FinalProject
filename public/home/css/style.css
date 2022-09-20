@@ -4361,13 +4361,14 @@ footer li:hover {
   margin-top: 18px;
   border: none;
   padding: 5px 15px;
+  
 }
 .update{
     margin-left: 40px;
 }
 
 .check_out {
-  margin-left: 20px
+  margin-left:40px;
 }
 
 .section_gap p{

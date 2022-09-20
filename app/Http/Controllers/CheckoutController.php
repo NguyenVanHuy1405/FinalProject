@@ -38,7 +38,7 @@ class CheckoutController extends Controller
         Session::put('booking_id',$booking_id);
         return Redirect::to('/payment');
     }
-    public function payment(){
+    public function payment(Request $request){
         $meta_keywords = "Royal, Royal Hotel, Checkout booking room";
         $meta_description ="Owning a chain of hotels stretching across Vietnam, meeting most of the needs of guests.";
         $url_canonical = $request->url();
