@@ -184,7 +184,7 @@
     });
 </script>
 <script>
-    @if($errors->has('kindofroom_name')||$errors->has('kindofroom_desc')||$errors->has('kindofroom_status'))
+    @if($errors->has('coupon_name')||$errors->has('coupon_time')||$errors->has('coupon_code')||$errors->has('coupon_condition')||$errors->has('coupon_number'))
     var delayInMilliseconds = 1000;
     setTimeout(function() {
         $("#exampleModal").modal('show');

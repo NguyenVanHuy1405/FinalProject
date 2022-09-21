@@ -6,12 +6,13 @@ use App\Models\Coupon;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
+use App\Http\Requests\CouponRequest;
 class CouponController extends Controller
 {
     public function index(){
         return view('admin.coupon.index');
     }
-    public function save_coupon(Request $request){
+    public function save_coupon(CouponRequest $request){
         $data = $request->all();
         $coupon = new Coupon();
         $coupon->coupon_name = $data['coupon_name'];

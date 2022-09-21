@@ -141,7 +141,7 @@ Route::get('/send_email',[ContactController::class,'send_email']);
 Route::get('/customer/activeAccount/{user}/{token}',[RegisterController::class,'active_account'])->name('customer.activeAccount');
 
 
-Route::get('/admin/coupon/index',[CouponController::class,'index']);
+Route::get('/admin/coupon/index',[CouponController::class,'index'])->name('admin.coupon.index');
 Route::post('/admin/coupon/save-coupon',[CouponController::class,'save_coupon'])->name('admin.coupon.saveCoupon');
 Route::get('/admin/coupon/dt-row-data', [CouponController::class, 'getDtRowData']);
 Route::get('/admin/coupon/delete/{id}', [CouponController::class, 'deleteCoupon'])->name('admin.coupon.delete');

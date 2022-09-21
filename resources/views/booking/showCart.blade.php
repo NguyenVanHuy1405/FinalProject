@@ -150,7 +150,7 @@
                         <li>Cart Sub Total <span>{{Cart::priceTotal(0,',','.').' '.'VND'}}</span></li>
                         <li>Eco Tax <span>{{Cart::tax(0,',','.').' '.'VND'}}</span></li>
                         <li>
-                        @if(Session::get('coupon'))
+                        @if(Session::get('coupon')==!null)
                           @foreach(Session::get('coupon') as $key => $cou)
                             @if($cou['coupon_condition']==1)  
                               Coupon code <span>{{$cou['coupon_number']}} %</span> 
@@ -171,6 +171,8 @@
                                 @endphp     
                             @endif
                           @endforeach
+                          @else
+                            Total <span>{{Cart::total(0,',','.').' '.'VND'}}</span>
                         @endif   
                         </li>
 
