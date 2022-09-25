@@ -144,3 +144,13 @@
     </div>
   </section>
 @endsection
+@section('custom-js')
+   <script type="text/javascript">
+      $(document).ready(function(){
+        $('.add-to-cart').click(function(){ 
+          swal("here are the messages");
+        });
+
+      });
+    </script>
+@endsection

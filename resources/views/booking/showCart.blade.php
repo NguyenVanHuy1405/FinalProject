@@ -150,23 +150,22 @@
                         <li>Cart Sub Total <span>{{Cart::priceTotal(0,',','.').' '.'VND'}}</span></li>
                         <li>Eco Tax <span>{{Cart::tax(0,',','.').' '.'VND'}}</span></li>
                         <li>
-                        @if(Session::get('coupon')==!null)
+                        @if(Session::get('coupon'))
                           @foreach(Session::get('coupon') as $key => $cou)
                             @if($cou['coupon_condition']==1)  
                               Coupon code <span>{{$cou['coupon_number']}} %</span> 
                                 @php
-                                  $total_price = $value->price * $value->qty;
-                                  $total_coupon = ($total_price *$cou['coupon_number'])/100;
+                                  $total_coupon = ($after_total *$cou['coupon_number'])/100;
                                   echo '<li>Total Coupon <span>'.number_format($total_coupon,0,',','.').' '.'VND'.'<span></li>';
-                                  $total = $total_price - $total_coupon;
+                                  $total = $after_total - $total_coupon;
                                   echo'<li>Total<span>'.number_format($total,0,',','.').' '.'VND'.'</span></li>';
                                 @endphp 
                             @elseif($cou['coupon_condition']==2)  
                               Coupon code <span>{{number_format($cou['coupon_number'],0,',','.')}} VND</span> 
                                 @php
-                                  $total_coupon = ($cou['coupon_number']);
+                                  $total_coupon = $cou['coupon_number'];
                                   echo '<li>Total Coupon <span>'.number_format($total_coupon,0,',','.').' '.'VND'.'<span></li>';
-                                  $total = $total_price - $total_coupon;
+                                  $total = $after_total - $total_coupon;
                                   echo'<li>Total<span>'.number_format($total,0,',','.').' '.'VND'.'</span></li>';
                                 @endphp     
                             @endif
@@ -182,7 +181,9 @@
                     @else
                     <a class="btn btn-default check_out"  href="{{URL::to('/checkout')}}">Check Out</a>
                     @endif
+                    @if(Session::has('coupon'))
                     <a class="btn btn-danger delete-coupon"  href="{{URL::to('/delete-coupon')}}">Delete coupon</a>
+                    @endif
                 </div>
             </div>
         </div>

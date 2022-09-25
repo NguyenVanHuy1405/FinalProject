@@ -14,6 +14,7 @@ use App\Models\Order_detail;
 use App\Models\Order;
 use Yajra\Datatables\Datatables;
 use DB;
+use PDF;
 class AdminController extends Controller
 {
     public function __construct()
@@ -91,5 +92,11 @@ class AdminController extends Controller
                }
            ])
            ->make(true);
+   }
+   public function print_order($id){
+    $order_details = Order_detail::where('order_id', $id)->get();
+    view()->share('order',$order_details);
+    $pdf = PDF::loadView('admin.print_order',compact('order_details'));
+    return $pdf->stream('order_total');
    }
 }

@@ -228,6 +228,36 @@ span.error{
   margin-top:10px;
   margin-bottom:10px;
 }
+select.payment{
+  width: 300px;
+}
+div.payment{
+  width: 362px;
+}
+label.choice_payment{
+  font-size:20px;
+  color:black !important;
+}
+p.payment_method{
+  font-size:16px;
+  margin-bottom:-10px;
+  margin-top:10px;
+  font-weight: bold;
+}
+section.do_action{
+  padding-left:10px;
+}
+div.total_area{
+  margin-left:-130px;
+  width: 500px;
+}
+p.total{
+  font-size:20px;
+  margin-bottom:10px;
+  margin-top:10px;
+  font-weight: bold;
+  color:red;
+}
 </style>
 @endsection
 @section('content')
@@ -239,6 +269,14 @@ span.error{
 				  <li class="active_cart">Check out</li>
 				</ol>
 			</div><!--/breadcrums-->
+      @if(\Session::has('error'))
+        <div class="alert alert-danger">{{ \Session::get('error') }}</div>
+        {{ \Session::forget('error') }}
+      @endif
+      @if(\Session::has('success'))
+        <div class="alert alert-success">{{ \Session::get('success') }}</div>
+        {{ \Session::forget('success') }}
+      @endif
 			<div class="register-req">
 				<p>Please use Register And Checkout to easily get access to your order history, or use Checkout as Guest</p>
 			</div><!--/register-req-->
@@ -271,6 +309,32 @@ span.error{
                 @endif
                </input>
                 <textarea class="note" name="booking_note"  placeholder="Notes on your booking" rows="10"></textarea>
+                @if(Session::get('coupon'))
+                @foreach(Session::get('coupon') as $key => $value)
+                @if($value['coupon_condition']==1) 
+                <input type="hidden" name="coupon" class="booking_coupon" value="{{$value['coupon_number']}}%">
+                @else
+                <input type="hidden" name="coupon" class="booking_coupon" value="{{$value['coupon_number']}}đ">
+                @endif
+                @endforeach
+                @else
+                <input type="hidden" name="coupon" class="booking_coupon" value="0">
+                @endif
+                <div class="">
+                  <div class="form-group payment">
+                    <label class="choice_payment">Choice a method to payment</label>
+                    <br>
+                    <select class="payment" id="payment" name="payment_method" required>
+                    @if(!Session::get('successTransaction')==true)
+                      <option>Please select</option>
+                      <option value="1">HandCash</option>
+                      <option value="2">Banking</option>
+                    @else
+                    <option value="3">Successfully paid by Paypal</option>  
+                    @endif
+                    </select>  
+                  </div>
+                </div>    
 							  <input type="submit" value="Send" name="send_booking" class="btn btn-primary btn-sm">
 							</form>
 						</div>
@@ -314,7 +378,9 @@ span.error{
                                     {{ csrf_field() }}
                                 <input class="cart_quantity_input" type="text" name="cart_quantity" value="{{$value->qty}}">
                                 <input type="hidden" value="{{$value->rowId}}" name="rowId_cart" class="form control">
+                                @if(!Session::get('successTransaction')==true)
                                 <input type="submit" value="Update" name="update_qty" class="btn btn-primary btn-sm">
+                                @endif
                                </form>
                             </div>
                         </td>
@@ -327,12 +393,74 @@ span.error{
                             </p>
                         </td>
                         <td class="cart_delete">
+                            @if(!Session::get('successTransaction')==true)
                             <a class="cart_quantity_delete" href="{{URL::to('/delete-to-cart/'.$value->rowId)}}"><i class="fa fa-times"></i></a>
+                            @endif
                         </td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
 		</div>
-	</section> <!--/#cart_items-->
+    <section id="do_action">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="total_area">
+                    <ul>
+                        <p class="total">Total amount of the reservation:</p>
+                        <li>Cart Sub Total <span>{{Cart::priceTotal(0,',','.').' '.'VND'}}</span></li>
+                        <li>Eco Tax <span>{{Cart::tax(0,',','.').' '.'VND'}}</span></li>
+                        <li>
+                        @if(Session::get('coupon'))
+                          @foreach(Session::get('coupon') as $key => $cou)
+                            @if($cou['coupon_condition']==1)  
+                              Coupon code <span>{{$cou['coupon_number']}} %</span> 
+                                @php
+                                  $total_coupon = ($after_total *$cou['coupon_number'])/100;
+                                  echo '<li>Total Coupon <span>'.number_format($total_coupon,0,',','.').' '.'VND'.'<span></li>';
+                                  $total = $after_total - $total_coupon;
+                                  echo'<li>Total<span>'.number_format($total,0,',','.').' '.'VND'.'</span></li>';
+                                  $vnd_to_usd = $total/23710;
+                                  $total_payment = round($vnd_to_usd, 2);
+                                  \Session::put('total_payment',$total_payment);
+                                  \Session::put('total',$total);
+                                  @endphp 
+                            @elseif($cou['coupon_condition']==2)  
+                              Coupon code <span>{{number_format($cou['coupon_number'],0,',','.')}} VND</span> 
+                                @php
+                                  $total_coupon = $cou['coupon_number'];
+                                  echo '<li>Total Coupon <span>'.number_format($total_coupon,0,',','.').' '.'VND'.'<span></li>';
+                                  $total = $after_total - $total_coupon;
+                                  echo'<li>Total<span>'.number_format($total,0,',','.').' '.'VND'.'</span></li>';
+                                  $vnd_to_usd = $total/23710;
+                                  $total_payment = round($vnd_to_usd, 2);
+                                  \Session::put('total_payment',$total_payment);
+                                  \Session::put('total',$total);
+                                  @endphp     
+                            @endif
+                          @endforeach
+                          @else
+                          @php
+                             echo'Total<span>'.number_format($after_total,0,',','.').' '.'VND'.'</span>';
+                             $vnd_to_usd = $after_total/23710;
+                             $total_payment = round($vnd_to_usd, 2);
+                             \Session::put('total_payment',$total_payment);
+                          @endphp
+                        @endif   
+                        </li>
+                        @if(!Session::get('successTransaction')==true)
+                        <p class="payment_method">Payment with:</p>
+                        <a href="{{ route('processTransaction') }}">
+                          <img src="{{asset('home/image/paypal.png')}}" alt="paypal_payment" width="70px" height="70px">
+                        </a>
+                        @else
+                        <p class="payment_method">Successfully paid for the reservation with paypal</p>
+                        @endif
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 @endsection

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Models\Booking;
 use App\Models\Payment;
 use App\Models\User;
+use App\Models\Room;
 use App\Models\Order;
 use App\Models\Order_detail;
 use Illuminate\Http\Request;
@@ -20,13 +21,16 @@ class CheckoutController extends Controller
         $this->middleware('auth');
     }
     public function checkout(Request $request){
+        $total = Cart::total();
+        $after_total= (float)str_replace(',', '', $total);
         $meta_keywords = "Royal, Royal Hotel, Checkout booking room";
         $meta_description ="Owning a chain of hotels stretching across Vietnam, meeting most of the needs of guests.";
         $url_canonical = $request->url();
         $meta_title = "Checkout booking room";
-        return view('checkout.show_checkout',compact('meta_keywords','meta_description','url_canonical','meta_title'));
+        return view('checkout.show_checkout',compact('meta_keywords','meta_description','url_canonical','meta_title','after_total'));
     }
     public function save_checkout(BookingRequest $request){
+        $total = Session::get('total');
         $data = array();
         $data['booking_name'] = $request->booking_name;
         $data['booking_email'] = $request->booking_email;
@@ -36,17 +40,54 @@ class CheckoutController extends Controller
         
         $booking_id = Booking::insertGetId($data);
         Session::put('booking_id',$booking_id);
-        return Redirect::to('/payment');
+
+        //payment
+
+        $data = array();
+        $data['payment_method'] = $request->payment_method;
+        $data['payment_status'] = 'Pending';
+        $payment_id = Payment::insertGetId($data);
+
+        //order
+
+        $order_data = array();
+        $order_data['user_id']=  Auth::user()->id;
+        $order_data['booking_id'] = Session::get('booking_id');
+        $order_data['payment_id'] = $payment_id;
+        if(Session::get('coupon')){
+        $order_data['order_total'] = $total;
+        }
+        else{
+            $order_data['order_total'] = Cart::total();
+        }
+        $order_data['coupon_booking'] = $request->coupon;
+        $order_data['order_status'] = 'Pending';
+        $order_id = Order::insertGetId($order_data);
+
+        //order_detail
+        $content = Cart::content();
+        foreach($content as $v_content){
+            $order_d_data['order_id'] = $order_id;
+            $order_d_data['room_id'] = $v_content->id;
+            $order_d_data['room_name'] = $v_content->name;
+            $order_d_data['room_price'] = $v_content->price;
+            $order_d_data['room_sales_quantity'] = $v_content->qty;
+            Room::where('id',$order_d_data['room_id'])->update(['room_status'=>0]);
+            Order_detail::insert($order_d_data);
+        }
+        Cart::destroy();
+        Session::forget('successTransaction');
+        Session::forget('coupon');
+        return redirect()->back();
     }
-    public function payment(Request $request){
+    public function order_place(Request $request){
+        //meta seo
         $meta_keywords = "Royal, Royal Hotel, Checkout booking room";
         $meta_description ="Owning a chain of hotels stretching across Vietnam, meeting most of the needs of guests.";
         $url_canonical = $request->url();
         $meta_title = "Payment for booking room";
-        return view('checkout.payment',compact('meta_keywords','meta_description','url_canonical','meta_title'));
-    }
-    public function order_place(Request $request){
         //payment
+
         $data = array();
         $data['payment_method'] = $request->payment_option;
         $data['payment_status'] = 'Pending';
@@ -70,13 +111,14 @@ class CheckoutController extends Controller
             $order_d_data['room_name'] = $v_content->name;
             $order_d_data['room_price'] = $v_content->price;
             $order_d_data['room_sales_quantity'] = $v_content->qty;
+            Room::where('id',$order_d_data['room_id'])->update(['room_status'=>0]);
             Order_detail::insert($order_d_data);
         }
         if( $data['payment_method'] == 1){
             echo 'Payment by ATM card';
         }elseif($data['payment_method'] == 2){
             Cart::destroy();
-            return view('checkout.handCash');
+            return view('checkout.handCash',compact('meta_keywords','meta_description','url_canonical','meta_title'));
         }
         else{
             echo 'Payment by Paypal';

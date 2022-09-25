@@ -24,16 +24,28 @@ class CartController extends Controller
         $data['price'] = $room_info->room_price;
         $data['weight'] = $room_info->room_price;
         $data['options']['image'] = $room_info->room_image;
+        $totalPrice = $data['price'] * $data['qty'];
         Cart::add($data);
         Cart::setGlobalTax(0);
         return Redirect::to('/show-cart');
     }
     public function show_cart(Request $request){
+        $total = Cart::total();
+        $after_total= (float)str_replace(',', '', $total);
         $meta_keywords = "Royal, Royal Hotel";
         $meta_description ="Owning a chain of hotels stretching across Vietnam, meeting most of the needs of guests.";
         $url_canonical = $request->url();
         $meta_title = "Royal Hotel";      
-        return view('booking.showCart',compact('meta_keywords','meta_description','url_canonical','meta_title'));
+        return view('booking.showCart',compact('meta_keywords','meta_description','url_canonical','meta_title','after_total'));
+    }
+    public function payment(Request $request){
+        $total = Cart::total();
+        $after_total= (float)str_replace(',', '', $total);
+        $meta_keywords = "Royal, Royal Hotel, Checkout booking room";
+        $meta_description ="Owning a chain of hotels stretching across Vietnam, meeting most of the needs of guests.";
+        $url_canonical = $request->url();
+        $meta_title = "Payment for booking room";
+        return view('checkout.payment',compact('meta_keywords','meta_description','url_canonical','meta_title','after_total'));
     }
     public function delete_cart($rowId){ 
         Cart::update($rowId,0);

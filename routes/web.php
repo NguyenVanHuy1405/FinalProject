@@ -13,6 +13,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\PayPalController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -111,9 +112,9 @@ Route::get('/google/login',[RegisterController::class,'login_google'])->name('lo
 Route::get('/google/callback',[RegisterController::class,'callback_google']);
 
 
-Route::get('/checkout', [CheckoutController::class, 'checkout']);
+Route::get('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
 Route::post('/save-checkout',[CheckoutController::class,'save_checkout']);
-Route::get('/payment',[CheckoutController::class,'payment']);
+Route::get('/payment',[CartController::class,'payment'])->name('payment');
 Route::post('/order-place',[CheckoutController::class,'order_place']);
 Route::post('/add-booking-ajax',[CartController::class,'add_booking_ajax']);
 
@@ -135,9 +136,8 @@ Route::get('/show-roomtype/{roomtype_id}', [RoomTypeController::class,'show_room
 Route::get('/show-kindofroom/{kindofroom_id}', [KindOfRoomController::class,'show_kindofroom']);
 
 //send email 
-Route::get('/contactUs',[ContactController::class,'index']);
+Route::get('/contactUs',[ContactController::class,'index'])->name('contactUs');
 Route::post('/sendContact',[ContactController::class,'send_contact'])->name('contact');
-Route::get('/send_email',[ContactController::class,'send_email']);
 Route::get('/customer/activeAccount/{user}/{token}',[RegisterController::class,'active_account'])->name('customer.activeAccount');
 
 
@@ -148,3 +148,15 @@ Route::get('/admin/coupon/delete/{id}', [CouponController::class, 'deleteCoupon'
 
 Route::post('/check-coupon',[CartController::class,'check_coupon'])->name('checkCoupon');
 Route::get('delete-coupon',[CartController::class, 'deleteCoupon']);
+
+
+//print pdf
+
+Route::get('/print-orders/{id}',[AdminController::class, 'print_order']);
+
+//paypal
+
+Route::get('/create-transaction', [PayPalController::class, 'createTransaction'])->name('createTransaction');
+Route::get('/process-transaction', [PayPalController::class, 'processTransaction'])->name('processTransaction');
+Route::get('/success-transaction', [PayPalController::class, 'successTransaction'])->name('successTransaction');
+Route::get('/cancel-transaction', [PayPalController::class, 'cancelTransaction'])->name('cancelTransaction');

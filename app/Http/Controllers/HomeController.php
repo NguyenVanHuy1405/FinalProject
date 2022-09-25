@@ -8,6 +8,7 @@ use App\Models\KindOfRoom;
 use App\Models\RoomType;
 use Auth;
 use File;
+use DB;
 
 class HomeController extends Controller
 {
@@ -46,7 +47,7 @@ class HomeController extends Controller
         $roomType = RoomType::where('roomtype_status','1')->orderBy('id','desc')->get();
         $kindofRoom = KindOfRoom::where('kindofroom_status','1')->orderBy('id','desc')->get();
         $room_id = Room::join('room_types','room_types.id','=','rooms.roomtype_id')->
-        join('kind_of_rooms','kind_of_rooms.id','=','rooms.kindofroom_id')->where('rooms.id',$id)->get();
+        join('kind_of_rooms','kind_of_rooms.id','=','rooms.kindofroom_id')->where('rooms.id','=',$id)->get();
         $room = Room::where('rooms.id',$id)->get();
         foreach($room_id as $key => $value){
             $roomType_id = $value->roomtype_id;
@@ -55,7 +56,6 @@ class HomeController extends Controller
             $url_canonical = $request->url();
             $meta_title = "Detail Room Booking";
          }
-         
      
      $related_room = Room::join('room_types','room_types.id','=','rooms.roomtype_id')->
      join('kind_of_rooms','kind_of_rooms.id','=','rooms.kindofroom_id')

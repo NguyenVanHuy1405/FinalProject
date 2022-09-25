@@ -233,6 +233,9 @@ h2.payment{
     padding-bottom:30px;
     font-family: 'Roboto Slab', serif;
 }
+div.paypal{
+  width: 40%;
+}
 </style>
 @endsection
 @section('content')
@@ -244,6 +247,14 @@ h2.payment{
 				  <li class="active_cart">Payment</li>
 				</ol>
 			</div><!--/breadcrums-->
+      @if(\Session::has('error'))
+        <div class="alert alert-danger">{{ \Session::get('error') }}</div>
+        {{ \Session::forget('error') }}
+    @endif
+    @if(\Session::has('success'))
+        <div class="alert alert-success">{{ \Session::get('success') }}</div>
+        {{ \Session::forget('success') }}
+    @endif
 			<div class="review-payment">
 				<h2>Review & Payment</h2>
 			</div>
@@ -301,22 +312,6 @@ h2.payment{
                 </tbody>
             </table>
         </div>
-            <h2 class="payment">Choice a payment method</h2>
-      <form action="{{URL::to('/order-place')}}" method="post">
-      {{ csrf_field() }}     
-			<div class="payment-options">
-					<span>
-						<label><input type="checkbox" name="payment_option" value="1" > Direct Bank Transfer</label>
-					</span>
-					<span>
-						<label><input type="checkbox" name="payment_option" value="2" > Payment in cash</label>
-					</span>
-					<span>
-						<label><input type="checkbox" name="payment_option" value="3"> Paypal</label>
-					</span>
-          <input type="submit" value="Payment" name="send_payment" class="btn btn-primary btn-sm">
-			</div>
-      </form>
 		</div>
 	</section>
 @endsection

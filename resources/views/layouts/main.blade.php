@@ -65,7 +65,9 @@
             @if (!auth()->user())
               <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Sign in</a></li>
             @endif
+            @if (!auth()->user()->hasRole('admin'))
             <li class="nav-item "><a class="nav-link" href="{{URL::to('contactUs')}}">Contact us</a></li>
+            @endif
             @if (auth()->user())
             @if (auth()->user()->hasRole('admin') || auth()->user()->hasRole('staff'))
                 <li class="nav-item"><a class="nav-link"
@@ -207,6 +209,10 @@
   <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v14.0&appId=1097822581150555&autoLogAppEvents=1" nonce="bwHz9FNl"></script>
   <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v14.0&appId=1097822581150555&autoLogAppEvents=1" nonce="c8zF8Qu9"></script>
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <script
+  src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"
+  integrity="sha256-xLD7nhI62fcsEZK2/v8LsBcb4lG7dgULkuXoXB/j91c="
+  crossorigin="anonymous"></script>
   <script src="{{asset('home/js/sweetalert.min.js')}}"></script>
   @yield('custom-js')
 </body>

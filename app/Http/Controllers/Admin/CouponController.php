@@ -34,7 +34,7 @@ class CouponController extends Controller
                 return $data->coupon_time;
             })
             ->editColumn('coupon_condition', function ($data) {
-                if($data->coupon_condition == 1)
+                if($data->coupon_condition == 2)
                 {
                     return 'Cash coupon';
                 }
