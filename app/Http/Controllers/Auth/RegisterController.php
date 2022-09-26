@@ -50,7 +50,7 @@ class RegisterController extends Controller
 
                 $request->session()->regenerateToken();
 
-                return redirect()->back()->with('message', 'The account has not been confirmed,<a href="'. route('forgetPassword') . '"> click here  </a>  to see the result');
+                return redirect()->back()->with('error', 'The account has not been confirmed,<a href="'. route('getAccount') . '"><b class="click"> Click here</b></a>  to active your account');
             }
             return Redirect::to('/checkout');
         }
@@ -175,6 +175,17 @@ class RegisterController extends Controller
     $new_password = Hash::make($request->password);
     $user->update(['password' => $new_password,'token' => null]);
     return Redirect::to('/loginCustomer')->with('success','Reset password successfully');
+   }
+   public function get_account(){
+    return view('auth.activeAccount');
+   }
+   public function post_account(ResetPasswordRequest $request){
+    $new_user = User::where('email', '=', $request->email)->first();
+    $token = strtoupper(Str::random(10));
+    $new_user ->update(['token' => $token]);
+    SendVerifyAccount::dispatch($new_user)->delay(now());
+    return redirect()->back()->with('success', 'Please check your email to active account. Thank you!!!');
+
    }
 
 

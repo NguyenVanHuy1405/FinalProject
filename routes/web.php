@@ -146,6 +146,11 @@ Route::post('/forgetPassword',[RegisterController::class,'post_forget_password']
 Route::get('/getPassword/{user}/{token}',[RegisterController::class,'get_password'])->name('getPassword');
 Route::post('/getPassword/{user}/{token}',[RegisterController::class,'post_password']);
 
+//activeAccount
+Route::get('/active-user-account',[RegisterController::class,'get_account'])->name('getAccount');
+Route::post('/active-user-account',[RegisterController::class,'post_account']);
+
+
 Route::get('/admin/coupon/index',[CouponController::class,'index'])->name('admin.coupon.index');
 Route::post('/admin/coupon/save-coupon',[CouponController::class,'save_coupon'])->name('admin.coupon.saveCoupon');
 Route::get('/admin/coupon/dt-row-data', [CouponController::class, 'getDtRowData']);

@@ -68,7 +68,15 @@ a:hover {
 h1,h2,h3,h4,h5,h6 {
 	margin: 0px;
 }
-
+p.input01{
+  font-size: 18px;
+  text-align: center;
+  font-family: Poppins-Regular;
+  color: #666666;
+}
+p.click{
+  color:red;
+}
 p {
 	font-family: Poppins-Regular;
 	font-size: 14px;
@@ -486,4 +494,5 @@ div.g-recaptcha{
     padding-left: 15px;
     padding-right: 15px;
   }
+
 } 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Login for customer</title>
+	<title>Forget password</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -38,9 +38,10 @@
 						Forgot Password
 					</span>
 					@include('layouts.alertProfile')
+					<p class="input01">Please enter your email to be able to change the password for your account.</p>
 					<div class="wrap-input100 validate-input m-b-23">
-						<span class="label-input100">Email</span>
-						<input class="input100" type="text" name="email" placeholder="Input your email to change password">
+						<span class="label-input100"><b>Email:</b></span>
+						<input class="input100" type="text" name="email" placeholder="Input your email">
 						<span class="focus-input100" data-symbol="&#xf206;"></span>
 						@error('email')
                             <span class="invalid-feedback" role="alert" style="display: block">
