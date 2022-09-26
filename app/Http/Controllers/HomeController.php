@@ -56,10 +56,10 @@ class HomeController extends Controller
             $url_canonical = $request->url();
             $meta_title = "Detail Room Booking";
          }
-     
+     $related = Room::where('rooms.id',$id)->where('room_status','1')->first();
      $related_room = Room::join('room_types','room_types.id','=','rooms.roomtype_id')->
      join('kind_of_rooms','kind_of_rooms.id','=','rooms.kindofroom_id')
      ->where('room_types.id',$roomType_id)->whereNotIn('rooms.id',[$id])->get();
-     return view('booking.detailRoom',compact('roomType','kindofRoom','room','room_id','related_room','meta_keywords','meta_description','url_canonical','meta_title'));
+     return view('booking.detailRoom',compact('roomType','kindofRoom','room','room_id','related_room','meta_keywords','meta_description','url_canonical','meta_title','related'));
     }
 }

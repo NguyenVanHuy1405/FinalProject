@@ -140,6 +140,11 @@ Route::get('/contactUs',[ContactController::class,'index'])->name('contactUs');
 Route::post('/sendContact',[ContactController::class,'send_contact'])->name('contact');
 Route::get('/customer/activeAccount/{user}/{token}',[RegisterController::class,'active_account'])->name('customer.activeAccount');
 
+//forgetPassword
+Route::get('/forgetPassword',[RegisterController::class,'forget_password'])->name('forgetPassword');
+Route::post('/forgetPassword',[RegisterController::class,'post_forget_password']);
+Route::get('/getPassword/{user}/{token}',[RegisterController::class,'get_password'])->name('getPassword');
+Route::post('/getPassword/{user}/{token}',[RegisterController::class,'post_password']);
 
 Route::get('/admin/coupon/index',[CouponController::class,'index'])->name('admin.coupon.index');
 Route::post('/admin/coupon/save-coupon',[CouponController::class,'save_coupon'])->name('admin.coupon.saveCoupon');

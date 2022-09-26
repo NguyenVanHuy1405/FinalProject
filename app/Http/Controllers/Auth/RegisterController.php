@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CustomerRegisterRequest as CustomerRequest;
 use App\Http\Requests\LoginCustomerRequest as LoginRequest;
+use App\Http\Requests\ResetPasswordRequest;
 use App\Jobs\SendVerifyAccount;
+use App\Jobs\SendMailResetPasswordAccount;
 use App\Models\Role;
 use App\Models\Social;
 use App\Models\User;
@@ -15,6 +17,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 use Session;
 use Socialite;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -47,7 +50,7 @@ class RegisterController extends Controller
 
                 $request->session()->regenerateToken();
 
-                return redirect()->back()->with('message', 'The account has not been confirmed, please confirm the account to use on the system.');
+                return redirect()->back()->with('message', 'The account has not been confirmed,<a href="'. route('forgetPassword') . '"> click here  </a>  to see the result');
             }
             return Redirect::to('/checkout');
         }
@@ -145,6 +148,33 @@ class RegisterController extends Controller
         $user->save();
     }
         Auth::login($user);
+   }
+   public function forget_password(){
+    return view('auth.forgetPassword');
+   }
+   public function post_forget_password(ResetPasswordRequest $request)
+   {
+       $user = User::where('email', '=', $request->email)->first();
+       $token = strtoupper(Str::random(10));
+       $user ->update(['token' => $token]);
+       SendMailResetPasswordAccount::dispatch($user)->delay(now());
+       return redirect()->back()->with('success', 'Please check mail to change new password');
+   }
+   public function get_password(User $user, $token){
+    if($user->token === $token){
+        return view('auth.resetpassword');
+    }
+    return abort('404');
+   }
+   public function post_password(User $user, $token,Request $request){
+    $request -> validate([
+        'password' =>'required|min:8',
+        'password_confirmation' =>'required|same:password'
+    ]);
+
+    $new_password = Hash::make($request->password);
+    $user->update(['password' => $new_password,'token' => null]);
+    return Redirect::to('/loginCustomer')->with('success','Reset password successfully');
    }
 
 

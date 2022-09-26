@@ -140,7 +140,7 @@
                 <div class="blog_right_sidebar">
                     <aside class="single_sidebar_widget popular_post_widget">
                         <h3 class="widget_title">RECOMMENDED ROOMS</h3>
-                        @foreach($related_room as $key => $related)
+                        @foreach($related->roomtype->rooms as $related)
                         <div class="media post_item">
                             <img class="image_recomend" src="{{URL::to('admin/uploads/room/'.$related->room_image)}}" alt="post">
                             <div class="media-body">

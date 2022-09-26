@@ -15,7 +15,7 @@ class Room extends Model
     protected $primaryKey = 'id';
     protected $fillable = [
         'room_name',
-        'romtype_id',
+        'roomtype_id',
         'kindofroom_id',
         'room_description',
         'room_content',
@@ -27,6 +27,6 @@ class Room extends Model
         return $this->belongsTo(KindOfRoom::class);
     }
     public function roomtype(){
-        return $this->belongsTo(RoomType::class);
+        return $this->belongsTo(RoomType::class,'roomtype_id','id');
     }
 }

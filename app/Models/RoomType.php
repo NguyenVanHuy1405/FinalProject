@@ -17,6 +17,6 @@ class RoomType extends Model
         'roomtype_status',
     ];
     public function rooms(){
-        return $this->hasMany('App\Models\RoomType','roomtype_id');
+        return $this->hasMany(Room::class,'roomtype_id','id')->where('room_status','1');
     }
 }
