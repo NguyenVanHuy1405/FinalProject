@@ -25,25 +25,39 @@ class AdminController extends Controller
         return view('admin.dashboard');
     } 
    public function manager_booking(){
+    $order = Order::with(['user','booking','payment'])->first();
     return view( 'admin.managerBooking.manager');
    }
    public function getDtRowData(Request $request)
    {
-       $order = DB::table('orders')
-       ->join('users','orders.user_id','=','users.id')
-       ->select('orders.*','users.name')
-       ->orderby('orders.id','desc')->get();      
+       $order = Order::with(['user','booking','payment'])->get();      
        return DataTables::of($order)
-           ->editColumn('name', function ($data) {
-            return ' <a href="' . route('admin.managerBooking.detail', $data->id) . '">' . $data->name . '</a>';
+           ->editColumn('customer_name', function ($data) {
+            return $data->user->name;
+           })
+           ->editColumn('customer_address', function ($data) {
+            return $data->booking->booking_address;
            })
            ->editColumn('order_total', function ($data) {
             return $data->order_total;
-           })
-           ->editColumn('order_status', function ($data) {
-               return $data->order_status;
-           })
-           ->rawColumns(['name'])
+        })
+        ->editColumn('payment_method', function ($data) {
+            if($data->payment->payment_method == 1){
+                return 'Pay with cash';
+            }
+            else{
+                return 'Banking';
+            }
+        })
+        ->editColumn('order_status', function ($data) {
+            return $data->booking->booking_number;
+        })
+        ->editColumn('action', function ($data) {
+            return '
+            <a class="btn btn-warning btn-sm rounded-pill" href="' . route("admin.managerBooking.detail", $data->id) . '"><i class="fa-solid fa-pen-to-square" title="Edit Room Type"></i>Detail</a>
+            ';
+        })
+           ->rawColumns(['action'])
            ->setRowAttr([
                'data-row' => function ($data) {
                    return $data->id;
@@ -52,11 +66,12 @@ class AdminController extends Controller
            ->make(true);
    }
    public function detail_booking($id){
-    $detail = Order::where('orders.id',$id)->get();
-    // echo '<pre>';
-    // print_r($detail);
-    // echo '</pre>';
-    return view('admin.managerBooking.detailBooking',compact('detail'));
+    $detail = Order::with(['user','booking','order_details'])->first();
+    $user_name = $detail->order_details->room_name;
+    echo '<pre>';
+    print_r($user_name);
+    echo '</pre>';
+    // return view('admin.managerBooking.detailBooking',compact('detail'));
    }
    public function getDtRowDataDetail()
    {   

@@ -74,16 +74,23 @@
             ajax: '{{ url('/admin/booking/dt-row-data')}}',
             columns: [
                 {
-                    data: 'name',
-                    name: 'name',
+                    data: 'customer_name',
+                },
+                {
+                    data: 'customer_address',
                 },
                 {
                     data: 'order_total',
-                    name: 'order_total'
+                },
+                {
+                    data: 'payment_method',
                 },
                 {
                     data: 'order_status',
-                    name: 'order_status'
+                },
+                {
+                    data:'action',
+                    name: 'action'
                 }
             ]
         });

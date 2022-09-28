@@ -16,4 +16,7 @@ class Order_detail extends Model
         'room_name',
         'room_sales_quantity',
     ];
+    public function order(){
+        return $this->belongsTo('App\Models\Order');
+    }
 }

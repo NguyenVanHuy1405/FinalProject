@@ -18,4 +18,7 @@ class Booking extends Model
         'booking_number',
         'booking_notes',
     ];
+    public function order(){
+        return $this->belongsTo('App\Models\Order');
+    }
 }

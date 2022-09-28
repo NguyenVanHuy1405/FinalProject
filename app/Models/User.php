@@ -58,4 +58,7 @@ class User extends Authenticatable
     {
         return ($this->role->role_name == $role);
     }
+    public function order(){
+        return ($this->hasMany('App\Models\User'));
+    }
 }

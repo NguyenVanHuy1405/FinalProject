@@ -16,5 +16,17 @@ class Order extends Model
         'order_total',
         'order_status',
     ];
+    public function user(){
+        return $this->belongsTo('App\Models\User');
+    }
+    public function booking(){
+        return $this->belongsTo('App\Models\Booking');
+    } 
+    public function order_details(){
+        return $this->hasMany('App\Models\OrderDetail');
+    }
+    public function payment(){
+        return $this->belongsTo('App\Models\Payment');
+    } 
 
 }

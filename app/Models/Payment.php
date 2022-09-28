@@ -14,4 +14,8 @@ class Payment extends Model
         'payment_method',
         'payment_status',
     ];
+    public function order(){
+        return $this->belongsTo('App\Models\Order');
+    } 
+
 }
