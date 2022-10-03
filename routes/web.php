@@ -120,8 +120,8 @@ Route::post('/add-booking-ajax',[CartController::class,'add_booking_ajax']);
 
 Route::get('/admin/manager-booking', [AdminController::class, 'manager_booking'])->name('admin.managerBooking.index');
 Route::get('/admin/booking/dt-row-data', [AdminController::class, 'getDtRowData']);
-Route::get('/admin/manager-booking/detail/{id}', [AdminController::class, 'detail_booking'])->name('admin.managerBooking.detail');
-Route::get('/admin/booking/detail/dt-row-data', [AdminController::class, 'getDtRowDataDetail']);
+Route::get('/admin/booking/detail/{id}', [AdminController::class, 'detail_booking'])->name('admin.managerBooking.detail');
+Route::get('/admin/booking/detail/{id}/dt-row-data', [AdminController::class, 'getDtRowDataDetail']);
 
 //edit profile
 

@@ -71,31 +71,23 @@
         $('#users-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{{ url('/admin/booking/detail/dt-row-data')}}',
+            ajax: '{{ url('/admin/booking/detail/'.$detail_order->id.'/dt-row-data')}}',
             columns: [
-                {
-                    data: 'name',
-                    name: 'name',
-                },
-                {
-                    data: 'booking_address',
-                    name: 'booking_address',
-                },
-                {
-                    data: 'booking_number',
-                    name: 'booking_number',
-                },
+    
                 {
                     data: 'room_name',
-                    name: 'room_name',
                 },
                 {
                     data: 'room_sales_quantity',
-                    name: 'room_sales_quantity',
                 },
                 {
-                    data: 'order_total',
-                    name: 'order_total'
+                    data: 'room_price',
+                },
+                {
+                    data: 'order_price',
+                },
+                {
+                    data:'coupon_booking',
                 }
             ]
         });

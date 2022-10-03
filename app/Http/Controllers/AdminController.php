@@ -40,8 +40,8 @@ class AdminController extends Controller
            })
            ->editColumn('order_total', function ($data) {
             return $data->order_total;
-        })
-        ->editColumn('payment_method', function ($data) {
+           }) 
+           ->editColumn('payment_method', function ($data) {
             if($data->payment->payment_method == 1){
                 return 'Pay with cash';
             }
@@ -66,39 +66,29 @@ class AdminController extends Controller
            ->make(true);
    }
    public function detail_booking($id){
-    $detail = Order::with(['user','booking','order_details'])->first();
-    $user_name = $detail->order_details->room_name;
-    echo '<pre>';
-    print_r($user_name);
-    echo '</pre>';
-    // return view('admin.managerBooking.detailBooking',compact('detail'));
+    $detail_order = Order::find($id);
+    return view('admin.managerBooking.detailBooking',compact('detail_order'));
    }
-   public function getDtRowDataDetail()
+   public function getDtRowDataDetail($id)
    {   
-    $detail_by_id = DB::table('orders')
-    ->join('users','orders.user_id','=','users.id')
-    ->join('bookings','orders.booking_id','=','bookings.id')
-    ->join('order_details','orders.id','=','order_details.order_id')
-    ->select('orders.*','users.*','bookings.*','order_details.*')->get(); 
+    $detail_by_id = Order_detail::with(['order'])->where('order_id',$id)->get();
        return DataTables::of($detail_by_id)
-           ->editColumn('name', function ($data) {
-            return $data->name;
-           })
-           ->editColumn('booking_address', function ($data) {
-            return $data->booking_address;
-           })
-           ->editColumn('booking_number', function ($data) {
-               return $data->booking_number;
-           })
            ->editColumn('room_name', function ($data) {
             return $data->room_name;
            })
            ->editColumn('room_sales_quantity', function ($data) {
             return $data->room_sales_quantity;
            })
-           ->editColumn('order_total', function ($data) {
-            return $data->order_total;
+           ->editColumn('room_price', function ($data) {
+            return $data->room_price;
            })
+           ->editColumn('order_price', function ($data) {
+            return ($data->room_price) * ($data->room_sales_quantity);
+           })
+           ->editColumn('coupon_booking', function ($data) {
+            return $data->order->coupon_booking;
+           })
+
 
            ->rawColumns(['name'])
            ->setRowAttr([
