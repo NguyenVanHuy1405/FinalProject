@@ -4374,5 +4374,7 @@ footer li:hover {
 .section_gap p{
   font-size:20px;
 }
-
+button.language{
+  color:black;
+}
 

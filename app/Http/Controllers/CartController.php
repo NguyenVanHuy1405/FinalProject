@@ -60,7 +60,8 @@ class CartController extends Controller
   public function check_coupon(Request $request)
   {
     $data = $request->all();
-    $coupon = Coupon::where('coupon_code',$data['coupon'])->first();
+    $now = Carbon::now()->format('Y-m-d');
+    $coupon = Coupon::where('coupon_code',$data['coupon'])->where('coupon_date_end','>=',$now)->first();
     if($coupon){
         $count_coupon = $coupon->count();
         if($count_coupon > 0){
@@ -87,7 +88,7 @@ class CartController extends Controller
             return redirect()->back()->with('success','Add coupon success');
         } 
     }else{
-        return redirect()->back()->with('message','There is no coupon with this code');
+        return redirect()->back()->with('message','There is no coupon with this code or the coupon has expired.');
     } 
   }
   public function deleteCoupon(){

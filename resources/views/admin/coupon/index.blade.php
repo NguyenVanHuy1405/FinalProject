@@ -1,11 +1,10 @@
 @extends('layouts.admin')
-@section('title','Kind of room Hotel')
+@section('title','Coupon for customer')
 @section('custom-css')
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" /><!-- CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
 <!-- Default theme -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
-<title>Coupon for customer</title>
 <style>
     div.modal-header{
         background-color: LightGray;
@@ -27,6 +26,14 @@
     button.create{
         height: 50px;
         width: 250px;
+    }
+    i.coupon_status{
+        color:green;
+        font-size:25px;
+    }
+    i.coupon{
+        color:red;
+        font-size:25px;
     }
 </style>    
 @endsection
@@ -77,6 +84,28 @@
                         @enderror
                     </span>
                     @endif
+                    <div class="form-group @error('coupon_date_start') is-invalid @enderror">
+                        <label class="role" for="coupon_date_start"><b>Coupon date start</b></label>
+                        <input type="date" name="coupon_date_start" class="form-control" placeholder="">
+                    </div>
+                    @if ($errors->has('coupon_date_start'))
+                    <span>
+                        @error('coupon_date_start')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                    </span>
+                    @endif
+                    <div class="form-group @error('coupon_date_end') is-invalid @enderror">
+                        <label class="role" for="coupon_date_end"><b>Coupon date end:</b></label>
+                        <input type="date" name="coupon_date_end" class="form-control" placeholder="">
+                    </div>
+                    @if ($errors->has('coupon_date_end'))
+                    <span>
+                        @error('coupon_date_end')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                    </span>
+                    @endif
                     <div class="form-group @error('coupon_code') is-invalid @enderror">
                         <label class="role" for="coupon_code"><b>Coupon code</b></label>
                         <input type="text" name="coupon_code" class="form-control" placeholder="">
@@ -100,11 +129,11 @@
                     </span>
                     @endif
                     <div class="form-group @error('coupon_condition') is-invalid @enderror">
-                        <label class="role" for="coupon_condition"><b>Kind of room status:</b></label>
+                        <label class="role" for="coupon_condition"><b>Coupon Condition</b></label>
                         <select name="coupon_condition" class="form-control input-sm m-bot15">
                                 <option value="0">---Selected---</option>
-                                <option value="1">Cash coupon</option>
-                                <option value="2">Percentage coupon</option>
+                                <option value="2">Cash coupon</option>
+                                <option value="1">Percentage coupon</option>
                         </select>
                     </div>
                     @if ($errors->has('coupon_condition'))
@@ -163,8 +192,8 @@
                     name: 'coupon_time'
                 },
                 {
-                    data: 'coupon_condition',
-                    name: 'coupon_condition'
+                    data: 'coupon_date_end',
+                    name: 'coupon_date_end'
                 },
                 {
                     data: 'coupon_number',
@@ -173,6 +202,10 @@
                 {
                     data: 'coupon_code',
                     name: 'coupon_code'
+                },
+                {
+                    data: 'coupon_status',
+                    name: 'coupon_status'   
                 },
                 {
                     data: 'action',

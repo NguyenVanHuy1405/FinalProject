@@ -88,8 +88,6 @@ class AdminController extends Controller
            ->editColumn('coupon_booking', function ($data) {
             return $data->order->coupon_booking;
            })
-
-
            ->rawColumns(['name'])
            ->setRowAttr([
                'data-row' => function ($data) {

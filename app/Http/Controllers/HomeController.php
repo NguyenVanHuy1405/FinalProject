@@ -40,8 +40,15 @@ class HomeController extends Controller
         $roomType = RoomType::where('roomtype_status','1')->orderBy('id','desc')->get();
         $kindOfRoom = KindOfRoom::where('kindofroom_status','1')->orderBy('id','desc')->get();
         $room = Room::where('room_status','1')->orderby('id','desc')->limit(3)->get();
-        $all_room = Room::where('room_status','1')->orderby('id','desc')->get();
-        return view('booking.bookingRoom',compact('roomType','kindOfRoom','room','all_room','meta_keywords','meta_description','url_canonical','meta_title'));
+        $search = $request['search'] ?? "";
+        if ($search != ""){
+            $all_room = Room::where('room_name','LIKE',"%$search%")->orWhere('room_price','LIKE',"%$search%")->where('room_status','1')->get(); 
+        }
+        else{
+            $all_room = Room::where('room_status','1')->orderby('id','desc')->get();
+        }
+        $data = compact('roomType','kindOfRoom','room','all_room','meta_keywords','meta_description','url_canonical','meta_title','search');
+        return view('booking.bookingRoom')->with($data);
     }
     public function detail_room($id,Request $request){
         $roomType = RoomType::where('roomtype_status','1')->orderBy('id','desc')->get();

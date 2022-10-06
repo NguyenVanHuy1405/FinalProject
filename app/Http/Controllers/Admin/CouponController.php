@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use App\Http\Requests\CouponRequest;
+use Carbon\Carbon;
 class CouponController extends Controller
 {
     public function index(){
@@ -17,6 +18,8 @@ class CouponController extends Controller
         $coupon = new Coupon();
         $coupon->coupon_name = $data['coupon_name'];
         $coupon->coupon_time = $data['coupon_time'];
+        $coupon->coupon_date_start = $data['coupon_date_start'];
+        $coupon->coupon_date_end = $data['coupon_date_end'];
         $coupon->coupon_condition = $data['coupon_condition'];
         $coupon->coupon_number = $data['coupon_number'];
         $coupon->coupon_code = $data['coupon_code'];
@@ -33,20 +36,30 @@ class CouponController extends Controller
             ->editColumn('coupon_time', function ($data) {
                 return $data->coupon_time;
             })
-            ->editColumn('coupon_condition', function ($data) {
-                if($data->coupon_condition == 2)
-                {
-                    return 'Cash coupon';
-                }
-                else{
-                    return 'Percentage coupon';
-                }
+            ->editColumn('coupon_date_end', function ($data) {
+               return $data->coupon_date_end;
             })
             ->editColumn('coupon_number', function ($data) {
-                return $data->coupon_number;
+                if($data->coupon_condition == 2)
+                { 
+                    $coupon = $data->coupon_number;
+                    return number_format($coupon,0,',','.').' '.'đ';
+                }
+                else{
+                    return $data->coupon_number.' %';
+                }
             })
             ->editColumn('coupon_code', function ($data) {
                 return $data->coupon_code;
+            })
+            ->editColumn('coupon_status', function ($data) {
+                $today = Carbon::now()->format('Y-m-d');
+                if($data->coupon_date_end >= $today){
+                    return '<i class="fa fa-check coupon_status" aria-hidden="true"></i>';
+                }
+                else{
+                    return '<i class="fa fa-times coupon" aria-hidden="true"></i>';
+                }
             })
             ->editColumn('action', function ($data) {
                 return '
@@ -57,7 +70,7 @@ class CouponController extends Controller
                 </form>
                 ';
             })
-            ->rawColumns(['action'])
+            ->rawColumns(['action','coupon_status'])
             ->setRowAttr([
                 'data-row' => function ($data) {
                     return $data->id;
@@ -65,8 +78,10 @@ class CouponController extends Controller
             ])
             ->make(true);
     }
-    public function deleteCoupon(Request $request)
+    public function deleteCoupon(Request $request, $id)
     {
-        
+        $coupon = Coupon::find($id);
+        $coupon->delete();
+        return redirect()->back()->with('message','Delete coupon success');
     }
 }

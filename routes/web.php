@@ -164,9 +164,24 @@ Route::get('delete-coupon',[CartController::class, 'deleteCoupon']);
 
 Route::get('/print-orders/{id}',[AdminController::class, 'print_order']);
 
+
 //paypal
 
 Route::get('/create-transaction', [PayPalController::class, 'createTransaction'])->name('createTransaction');
 Route::get('/process-transaction', [PayPalController::class, 'processTransaction'])->name('processTransaction');
 Route::get('/success-transaction', [PayPalController::class, 'successTransaction'])->name('successTransaction');
 Route::get('/cancel-transaction', [PayPalController::class, 'cancelTransaction'])->name('cancelTransaction');
+
+//Vnpay
+
+Route::post('/vnpay_payment',[CheckoutController::class,'vnpay_payment'])->name('vnpay_payment');
+
+
+//historyBooking
+
+Route::get('historyBooking',[CheckoutController::class,'history'])->name('historyBooking');
+Route::get('/view-booking/historyBooking/{id}',[CheckoutController::class,'history_order_details']);
+
+Route::get('searchRoom',[CheckoutController::class,'search_room']);
+
+

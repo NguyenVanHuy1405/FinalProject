@@ -82,8 +82,8 @@
 
 
 
-.shopper-info p, 
-.bill-to p, 
+.shopper-info p,
+.bill-to p,
 .order-message p {
   color: #696763;
   font-size: 20px;
@@ -106,9 +106,9 @@
 }
 
 
-.shopper-info > form > input, 
-.form-two > form > select, 
-.form-two > form > input, 
+.shopper-info > form > input,
+.form-two > form > select,
+.form-two > form > input,
 .form-one > form > input {
   background:#F0F0E9;
   border: 0 none;
@@ -163,27 +163,27 @@
   margin-right: 30px;
 }
 
-#cart_items .cart_info 
+#cart_items .cart_info
 .table.table-condensed.total-result {
   margin-bottom: 10px;
   margin-top: 35px;
   color: #696763
 }
 
-#cart_items .cart_info 
+#cart_items .cart_info
 .table.table-condensed.total-result tr {
   border-bottom: 0
 }
 
-#cart_items .cart_info 
+#cart_items .cart_info
 .table.table-condensed.total-result span {
   color: #FE980F;
   font-weight: 700;
   font-size: 16px
 }
 
-#cart_items .cart_info 
-.table.table-condensed.total-result 
+#cart_items .cart_info
+.table.table-condensed.total-result
 .shipping-cost {
   border-bottom: 1px solid #F7F7F0;
 }
@@ -194,7 +194,7 @@ li.active_cart {
 }
 input.booking_info{
 	color:black;
-	font-size:14px; 
+	font-size:14px;
 }
 ::placeholder{
 	color:black;
@@ -311,10 +311,12 @@ p.total{
                 <textarea class="note" name="booking_note"  placeholder="Notes on your booking" rows="10"></textarea>
                 @if(Session::get('coupon'))
                 @foreach(Session::get('coupon') as $key => $value)
-                @if($value['coupon_condition']==1) 
+                @if($value['coupon_condition']==1)
                 <input type="hidden" name="coupon" class="booking_coupon" value="{{$value['coupon_number']}}%">
+                <input type="hidden" name="coupon_code" class="booking_coupon" value="{{$value['coupon_code']}}">
                 @else
                 <input type="hidden" name="coupon" class="booking_coupon" value="{{$value['coupon_number']}}đ">
+                <input type="hidden" name="coupon_code" class="booking_coupon" value="{{$value['coupon_code']}}">
                 @endif
                 @endforeach
                 @else
@@ -330,11 +332,11 @@ p.total{
                       <option value="1">HandCash</option>
                       <option value="2">Banking</option>
                     @else
-                    <option value="3">Successfully paid by Paypal</option>  
+                    <option value="3">Successfully paid by Paypal</option>
                     @endif
-                    </select>  
+                    </select>
                   </div>
-                </div>    
+                </div>
 							  <input type="submit" value="Send" name="send_booking" class="btn btn-primary btn-sm">
 							</form>
 						</div>
@@ -346,8 +348,8 @@ p.total{
 			</div>
 			<div class="table-responsive cart_info">
             <?php
-              $content = Cart::content();
-            ?>
+      $content = Cart::content();
+      ?>
             <table class="table table-condensed">
                 <thead>
                     <tr class="cart_menu">
@@ -387,9 +389,9 @@ p.total{
                         <td class="cart_total">
                             <p class="cart_total_price">
                                 <?php
-                                   $total_price = $value->price * $value->qty;
-                                   echo number_format($total_price).' '.'VND';
-                                ?>
+                               $total_price = $value->price * $value->qty;
+                               echo number_format($total_price) . ' ' . 'VND';
+                               ?>
                             </p>
                         </td>
                         <td class="cart_delete">
@@ -414,8 +416,8 @@ p.total{
                         <li>
                         @if(Session::get('coupon'))
                           @foreach(Session::get('coupon') as $key => $cou)
-                            @if($cou['coupon_condition']==1)  
-                              Coupon code <span>{{$cou['coupon_number']}} %</span> 
+                            @if($cou['coupon_condition']==1)
+                              Coupon code <span>{{$cou['coupon_number']}} %</span>
                                 @php
                                   $total_coupon = ($after_total *$cou['coupon_number'])/100;
                                   echo '<li>Total Coupon <span>'.number_format($total_coupon,0,',','.').' '.'VND'.'<span></li>';
@@ -425,9 +427,9 @@ p.total{
                                   $total_payment = round($vnd_to_usd, 2);
                                   \Session::put('total_payment',$total_payment);
                                   \Session::put('total',$total);
-                                  @endphp 
-                            @elseif($cou['coupon_condition']==2)  
-                              Coupon code <span>{{number_format($cou['coupon_number'],0,',','.')}} VND</span> 
+                                  @endphp
+                            @elseif($cou['coupon_condition']==2)
+                              Coupon code <span>{{number_format($cou['coupon_number'],0,',','.')}} VND</span>
                                 @php
                                   $total_coupon = $cou['coupon_number'];
                                   echo '<li>Total Coupon <span>'.number_format($total_coupon,0,',','.').' '.'VND'.'<span></li>';
@@ -437,7 +439,7 @@ p.total{
                                   $total_payment = round($vnd_to_usd, 2);
                                   \Session::put('total_payment',$total_payment);
                                   \Session::put('total',$total);
-                                  @endphp     
+                                  @endphp
                             @endif
                           @endforeach
                           @else
@@ -447,7 +449,7 @@ p.total{
                              $total_payment = round($vnd_to_usd, 2);
                              \Session::put('total_payment',$total_payment);
                           @endphp
-                        @endif   
+                        @endif
                         </li>
                         @if(!Session::get('successTransaction')==true)
                         <p class="payment_method">Payment with:</p>
@@ -457,10 +459,11 @@ p.total{
                         @else
                         <p class="payment_method">Successfully paid for the reservation with paypal</p>
                         @endif
+                        <br>
                     </ul>
                 </div>
             </div>
         </div>
-    </div>
+      </div>
 </section>
 @endsection

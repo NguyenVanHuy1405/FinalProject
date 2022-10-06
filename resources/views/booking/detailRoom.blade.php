@@ -157,7 +157,7 @@
                         <ul class="list_style">
                             @foreach($room_id as $key => $tag)
                             <li><a class="tag" href="{{URL::to('/show-roomtype/'.$tag->roomtype_id)}}">{{$tag->roomtype_name}}</a></li>
-                            <li><a class="tag" href="{{URL::to('/show-roomtype/'.$tag->kindofroom_id)}}">{{$tag->kindofroom_name}}</a></li>
+                            <li><a class="tag" href="{{URL::to('/show-kindofroom/'.$tag->kindofroom_id)}}">{{$tag->kindofroom_name}}</a></li>
                             @endforeach
                         </ul>
                     </aside>

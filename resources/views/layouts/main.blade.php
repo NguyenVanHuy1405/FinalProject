@@ -65,7 +65,12 @@
             @if (!auth()->user())
               <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Sign in</a></li>
             @endif
+            @if (auth()->user())
+            @if (auth()->user()->hasRole('user'))
             <li class="nav-item "><a class="nav-link" href="{{URL::to('contactUs')}}">Contact us</a></li>
+            <li class="nav-item"><a href="{{ URL::to('historyBooking') }}" class="nav-link">History Booking</a></li>
+            @endif
+            @endif
             @if (auth()->user())
             @if (auth()->user()->hasRole('admin') || auth()->user()->hasRole('staff'))
                 <li class="nav-item"><a class="nav-link"

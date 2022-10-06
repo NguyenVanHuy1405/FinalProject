@@ -99,11 +99,17 @@ class KindofRoomController extends Controller
         KindOfRoom::where('id',$id)->update(['kindofroom_status'=>0]);
         return Redirect::to('/admin/kindofroom/index')->with('message','Unactive kind of room successfully');
     }
-    public function show_kindofroom($kindofroom_id){
+    public function show_kindofroom($kindofroom_id,Request $request){
         $roomType = RoomType::where('roomtype_status','1')->orderBy('id','desc')->get();
         $kindofRoom = KindOfRoom::where('kindofroom_status','1')->orderBy('id','desc')->get();
         $kindofroom_by_id = Room::join('kind_of_rooms','rooms.kindofroom_id','=','kind_of_rooms.id')->where('rooms.kindofroom_id',$kindofroom_id)->get();
+        foreach($kindofroom_by_id as $value){
+            $meta_keywords = 'Show kind of room';
+            $meta_description = $value->kindofroom_desc;
+            $url_canonical = $request->url();
+            $meta_title = "List room by room type";
+        }
         $kindofroom_name =KindOfRoom::where('kind_of_rooms.id',$kindofroom_id)->limit(1)->get();
-        return view('booking.showKindofRoom',compact('roomType','kindofRoom','kindofroom_by_id','kindofroom_name'));
+        return view('booking.showKindofRoom',compact('roomType','kindofRoom','kindofroom_by_id','kindofroom_name','meta_keywords','meta_description','url_canonical','meta_title'));
     }
 }
