@@ -13,6 +13,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\PayPalController;
 use Illuminate\Support\Facades\Route;
 
@@ -183,5 +184,11 @@ Route::get('historyBooking',[CheckoutController::class,'history'])->name('histor
 Route::get('/view-booking/historyBooking/{id}',[CheckoutController::class,'history_order_details']);
 
 Route::get('searchRoom',[CheckoutController::class,'search_room']);
+
+Route::group(['prefix' =>'ajax'],function(){
+    Route::post('/login',[AjaxController::class,'login'])->name('ajax.login');
+});
+
+
 
 

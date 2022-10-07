@@ -9,6 +9,7 @@ use App\Models\RoomType;
 use Auth;
 use File;
 use DB;
+use App\Models\Comment;
 
 class HomeController extends Controller
 {
@@ -68,5 +69,9 @@ class HomeController extends Controller
      join('kind_of_rooms','kind_of_rooms.id','=','rooms.kindofroom_id')
      ->where('room_types.id',$roomType_id)->whereNotIn('rooms.id',[$id])->get();
      return view('booking.detailRoom',compact('roomType','kindofRoom','room','room_id','related_room','meta_keywords','meta_description','url_canonical','meta_title','related'));
+    }
+    public function load_comment(Request $request){
+        $room_id = $request->room_id;
+        echo $room_id;
     }
 }
