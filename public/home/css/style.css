@@ -1359,7 +1359,7 @@ section#cart_items{
 .blog_right_sidebar .newsletter_widget .bbtns {
   background: #f8b600;
   color: #fff;
-  font-size: 12px;
+  font-size: px;
   line-height: 38px;
   display: inline-block;
   font-weight: 500;
@@ -1416,12 +1416,13 @@ section#cart_items{
 .page-link {
   background: transparent;
   font-weight: 400;
+  font-size: 20px;
 }
 
 .blog-pagination .page-item.active .page-link {
   background-color: #f3c300;
   border-color: transparent;
-  color: #fff;
+  color: black;
 }
 
 .blog-pagination .page-link {

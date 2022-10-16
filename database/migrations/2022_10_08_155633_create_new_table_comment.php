@@ -15,10 +15,13 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('comment');
-            $table->string('comment_name');
-            $table->string('comment_date');
-            $table->string('comment_room_id');
+            $table->bigInteger('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->integer('room_id')->unsigned();
+            $table->foreign('room_id')->references('id')->on('rooms');
+            $table->integer('reply_id')->nullable();
+            $table->integer('status')->default(0);
+            $table->timestamps();
         });
     }
 

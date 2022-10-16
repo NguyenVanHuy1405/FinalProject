@@ -8,11 +8,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Session;
 use App\Models\Room;
+use App\Models\Visitor;
 use App\Models\User;
 use App\Models\Payment;
 use App\Models\Order_detail;
 use App\Models\Order;
 use Yajra\Datatables\Datatables;
+use Illuminate\Support\Carbon;
 use DB;
 use PDF;
 class AdminController extends Controller
@@ -21,8 +23,41 @@ class AdminController extends Controller
     {
         $this->middleware('auth');
     }
-    public function index(){
-        return view('admin.dashboard');
+    public function index(Request $request){
+        $user_ip_address = $request->ip();
+        $visitors_current = Visitor::where('ip_address', $user_ip_address)->get();
+        $visitors_count = $visitors_current->count();
+
+        //calculate date 
+        $early_last_month = Carbon::now('Asia/Ho_Chi_Minh')->subMonth()->startOfMonth()->toDateString();
+        $end_of_last_month = Carbon::now('Asia/Ho_Chi_Minh')->subMonth()->endOfMonth()->toDateString();
+        $early_this_month = Carbon::now('Asia/Ho_Chi_Minh')->startOfMonth()->toDateString();
+        $old_year = Carbon::now('Asia/Ho_Chi_Minh')->subdays(365)->toDateString();
+        $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+
+        //total last month
+        $visitor_last_month = Visitor::whereBetween('date_visitor',[$early_last_month,$end_of_last_month])->get();
+        $visitor_last_month_count = $visitor_last_month->count();
+
+        //total this month
+        $visitor_this_month = Visitor::whereBetween('date_visitor',[$early_this_month,$now])->get();
+        $visitor_this_month_count = $visitor_this_month->count();
+
+        //total last years
+        $visitor_last_year = Visitor::whereBetween('date_visitor',[$old_year,$now])->get();
+        $visitor_last_year_count = $visitor_this_month->count();
+
+        //all_visitors 
+        $all_visitors = Visitor::all();
+        $all_visitors_count = $all_visitors->count();
+
+        if($visitors_count < 1){
+            $visitor = new Visitor();
+            $visitor->ip_address = $user_ip_address;
+            $visitor->date_visitor = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+            $visitor->save();
+        }
+        return view('admin.dashboard',compact('visitors_count','visitor_last_month_count','visitor_this_month_count','visitor_last_year_count','all_visitors_count'));
     } 
    public function manager_booking(){
     $order = Order::with(['user','booking','payment'])->first();

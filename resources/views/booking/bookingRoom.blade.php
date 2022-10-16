@@ -83,15 +83,10 @@
         @endforeach
       </div>
     </div>
-  </section>
-@endsection
-@section('custom-js')
-   <script type="text/javascript">
-      $(document).ready(function(){
-        $('.add-to-cart').click(function(){ 
-          swal("here are the messages");
-        });
-
-      });
-    </script>
+</section>
+<nav class="blog-pagination justify-content-center d-flex">
+	<ul class="pagination">
+       {!! $all_room->render() !!}
+	</ul>
+</nav>
 @endsection

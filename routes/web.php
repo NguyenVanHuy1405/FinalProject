@@ -187,6 +187,7 @@ Route::get('searchRoom',[CheckoutController::class,'search_room']);
 
 Route::group(['prefix' =>'ajax'],function(){
     Route::post('/login',[AjaxController::class,'login'])->name('ajax.login');
+    Route::post('/comment/{room_id}',[AjaxController::class,'comment'])->name('ajax.comment');
 });
 
 

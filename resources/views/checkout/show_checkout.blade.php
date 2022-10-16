@@ -460,6 +460,13 @@ p.total{
                         <p class="payment_method">Successfully paid for the reservation with paypal</p>
                         @endif
                         <br>
+
+                        <td>
+                          <form action="{{url('vnpay_payment') }}" method="POST">
+                            @csrf
+                            <button type="submit" name="redirect" class="btn btn-primary">VNPT</button> 
+                          </form>
+                        </td> 
                     </ul>
                 </div>
             </div>

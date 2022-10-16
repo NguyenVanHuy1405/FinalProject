@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Validator;
 use Auth;
+use App\Models\Comment;
 class AjaxController extends Controller
 {
     public function login(Request $request){
@@ -30,5 +31,24 @@ class AjaxController extends Controller
             }  
         }
         return response()->json(['error' =>$validator->errors()->all()]);
+    }
+    public function comment($room_id,Request $request){
+        $user_id = Auth::user()->id();
+        $validator = Validator::make($request->all(), [
+            'content' => 'required'
+        ],[
+            'content.required' =>'The content comment can not be blank'
+        ]);
+        if($validator->passes()){
+            $data = [
+                'user_id' => $user_id,
+                'room_id' => $room_id,
+                'content' => $request->content
+            ];
+            if($comment = Comment::create($data)){
+                return response()->json(['data'=>$comment]);
+            }  
+        }
+        return response()->json(['error' =>$validator->errors()->first()]);
     }
 }

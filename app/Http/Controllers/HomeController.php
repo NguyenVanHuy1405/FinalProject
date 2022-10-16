@@ -43,10 +43,10 @@ class HomeController extends Controller
         $room = Room::where('room_status','1')->orderby('id','desc')->limit(3)->get();
         $search = $request['search'] ?? "";
         if ($search != ""){
-            $all_room = Room::where('room_name','LIKE',"%$search%")->orWhere('room_price','LIKE',"%$search%")->where('room_status','1')->get(); 
+            $all_room = Room::where('room_name','LIKE',"%$search%")->orWhere('room_price','LIKE',"%$search%")->where('room_status','1')->paginate(); 
         }
         else{
-            $all_room = Room::where('room_status','1')->orderby('id','desc')->get();
+            $all_room = Room::where('room_status','1')->orderby('id','desc')->paginate(6);
         }
         $data = compact('roomType','kindOfRoom','room','all_room','meta_keywords','meta_description','url_canonical','meta_title','search');
         return view('booking.bookingRoom')->with($data);
@@ -69,9 +69,5 @@ class HomeController extends Controller
      join('kind_of_rooms','kind_of_rooms.id','=','rooms.kindofroom_id')
      ->where('room_types.id',$roomType_id)->whereNotIn('rooms.id',[$id])->get();
      return view('booking.detailRoom',compact('roomType','kindofRoom','room','room_id','related_room','meta_keywords','meta_description','url_canonical','meta_title','related'));
-    }
-    public function load_comment(Request $request){
-        $room_id = $request->room_id;
-        echo $room_id;
     }
 }
