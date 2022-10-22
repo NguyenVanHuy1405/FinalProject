@@ -12,6 +12,7 @@ use App\Models\Visitor;
 use App\Models\User;
 use App\Models\Payment;
 use App\Models\Order_detail;
+use App\Models\Statistics;
 use App\Models\Order;
 use Yajra\Datatables\Datatables;
 use Illuminate\Support\Carbon;
@@ -50,7 +51,6 @@ class AdminController extends Controller
         //all_visitors 
         $all_visitors = Visitor::all();
         $all_visitors_count = $all_visitors->count();
-
         if($visitors_count < 1){
             $visitor = new Visitor();
             $visitor->ip_address = $user_ip_address;
@@ -59,6 +59,24 @@ class AdminController extends Controller
         }
         return view('admin.dashboard',compact('visitors_count','visitor_last_month_count','visitor_this_month_count','visitor_last_year_count','all_visitors_count'));
     } 
+
+    //filter by date
+    public function filter_by_day(Request $request){
+        $data = $request->all();
+        $from_date = $data['from_date'];
+        $to_date = $data['to_date'];
+        $get = Statistics::whereBetween('order_date',[$from_date,$to_date])->orderBy('order_date','ASC')->get();
+        foreach($get as $key => $value){
+            $chat_data[] = array(
+                'period' => $value->order_date,
+                'order' => $value->order_total,
+                'sales' => $value->sales,
+                'profit' => $value->profit,
+                'quantity' => $value->quantity
+            );
+        }
+        echo $data = json_encode($chat_data);
+    }
    public function manager_booking(){
     $order = Order::with(['user','booking','payment'])->first();
     return view( 'admin.managerBooking.manager');

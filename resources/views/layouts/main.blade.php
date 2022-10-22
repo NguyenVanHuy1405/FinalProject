@@ -207,7 +207,6 @@
   <script src="{{asset('home/js/stellar.js')}}"></script>
   <script src="{{asset('home/vendors/lightbox/simpleLightbox.min.js')}}"></script>
   <script src="{{asset('home/js/custom.js')}}"></script>
-  <div id="fb-root"></div>
   <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v14.0&appId=1097822581150555&autoLogAppEvents=1" nonce="GUTnfxAT"></script>
   <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v14.0&appId=1097822581150555&autoLogAppEvents=1" nonce="bwHz9FNl"></script>
   <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v14.0&appId=1097822581150555&autoLogAppEvents=1" nonce="c8zF8Qu9"></script>
@@ -217,7 +216,38 @@
   integrity="sha256-xLD7nhI62fcsEZK2/v8LsBcb4lG7dgULkuXoXB/j91c="
   crossorigin="anonymous"></script>
   <script src="{{asset('home/js/sweetalert.min.js')}}"></script>
+  <!-- Messenger Plugin chat Code -->
+    <div id="fb-root"></div>
+
+    <!-- Your Plugin chat code -->
+    <div id="fb-customer-chat" class="fb-customerchat">
+    </div>
+
+    <script>
+      var chatbox = document.getElementById('fb-customer-chat');
+      chatbox.setAttribute("page_id", "111939898372316");
+      chatbox.setAttribute("attribution", "biz_inbox");
+    </script>
+
+    <!-- Your SDK code -->
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          xfbml            : true,
+          version          : 'v15.0'
+        });
+      };
+
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
   @yield('custom-js')
+  
 </body>
 
 </html>

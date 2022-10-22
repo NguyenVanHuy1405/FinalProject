@@ -16,4 +16,10 @@ class Comment extends Model
         'content',
         'reply_id'
     ];
+    public function cus(){
+        return $this->hasOne(User::class,'id','user_id');
+    }
+    public function replies(){
+        return $this->hasMany(Comment::class,'reply_id','id');
+    }
 }

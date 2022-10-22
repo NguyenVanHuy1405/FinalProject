@@ -47,6 +47,11 @@
     button.login-modal{
         margin-top:-20px;
     }
+    div.error{
+        color:red;
+        font-size: 14px;
+        margin-bottom:-10px;
+    }
 </style>
 @endsection
 @section('title','Detail room')
@@ -185,15 +190,12 @@
     @if(Auth::check())
         <form action="" method="POST" role="form">
             <legend>Hello: {{(Auth::user()->name)}}</legend>
-            @foreach($room as $key => $value) 
             <div class="form-group">
                 <label for="">Content Comment</label>  
-                <input type="hidden" name="room_id" value="{{$value->id}}">
                 <textarea id="comment-content" class="form-control" placeholder="Enter your comment(*)"></textarea>
-                <small id="comment-error" class="help-blog"></small> 
+                <div id="comment-error" class="error"></div> 
             </div>
             <button type="button" class="btn btn-primary" id="btn-comment">Send Comment</button>
-            @endforeach
         </form>
         @else
         <button type="button" class="btn btn-danger login-modal" data-toggle="modal" data-target="#exampleModal">
@@ -275,7 +277,6 @@
         ev.preventDefault();
         let content = $('#comment-content').val();
         let _commentUrl = '{{route("ajax.comment", $value->id)}}';
-
         $.ajax({
             url: _commentUrl,
             type: 'POST',
@@ -287,11 +288,11 @@
                 if (res.error) {
                     $('#comment-error').html(res.error)
                 } else {
-                    $('#comment-error').html('')
+                    $('#comment-error').html('');
+                    $('#comment-content').val('');
                 }
             }
         });
-        console.log(_commentUrl)
     })
 </script>
 @endsection

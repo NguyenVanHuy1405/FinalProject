@@ -33,7 +33,7 @@ class AjaxController extends Controller
         return response()->json(['error' =>$validator->errors()->all()]);
     }
     public function comment($room_id,Request $request){
-        $user_id = Auth::user()->id();
+        $user_id = Auth::id();
         $validator = Validator::make($request->all(), [
             'content' => 'required'
         ],[

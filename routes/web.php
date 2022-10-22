@@ -190,6 +190,14 @@ Route::group(['prefix' =>'ajax'],function(){
     Route::post('/comment/{room_id}',[AjaxController::class,'comment'])->name('ajax.comment');
 });
 
+//filter by day
+Route::post('/filter-by-day',[AdminController::class,'filter_by_day'])->name('filter_date');
+
+//log
+
+Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
+
+
 
 
 
