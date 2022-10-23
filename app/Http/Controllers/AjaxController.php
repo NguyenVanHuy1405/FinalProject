@@ -43,10 +43,12 @@ class AjaxController extends Controller
             $data = [
                 'user_id' => $user_id,
                 'room_id' => $room_id,
-                'content' => $request->content
+                'content' => $request->content,
+                'reply_id' => $request->reply_id ? $request->reply_id : 0
             ];
             if($comment = Comment::create($data)){
-                return response()->json(['data'=>$comment]);
+                $comments = Comment::where(['room_id' => $room_id,'reply_id' => 0 ])->orderBy('id','DESC')->get();
+                return view('booking.list_comment',compact('comments'));
             }  
         }
         return response()->json(['error' =>$validator->errors()->first()]);

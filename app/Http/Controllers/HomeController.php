@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\KindOfRoom;
 use App\Models\Room;
 use App\Models\RoomType;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -54,6 +55,7 @@ class HomeController extends Controller
         $room_id = Room::join('room_types', 'room_types.id', '=', 'rooms.roomtype_id')->
             join('kind_of_rooms', 'kind_of_rooms.id', '=', 'rooms.kindofroom_id')->where('rooms.id', '=', $id)->get();
         $room = Room::where('rooms.id', $id)->get();
+        $comments = Comment::where(['room_id' => $id,'reply_id' => 0 ])->orderBy('id','DESC')->get();
         foreach ($room_id as $key => $value) {
             $roomType_id = $value->roomtype_id;
             $meta_keywords = "Royal, Royal Hotel";
@@ -65,6 +67,6 @@ class HomeController extends Controller
         $related_room = Room::join('room_types', 'room_types.id', '=', 'rooms.roomtype_id')->
             join('kind_of_rooms', 'kind_of_rooms.id', '=', 'rooms.kindofroom_id')
             ->where('room_types.id', $roomType_id)->whereNotIn('rooms.id', [$id])->get();
-        return view('booking.detailRoom', compact('roomType', 'kindofRoom', 'room', 'room_id', 'related_room', 'meta_keywords', 'meta_description', 'url_canonical', 'meta_title', 'related'));
+        return view('booking.detailRoom', compact('comments','roomType', 'kindofRoom', 'room', 'room_id', 'related_room', 'meta_keywords', 'meta_description', 'url_canonical', 'meta_title', 'related'));
     }
 }

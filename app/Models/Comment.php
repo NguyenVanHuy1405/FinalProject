@@ -22,4 +22,7 @@ class Comment extends Model
     public function replies(){
         return $this->hasMany(Comment::class,'reply_id','id');
     }
+    public function index_comment(){
+        return $this->hasMany(Comment::class,'reply_id',1);
+    }
 }

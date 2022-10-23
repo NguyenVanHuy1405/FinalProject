@@ -29,4 +29,7 @@ class Room extends Model
     public function roomtype(){
         return $this->belongsTo(RoomType::class,'roomtype_id','id');
     }
+    public function comments(){
+        return $this->hasMany(Comment::class,'room_id','id')->orderBy('id','desc');
+    }
 }

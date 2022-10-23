@@ -5,53 +5,76 @@
         height: 350px;
         width: 600px;
     }
+
     img.img-body {
         height: 350px;
         width: 360px;
     }
+
     div.room_tag {
         font-size: 14px;
     }
+
     p.excert {
         font-size: 16px;
     }
+
     img.image_recomend {
         width: 125px;
         height: 75px;
     }
+
     a.booking {
         font-size: 12px;
     }
+
     li.a.tag {
         font-size: 16px;
     }
-    div.fb-share-button{
-        padding-bottom:10px;
+
+    div.fb-share-button {
+        padding-bottom: 10px;
     }
-    div.fb-like{
-        padding-bottom:10px;
+
+    div.fb-like {
+        padding-bottom: 10px;
     }
-    div.comment{
-        margin-left:-8px;
-        margin-top:20px;
+
+    div.comment {
+        margin-left: -8px;
+        margin-top: 20px;
         font-weight: bold;
         font-size: 20px;
     }
-    h4.media-heading{
-        margin-top:10px;
+
+    h4.media-heading {
+        margin-top: 10px;
     }
-    p.text{
+
+    p.text {
         font-size: 14px;
         font-weight: normal;
     }
-    button.login-modal{
-        margin-top:-20px;
+
+    button.login-modal {
+        margin-top: -20px;
     }
-    div.error{
-        color:red;
+
+    div.error {
+        color: red;
         font-size: 14px;
-        margin-bottom:-10px;
+        margin-bottom: -10px;
     }
+
+    h4.name {
+        margin-top: -6px;
+        color: black;
+    }
+
+    p.content-comment-p {
+        margin-top: -30px;
+    }
+
 </style>
 @endsection
 @section('title','Detail room')
@@ -185,15 +208,15 @@
     </div>
 </section>
 <section>
-<div class="container">
-    <h4>Comment Room</h4>
-    @if(Auth::check())
+    <div class="container">
+        <h4>Comment Room</h4>
+        @if(Auth::check())
         <form action="" method="POST" role="form">
             <legend>Hello: {{(Auth::user()->name)}}</legend>
             <div class="form-group">
-                <label for="">Content Comment</label>  
+                <label for="">Content Comment</label>
                 <textarea id="comment-content" class="form-control" placeholder="Enter your comment(*)"></textarea>
-                <div id="comment-error" class="error"></div> 
+                <div id="comment-error" class="error"></div>
             </div>
             <button type="button" class="btn btn-primary" id="btn-comment">Send Comment</button>
         </form>
@@ -204,68 +227,72 @@
         <hr>
         @endif
         <br>
+        @foreach($room as $key => $value)
         <h3>Comments</h3>
         <div id="comment">
+            @include('booking.list_comment')
         </div>
-</div>
+        @endforeach
+    </div>
 </section>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Login</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      <form action="" method="POST" role="form">
-        <div id="error"></div>
-        <div class="form-group">
-           <label for="">Email:</label>
-           <input type="text" class="form-control" id="email" placeholder="Enter your email">
-        </div>   
-        <div class="form-group">
-           <label for="">Password:</label>
-           <input type="password" class="form-control" id="password" placeholder="Enter your password">
-        </div>    
-        
-        <button type="button" class="btn btn-primary btn-block" id="btn-login">Login</button>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="" method="POST" role="form">
+                    <div id="error"></div>
+                    <div class="form-group">
+                        <label for="">Email:</label>
+                        <input type="text" class="form-control" id="email" placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Password:</label>
+                        <input type="password" class="form-control" id="password" placeholder="Enter your password">
+                    </div>
 
-      </form> 
-      </div>
+                    <button type="button" class="btn btn-primary btn-block" id="btn-login">Login</button>
+
+                </form>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 @endsection
 @section('custom-js')
 <script>
     var _csrf = '{{csrf_token()}}';
-    $('#btn-login').click(function(ev){
+    let _commentUrl = '{{route("ajax.comment", $value->id)}}';
+    $('#btn-login').click(function(ev) {
         ev.preventDefault();
         var _loginUrl = '{{route("ajax.login")}}';
         var email = $('#email').val();
-        var password= $('#password').val();
+        var password = $('#password').val();
 
         $.ajax({
-            url:_loginUrl,
-            type: 'POST',
-            data:{
-                email:email,
-                password:password,
-                _token : _csrf,
-            },
-            success:function(res){
-                if(res.error){
+            url: _loginUrl
+            , type: 'POST'
+            , data: {
+                email: email
+                , password: password
+                , _token: _csrf
+            , }
+            , success: function(res) {
+                if (res.error) {
                     let _html_error = '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>';
-                    for(let error of res.error){
-                        _html_error +=`<li>${error}</li>`; 
+                    for (let error of res.error) {
+                        _html_error += `<li>${error}</li>`;
                     }
                     _html_error += '</div>';
                     $('#error').html(_html_error);
-                }else{
+                } else {
                     alert('Login Successfully');
                     location.reload();
                 }
@@ -273,16 +300,52 @@
         });
     });
 
-    $('#btn-comment').click(function(ev){
+    $('#btn-comment').click(function(ev) {
         ev.preventDefault();
         let content = $('#comment-content').val();
-        let _commentUrl = '{{route("ajax.comment", $value->id)}}';
+
         $.ajax({
+            url: _commentUrl
+            , type: 'POST'
+            , data: {
+                content: content
+                , _token: _csrf
+            }
+            , success: function(res) {
+                if (res.error) {
+                    $('#comment-error').html(res.error)
+                } else {
+                    $('#comment-error').html('');
+                    $('#comment-content').val('');
+                    $('#comment').html(res);
+                }
+            }
+        });
+    });
+    $(document).on('click', '.btn-show-reply-form', function(ev){
+        ev.preventDefault();
+        var id= $(this).data('id');
+        var common_reply_id = '#content-reply-' + id;
+        var contentReply = $(common_reply_id).val();
+        var form_reply = '.form-reply-' + id;
+        $('.formReply').slideUp();
+        $(form_reply).slideDown();
+    });
+
+     $(document).on('click', '.btn-send-comment-reply', function(ev){
+        ev.preventDefault();
+        var id = $(this).data('id');
+        var common_reply_id = '#comment-reply-' + id;
+        var contentReply = $(common_reply_id).val();
+        var form_reply = '.form-reply-'+id;
+
+         $.ajax({
             url: _commentUrl,
             type: 'POST',
             data: {
-                content: content,
-                _token : _csrf
+                content: contentReply,
+                reply_id: id,
+                _token: _csrf
             },
             success: function(res) {
                 if (res.error) {
@@ -290,9 +353,12 @@
                 } else {
                     $('#comment-error').html('');
                     $('#comment-content').val('');
+                    $('#comment').html(res);
                 }
             }
         });
+
     })
+
 </script>
 @endsection
