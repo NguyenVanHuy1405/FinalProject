@@ -16,47 +16,55 @@
         font-family: 'Roboto', sans-serif;
 
     }
+
     td.cart_product {
-     display: block;
-     margin: 30px -70px 10px 20px;
-}
-    input.form-control{
-    display: block;
-    width: 500px;
-    padding: 0.375rem 0.75rem;
-    font-size: 1rem;
-    line-height: 1.5;
-    color: #495057;
-    background-color: #fff;
-    background-image: none;
-    background-clip: padding-box;
-    border: 1px solid #ced4da;
-    border-radius: 0.25rem;
-    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+        display: block;
+        margin: 30px -70px 10px 20px;
     }
-    div.coupon{
-        margin-left:160px;
-        margin-top:-30px;
+
+    input.form-control {
+        display: block;
+        width: 500px;
+        padding: 0.375rem 0.75rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        color: #495057;
+        background-color: #fff;
+        background-image: none;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
+        transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
     }
-    h4.header-coupon{
-        background:#FE980F;
+
+    div.coupon {
+        margin-left: 160px;
+        margin-top: -30px;
+    }
+
+    h4.header-coupon {
+        background: #FE980F;
         height: 50px;
-        margin-right:170px;
-        padding-top:10px;
-        padding-left:15px;
-        color:white;
+        margin-right: 170px;
+        padding-top: 10px;
+        padding-left: 15px;
+        color: white;
     }
-    p.coupon-text{
-        font-weight:bold;
-        font-size:16px;
+
+    p.coupon-text {
+        font-weight: bold;
+        font-size: 16px;
     }
-    div.alert-danger{
-        margin-right:170px;
+
+    div.alert-danger {
+        margin-right: 170px;
     }
-    a.delete-coupon{
-        margin-top:20px;
+
+    a.delete-coupon {
+        margin-top: 20px;
         border: none;
     }
+
 </style>
 @endsection
 @section('content')
@@ -100,10 +108,10 @@
                             <div class="cart_quantity_button">
                                 <form action="{{URL::to('/update-cart')}}" method="post">
                                     {{ csrf_field() }}
-                                <input class="cart_quantity_input" type="text" name="cart_quantity" value="{{$value->qty}}">
-                                <input type="hidden" value="{{$value->rowId}}" name="rowId_cart" class="form control">
-                                <input type="submit" value="Update" name="update_qty" class="btn btn-primary btn-sm">
-                               </form>
+                                    <input class="cart_quantity_input" type="text" name="cart_quantity" value="{{$value->qty}}">
+                                    <input type="hidden" value="{{$value->rowId}}" name="rowId_cart" class="form control">
+                                    <input type="submit" value="Update" name="update_qty" class="btn btn-primary btn-sm">
+                                </form>
                             </div>
                         </td>
                         <td class="cart_total">
@@ -150,39 +158,40 @@
                         <li>Cart Sub Total <span>{{Cart::priceTotal(0,',','.').' '.'VND'}}</span></li>
                         <li>Eco Tax <span>{{Cart::tax(0,',','.').' '.'VND'}}</span></li>
                         <li>
-                        @if(Session::get('coupon'))
-                          @foreach(Session::get('coupon') as $key => $cou)
-                            @if($cou['coupon_condition']==1)  
-                              Coupon code <span>{{$cou['coupon_number']}} %</span> 
-                                @php
-                                  $total_coupon = ($after_total *$cou['coupon_number'])/100;
-                                  echo '<li>Total Coupon <span>'.number_format($total_coupon,0,',','.').' '.'VND'.'<span></li>';
-                                  $total = $after_total - $total_coupon;
-                                  echo'<li>Total<span>'.number_format($total,0,',','.').' '.'VND'.'</span></li>';
-                                @endphp 
-                            @elseif($cou['coupon_condition']==2)  
-                              Coupon code <span>{{number_format($cou['coupon_number'],0,',','.')}} VND</span> 
-                                @php
-                                  $total_coupon = $cou['coupon_number'];
-                                  echo '<li>Total Coupon <span>'.number_format($total_coupon,0,',','.').' '.'VND'.'<span></li>';
-                                  $total = $after_total - $total_coupon;
-                                  echo'<li>Total<span>'.number_format($total,0,',','.').' '.'VND'.'</span></li>';
-                                @endphp     
-                            @endif
-                          @endforeach
-                          @else
-                            Total <span>{{Cart::total(0,',','.').' '.'VND'}}</span>
-                        @endif   
+                            @if(Session::get('coupon'))
+                            @foreach(Session::get('coupon') as $key => $cou)
+                            @if($cou['coupon_condition']==1)
+                            Coupon code <span>{{$cou['coupon_number']}} %</span>
+                            @php
+                            $total_coupon = ($after_total *$cou['coupon_number'])/100;
+                            echo '
+                        <li>Total Coupon <span>'.number_format($total_coupon,0,',','.').' '.'VND'.'<span></li>';
+                        $total = $after_total - $total_coupon;
+                        echo'<li>Total<span>'.number_format($total,0,',','.').' '.'VND'.'</span></li>';
+                        @endphp
+                        @elseif($cou['coupon_condition']==2)
+                        Coupon code <span>{{number_format($cou['coupon_number'],0,',','.')}} VND</span>
+                        @php
+                        $total_coupon = $cou['coupon_number'];
+                        echo '<li>Total Coupon <span>'.number_format($total_coupon,0,',','.').' '.'VND'.'<span></li>';
+                        $total = $after_total - $total_coupon;
+                        echo'<li>Total<span>'.number_format($total,0,',','.').' '.'VND'.'</span></li>';
+                        @endphp
+                        @endif
+                        @endforeach
+                        @else
+                        Total <span>{{Cart::total(0,',','.').' '.'VND'}}</span>
+                        @endif
                         </li>
 
                     </ul>
                     @if (!auth()->user())
-                    <a class="btn btn-default check_out"  href="{{URL::to('/loginCustomer')}}">Check Out</a>
+                    <a class="btn btn-default check_out" href="{{URL::to('/loginCustomer')}}">Check Out</a>
                     @else
-                    <a class="btn btn-default check_out"  href="{{URL::to('/checkout')}}">Check Out</a>
+                    <a class="btn btn-default check_out" href="{{URL::to('/checkout')}}">Check Out</a>
                     @endif
                     @if(Session::has('coupon'))
-                    <a class="btn btn-danger delete-coupon"  href="{{URL::to('/delete-coupon')}}">Delete coupon</a>
+                    <a class="btn btn-danger delete-coupon" href="{{URL::to('/delete-coupon')}}">Delete coupon</a>
                     @endif
                 </div>
             </div>

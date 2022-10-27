@@ -39,7 +39,7 @@
                     </button>
                 </div>
                 <div>
-                    <a class="navbar-brand brand-logo" href="index.html">
+                    <a class="navbar-brand brand-logo" href="{{URL::to('/admin/dashboard')}}">
                         <img src="{{asset('home/image/logo2.png')}}" alt="logo" />
                     </a>
                     <a class="navbar-brand brand-logo-mini" href="index.html">

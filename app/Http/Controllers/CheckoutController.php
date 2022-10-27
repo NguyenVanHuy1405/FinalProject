@@ -67,9 +67,11 @@ class CheckoutController extends Controller
         }
         $order_data['coupon_booking'] = $request->coupon;
         $order_data['coupon_code'] = $request->coupon_code;
-        $coupon = Coupon::where('coupon_code', $order_data['coupon_code'])->first();
-        $coupon->coupon_time = $coupon->coupon_time-1;
-        $coupon->save();
+        if (Session::get('coupon')){
+            $coupon = Coupon::where('coupon_code', $order_data['coupon_code'])->first();
+            $coupon->coupon_time = $coupon->coupon_time-1;
+            $coupon->save();
+        }
         $order_data['order_status'] = 'Pending';
         $order_data['date_order'] = Carbon::now()->format('Y-m-d');;
         $order_id = Order::insertGetId($order_data);
