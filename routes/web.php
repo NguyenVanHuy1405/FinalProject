@@ -192,6 +192,8 @@ Route::group(['prefix' =>'ajax'],function(){
 
 //filter by day
 Route::post('/filter-by-day',[AdminController::class,'filter_by_day'])->name('filter_date');
+//filter dashboard
+Route::post('/dashboard-filter',[AdminController::class,'dashboard_filter']);
 
 //log
 

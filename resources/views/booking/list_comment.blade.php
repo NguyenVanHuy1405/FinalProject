@@ -34,7 +34,7 @@
                 <li class="nav-item submenu dropdown">
                     <button class="btn" type="button">
                         <a class="nav-link" href="{{ route('user.profile') }}" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-                            <img class="img-account-profile mb-2" src="{{ $comm->cus->avatar == null? asset('/home/image/avatar.png'): asset('/storage/image/' . $comm->cus->avatar) }}" alt="{{ asset('public/home/image/avatar.png')}}" style="height: 80px; margin-top: -30px; object-fit: cover;" loading="lazy">
+                            <img class="img-account-profile mb-2" src="{{ $child->cus->avatar == null? asset('/home/image/avatar.png'): asset('/storage/image/' . $child->cus->avatar) }}" alt="{{ asset('public/home/image/avatar.png')}}" style="height: 80px; margin-top: -30px; object-fit: cover;" loading="lazy">
                         </a>
                     </button>
                 </li>
