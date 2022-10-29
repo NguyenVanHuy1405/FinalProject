@@ -21,7 +21,7 @@ use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
-    public function login_user()
+    public function form_login()
     {
         return view(
             'auth.loginCustomer',
@@ -39,7 +39,7 @@ class RegisterController extends Controller
             ]
         );
     }
-    public function customer_login(LoginRequest $request)
+    public function login(LoginRequest $request)
     {
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
@@ -52,9 +52,9 @@ class RegisterController extends Controller
 
                 return redirect()->back()->with('error', 'The account has not been confirmed,<a href="'. route('getAccount') . '"><b class="click"> Click here</b></a>  to active your account');
             }
-            return Redirect::to('/checkout');
+            return Redirect::to('/');
         }
-        return Redirect::to('/loginCustomer')->with('message', 'Email or password is not correct. Please try again!');
+        return Redirect::to('/login')->with('message', 'Email or password is not correct. Please try again!');
     }
     public function create(CustomerRequest $request)
     {

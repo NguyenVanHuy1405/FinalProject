@@ -64,7 +64,19 @@
         margin-top: 20px;
         border: none;
     }
-
+    button.login-modal{
+        margin-left:40px;
+        margin-top:-5px;
+    }
+    input.email{
+        width:450px;
+    } 
+    input.password{
+        width:450px;
+    }
+    div.alert-danger{
+        width:450px;
+    }
 </style>
 @endsection
 @section('content')
@@ -186,7 +198,9 @@
 
                     </ul>
                     @if (!auth()->user())
-                    <a class="btn btn-default check_out" href="{{URL::to('/loginCustomer')}}">Check Out</a>
+                    <button type="button" class="btn btn-danger login-modal" data-toggle="modal" data-target="#exampleModal">
+                        Login to checkout
+                    </button>
                     @else
                     <a class="btn btn-default check_out" href="{{URL::to('/checkout')}}">Check Out</a>
                     @endif
@@ -198,4 +212,67 @@
         </div>
     </div>
 </section>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="" method="POST" role="form">
+                    <div id="error"></div>
+                    <div class="form-group">
+                        <label for="">Email:</label>
+                        <input type="text" class="form-control email" id="email" placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Password:</label>
+                        <input type="password" class="form-control password" id="password" placeholder="Enter your password">
+                    </div>
+
+                    <button type="button" class="btn btn-primary btn-block" id="btn-login">Login</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+@section('custom-js')
+<script>
+    var _csrf = '{{csrf_token()}}';
+    $('#btn-login').click(function(ev) {
+        ev.preventDefault();
+        var _loginUrl = '{{route("ajax.login_to_checkout")}}';
+        var email = $('#email').val();
+        var password = $('#password').val();
+
+        $.ajax({
+            url: _loginUrl
+            , type: 'POST'
+            , data: {
+                email: email
+                , password: password
+                , _token: _csrf
+            , }
+            , success: function(res) {
+                if (res.error) {
+                    let _html_error = '<div class="alert alert-danger">';
+                    for (let error of res.error) {
+                        _html_error += `<li>${error}</li>`;
+                    }
+                    _html_error += '</div>';
+                    $('#error').html(_html_error);
+                } else {
+                    alert('Login Successfully');
+                    location.reload();
+                }
+            }
+        });
+    });
+</script>
 @endsection

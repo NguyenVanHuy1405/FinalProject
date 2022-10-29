@@ -28,7 +28,7 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Auth::routes(['logout' => false,'register'=>false]);
+Auth::routes(['logout' => false,'register'=>false,'login'=>false]);
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/home', function () {return redirect()->route('home');});
@@ -98,10 +98,10 @@ Route::get('/delete-to-cart/{rowId}', [CartController::class,'delete_cart']);
 Route::post('/update-cart', [CartController::class,'update_cart']);
 
 //Register the controller
-Route::get('/loginCustomer', [RegisterController::class, 'login_user']);
+Route::get('/login', [RegisterController::class, 'form_login'])->name('login');
 Route::get('/registerAccount', [RegisterController::class, 'register_user'])->name('register');
 Route::post('/createUserAccount', [RegisterController::class, 'create']);
-Route::post('/loginCustomer',[RegisterController::class,'customer_login'])->name('loginCustomer');
+Route::post('/login',[RegisterController::class,'login'])->name('loginCustomer');
 
 //facebook loginCustomer 
 Route::get('/facebook/login',[RegisterController::class,'login_facebook'])->name('login_facebook');
@@ -187,6 +187,7 @@ Route::get('searchRoom',[CheckoutController::class,'search_room']);
 
 Route::group(['prefix' =>'ajax'],function(){
     Route::post('/login',[AjaxController::class,'login'])->name('ajax.login');
+    Route::post('/login-to-checkout',[AjaxController::class,'login_to_checkout'])->name('ajax.login_to_checkout');
     Route::post('/comment/{room_id}',[AjaxController::class,'comment'])->name('ajax.comment');
 });
 
