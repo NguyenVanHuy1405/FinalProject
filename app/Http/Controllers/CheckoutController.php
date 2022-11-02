@@ -11,6 +11,7 @@ use App\Models\Payment;
 use App\Models\Room;
 use App\Models\User;
 use App\Models\Role;
+use App\Models\Statistics;
 use Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,8 +27,8 @@ class CheckoutController extends Controller
     }
     public function checkout(Request $request)
     {
-        $total = Cart::total();
-        $after_total = (float) str_replace(',', '', $total);
+        $after_booking= Cart::total();
+        $after_total = (float) str_replace(',', '', $after_booking);
         $meta_keywords = "Royal, Royal Hotel, Checkout booking room";
         $meta_description = "Owning a chain of hotels stretching across Vietnam, meeting most of the needs of guests.";
         $url_canonical = $request->url();
@@ -37,6 +38,7 @@ class CheckoutController extends Controller
     public function save_checkout(BookingRequest $request)
     {
         $total = Session::get('total');
+        $order_date = Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d');
         $data = array();
         $data['booking_name'] = $request->booking_name;
         $data['booking_email'] = $request->booking_email;
@@ -63,7 +65,9 @@ class CheckoutController extends Controller
         if (Session::get('coupon')) {
             $order_data['order_total'] = $total;
         } else {
-            $order_data['order_total'] = Cart::total();
+            $total_no_coupon= Cart::total();
+            $after_total = (float) str_replace(',', '', $total_no_coupon);
+            $order_data['order_total'] = $after_total;
         }
         $order_data['coupon_booking'] = $request->coupon;
         $order_data['coupon_code'] = $request->coupon_code;
@@ -73,7 +77,7 @@ class CheckoutController extends Controller
             $coupon->save();
         }
         $order_data['order_status'] = 'Pending';
-        $order_data['date_order'] = Carbon::now()->format('Y-m-d');;
+        $order_data['date_order'] = $order_date;
         $order_id = Order::insertGetId($order_data);
 
         //order_detail
@@ -87,6 +91,16 @@ class CheckoutController extends Controller
             Room::where('id', $order_d_data['room_id'])->update(['room_status' => 0]);
             Order_detail::insert($order_d_data);
         }
+         
+        $total_order = Order::where('id', $order_id)->get();
+        $total = 0;
+        foreach($total_order as $key ){
+            $total +=1;
+        }
+        $statistic_new = new Statistics();
+        $statistic_new->order_date = $order_date;
+        $statistic_new->total_order = $total;
+        $statistic_new->save();
         Cart::destroy();
         Session::forget('successTransaction');
         Session::forget('coupon');
@@ -215,7 +229,7 @@ class CheckoutController extends Controller
             return view('checkout.history',compact('meta_keywords', 'meta_description', 'url_canonical', 'meta_title','get_order'))->with('success','Thank you for booking with us. Below is your booking history.');
         }
         else{
-            return Redirect::to('/loginCustomer')->with('message', 'Please try again');
+            return Redirect::to('/login')->with('message', 'Please try again');
         }
     }
     public function history_order_details(Request $request,$id){

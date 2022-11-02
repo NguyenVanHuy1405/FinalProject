@@ -7,11 +7,16 @@ use App\Models\Order_detail;
 use App\Models\Payment;
 use App\Models\Statistics;
 use App\Models\User;
+use App\Models\Room;
+use App\Models\Role;
+use App\Models\KindOfRoom;
+use App\Models\RoomType;
 use App\Models\Visitor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use PDF;
 use Yajra\Datatables\Datatables;
+use DB;
 
 class AdminController extends Controller
 {
@@ -53,7 +58,49 @@ class AdminController extends Controller
             $visitor->date_visitor = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
             $visitor->save();
         }
-        return view('admin.dashboard', compact('visitors_count', 'visitor_last_month_count', 'visitor_this_month_count', 'visitor_last_year_count', 'all_visitors_count'));
+
+        //Donut
+        $room = Room::all()->count();
+        $order = Order::all()->count();
+        $role_id_user = Role::where('role_name', Role::ROLE_USER)->first()->id;
+        $user = User::where('role_id',$role_id_user)->get();
+        $user_count = $user->count();
+        $role_id_staff = Role::where('role_name', Role::ROLE_STAFF)->first()->id;
+        $staff = User::where('role_id',$role_id_staff)->get();
+        $staff_count = $staff->count();
+        $room_available = Room::where('room_status',1)->get();
+        $room_available_count = $room_available->count();
+        $room_rented = Room::where('room_status',0)->get();
+        $room_rented_count = $room_rented->count();
+        $Kind_of_room = KindOfRoom::all()->count();
+        $Room_type = RoomType::all()->count();
+        return view('admin.dashboard', compact('Kind_of_room','Room_type','room_rented_count','room_available_count','staff_count','visitors_count', 'visitor_last_month_count', 
+        'visitor_this_month_count', 'visitor_last_year_count', 'all_visitors_count','room','order','user_count'));
+    }
+    public function all_order(){
+        $all_order = Order::select(
+            DB::raw('date_order as day'),
+            DB::raw("SUM(order_total) as items_total")
+          )
+          ->groupBy(DB::raw('date_order'))
+          ->get();
+        foreach($all_order as $order){
+            $data_chart[] = array(
+                'order_date' => $order->day,
+                'order_total' => $order->items_total,
+            );
+        }
+        echo $data = json_encode($data_chart);
+    }
+    public function all_room(){
+        $all_room = Room::all();
+        foreach($all_room as $room){
+            $data[] = array(
+                'room_name' => $room->room_name,
+                'views_room' => $room->count_views,
+            );
+        }
+        echo $room = json_encode($data);
     }
 
     //filter by date
@@ -135,8 +182,7 @@ class AdminController extends Controller
         $data = $request->all();
         $from_date = $data['from_date'];
         $to_date = $data['to_date'];
-        $get = Statistics::whereBetween('order_date', [$from_date, $to_date])->orderBy('order_date', 'ASC')->get();
-        \Log::info($get);
+        $get = Order::whereBetween('date_order', [$from_date, $to_date])->orderBy('date_order', 'ASC')->get();
         foreach ($get as $key => $value) {
             $chat_data[] = array(
                 'period' => $value->order_date,
@@ -159,31 +205,21 @@ class AdminController extends Controller
         $sub_365_days = Carbon::now('Asia/Ho_Chi_Minh')->subdays(365)->toDateString();
         $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
 
-        if ($data['dashboard_value'] == '7days') {
-            $get = Statistics::whereBetween('order_date',[$sub_7_days,$now])->orderBy('order_date', 'ASC');
-        } elseif ($data['dashboard_value'] == 'lastmonth') {
-            $get = Statistics::whereBetween('order_date',[$early_last_month,$end_of_last_month])->orderBy('order_date', 'ASC');
-        } elseif ($data['dashboard_value'] == 'thismonth') {
-            $get = Statistics::whereBetween('order_date',[$first_day_of_this_month,$now])->orderBy('order_date', 'ASC');      
+        if ($data['dashboard_value']=='7days') {
+            $get = Order::whereBetween('date_order',[$sub_7_days,$now])->orderBy('date_order', 'ASC')->get();
+        } elseif ($data['dashboard_value']=='last_month') {
+            $get = Order::whereBetween('date_order',[$early_last_month,$end_of_last_month])->orderBy('date_order', 'ASC')->get();
+        } elseif ($data['dashboard_value']=='this_month') {
+            $get = Order::whereBetween('date_order',[$first_day_of_this_month,$now])->orderBy('date_order', 'ASC')->get();      
         } else {
-            $get = Statistics::whereBetween('order_date',[$sub_365_days,$now])->orderBy('order_date', 'ASC');      
+            $get = Order::whereBetween('date_order',[$sub_365_days,$now])->orderBy('date_order', 'ASC')->get();      
         }
         foreach ($get as $key => $value) {
             $chat_data[] = array(
-                'period' => $value->order_date,
-                'order' => $value->total_order,
-                'sales' => $value->sales,
-                'profit' => $value->profit,
-                'quantity' => $value->quantity,
+                'order_date'  => $value->date_order,
+                 'order_total' => $value->order_total,
             );
         }
         echo $data = json_encode($chat_data);
-    }
-    public function print_order($id)
-    {
-        $order_details = Order_detail::where('order_id', $id)->get();
-        view()->share('order', $order_details);
-        $pdf = PDF::loadView('admin.print_order', compact('order_details'));
-        return $pdf->stream('order_total');
     }
 }

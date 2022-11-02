@@ -35,14 +35,35 @@
         float: left;
         margin-left: 10px;
     }
-
+    div.admin_donut{
+        margin-left:-600px;
+    }
+    div.room_donut{
+        margin-top:-350px;
+        margin-left:400px;
+    }
+    p.view_room{
+        text-align: center;
+        margin-top: 60px;
+        font-weight: bold;
+        font-size: 24px;
+    }
+    p.general_statistics{
+        text-align: center;
+        margin-top: 40px;
+        font-weight: bold;
+        font-size: 24px;
+    }
+    div.flex-grow{
+        margin-top: 40px;
+    }
 </style>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
 @endsection
 @section('content')
 <div class="row">
-    <p class="title_staticstics"> Order sales statistics</p>
+    <p class="title_staticstics"> Statistics of total booking amount </p>
     <form autocomplete="off">
         @csrf
         <div class="container_date">
@@ -68,7 +89,7 @@
         </div>
     </form>
     <div class="col-md-12">
-        <div id="myfirstchart" style="height:350px;"></div>
+        <div id="area-chart" style="height:350px;"></div>
     </div>
 </div>
 <div class="row flex-grow">
@@ -122,6 +143,20 @@
     </div>
 </div>
 </div>
+<div class="row">
+    <div clas="col-md-4 col-xm-12">
+        <p class="general_statistics">General Statistics</p>
+        <div class="admin_donut" id="donut"></div>
+        <div class="room_donut" id="donut1"></div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <p class="view_room">Statistics of the number of people visiting the room</p>
+        <div id="room-views" style="height:350px;"></div>
+    </div>
+</div>
+
 @endsection
 @section('custom-js')
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
@@ -144,15 +179,32 @@
 
 </script>
 <script type="text/javascript">
+//Statistics of booking sales by day
+    //End statistics of booking sales by day
     $(document).ready(function() {
-        var chart = new Morris.Bar({
-            element: 'myfirstchart',
-            lineColors:['#819C79','#fc8710','#FF6541','#A4ADD3','#766B56'],
-            xkey: 'period',
+        var chart_order = new Morris.Area({
+            element: 'area-chart',
+            lineColors:['#ff8080'],
+            xkey: 'order_date',
             hideHover:'auto',
-            ykeys: ['order','sales','profit','quantity'],
-            labels: ['Order','Sale','Profit1','Quantity1']
+            ykeys: ['order_total'],
+            labels: ['order']
         });
+    All_order();
+    function All_order(){
+        var _token = $('input[name="_token"]').val();
+        $.ajax({
+                url: "{{url('/all-order')}}", 
+                method: "POST", 
+                dataType: "JSON",
+                data: {
+                    _token: _token
+                },
+                success: function(data) {
+                    chart_order.setData(data);
+                }
+            });
+    }
 
         //filter data
         $('.dashboard-filter').change(function() {
@@ -168,7 +220,7 @@
                 },
 
                 success: function(data) {
-                    chart.setData(data);
+                    chart_order.setData(data);
                 }
             });
         });
@@ -195,5 +247,73 @@
     });
 
 </script>
-
+<script type="text/javascript">
+ 
+</script>
+<script>
+var colorDanger = "#FF1744";
+Morris.Donut({
+  element: 'donut',
+  resize: true,
+  colors: [
+    '#E0F7FA',
+    '#ccff99',
+    '#cc9966',
+    '#ff8080'
+  ],
+  //labelColor:"#cccccc", // text color
+  //backgroundColor: '#333333', // border color
+  data: [
+    {label:"Room", value:<?php echo $room ?>},
+    {label:"Order", value:<?php echo $order ?>},
+    {label:"User", value:<?php echo $user_count ?>},
+    {label:"Staff", value:<?php echo $staff_count ?>}
+  ]
+});
+</script>
+<script>
+Morris.Donut({
+  element: 'donut1',
+  resize: true,
+  colors: [
+    '#ccff99',
+    '#ff5c33',
+    '#99ffe6',
+    '#E0F7FA'
+  ],
+  //labelColor:"#cccccc", // text color
+  //backgroundColor: '#333333', // border color
+  data: [
+    {label:"Room available", value:<?php echo $room_available_count ?>},
+    {label:"Room is already rented", value:<?php echo $room_rented_count ?>},
+    {label:"Kind Of Room", value:<?php echo $Kind_of_room ?>},
+    {label:"Room type", value:<?php echo $Room_type ?>},
+  ]
+});
+</script>
+<script>
+  var chart_room = new Morris.Bar({
+            element: 'room-views',
+            barColors:['#ff9980'],
+            xkey: 'room_name',
+            hideHover:'auto',
+            ykeys: ['views_room'],
+            labels: ['Room Viewers']
+        });
+    All_room();
+    function All_room(){
+        var _token = $('input[name="_token"]').val();
+        $.ajax({
+                url: "{{url('/all-room')}}", 
+                method: "POST", 
+                dataType: "JSON",
+                data: {
+                    _token: _token
+                },
+                success: function(room) {
+                    chart_room.setData(room);
+                }
+            });
+    }
+</script>	
 @endsection

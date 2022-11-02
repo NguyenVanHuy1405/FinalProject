@@ -12,9 +12,6 @@ class Statistics extends Model
     protected $primaryKey = 'id_statistical ';
     protected $fillable = [
         'order_date',
-        'sales',
-        'profit',
-        'quantity',
         'total_order',
     ];
 }

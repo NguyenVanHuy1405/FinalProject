@@ -22,6 +22,7 @@ class Room extends Model
         'room_price',
         'room_image',
         'room_status',
+        'count_views'
     ];
     public function kindofroom(){
         return $this->belongsTo(KindOfRoom::class);

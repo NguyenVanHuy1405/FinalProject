@@ -290,7 +290,7 @@ p.total{
               {{ csrf_field() }}
 								<input class="booking_info" name="booking_email" type="hidden" value="{{ auth()->user()->email }}">
                 <input class="booking_info" name="booking_name" type="hidden" value="{{ auth()->user()->name }}">
-                <input class="booking_info" name="booking_address" type="text" placeholder="Address">
+                <input class="booking_info" name="booking_address" type="text" placeholder="Address"/>
                 @if ($errors->has('booking_address'))
                   <span class="error">
                     @error('booking_address')
@@ -298,8 +298,7 @@ p.total{
                     @enderror
                   </span>
                 @endif
-                </input>
-                <input class="booking_info" name="booking_phone" type="text" placeholder="Phone Number">
+                <input class="booking_info" name="booking_phone" type="text" placeholder="Phone Number"/>
                 @if ($errors->has('booking_phone'))
                   <span class="error">
                     @error('booking_phone')
@@ -307,7 +306,6 @@ p.total{
                     @enderror
                   </span>
                 @endif
-               </input>
                 <textarea class="note" name="booking_note"  placeholder="Notes on your booking" rows="10"></textarea>
                 @if(Session::get('coupon'))
                 @foreach(Session::get('coupon') as $key => $value)

@@ -54,6 +54,7 @@ class HomeController extends Controller
         $kindofRoom = KindOfRoom::where('kindofroom_status', '1')->orderBy('id', 'desc')->get();
         $room_id = Room::join('room_types', 'room_types.id', '=', 'rooms.roomtype_id')->
             join('kind_of_rooms', 'kind_of_rooms.id', '=', 'rooms.kindofroom_id')->where('rooms.id', '=', $id)->get();
+        Room::find($id)->increment('count_views');    
         $room = Room::where('rooms.id', $id)->get();
         $comments = Comment::where(['room_id' => $id,'reply_id' => 0 ])->orderBy('id','DESC')->get();
         foreach ($room_id as $key => $value) {
@@ -65,7 +66,6 @@ class HomeController extends Controller
         }
         $all_comment = Comment::where('room_id', $id)->get();
         $count_all_comment = $all_comment->count();
-        echo $count_all_comment;
         $related = Room::where('rooms.id', $id)->where('room_status', '1')->first();
         $related_room = Room::join('room_types', 'room_types.id', '=', 'rooms.roomtype_id')->
             join('kind_of_rooms', 'kind_of_rooms.id', '=', 'rooms.kindofroom_id')

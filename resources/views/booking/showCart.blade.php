@@ -59,9 +59,12 @@
     div.alert-danger {
         margin-right: 170px;
     }
-
+    a.check_out{
+        margin-top: -5px;
+        border: none;
+    }
     a.delete-coupon {
-        margin-top: 20px;
+        margin-top: -5px;
         border: none;
     }
     button.login-modal{

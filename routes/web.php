@@ -199,6 +199,8 @@ Route::post('/dashboard-filter',[AdminController::class,'dashboard_filter']);
 //log
 
 Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
+Route::post('/all-order',[AdminController::class,'all_order']);
+Route::post('/all-room',[AdminController::class,'all_room']);
 
 
 
