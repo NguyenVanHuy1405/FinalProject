@@ -50,7 +50,7 @@
       line.style.background = change;
     }
   </script>
-  <section class="book">
+  {{-- <section class="book">
     <div class="container flex">
       <div class="input grid">
         <div class="box">
@@ -74,7 +74,7 @@
         <input type="submit" value="SEARCH">
       </div>
     </div>
-  </section>
+  </section> --}}
   <section class="about top" id="about">
     <div class="container flex">
       <div class="left">
@@ -273,9 +273,6 @@
         <div class="heading">
           <h5>WELCOME TO OUR PHOTO GALLERY</h5>
           <h2>Photo Gallery of Our Hotel</h2>
-        </div>
-        <div class="button">
-          <button class="btn1">VIEW GALLERY</button>
         </div>
       </div>
       <div class="owl-carousel owl-theme">

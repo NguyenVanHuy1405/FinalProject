@@ -180,8 +180,8 @@ Route::post('/vnpay_payment',[CheckoutController::class,'vnpay_payment'])->name(
 
 //historyBooking
 
-Route::get('historyBooking',[CheckoutController::class,'history'])->name('historyBooking');
-Route::get('/view-booking/historyBooking/{id}',[CheckoutController::class,'history_order_details']);
+Route::get('/view-booking/historyBooking',[CheckoutController::class,'history'])->name('historyBooking');
+Route::get('/view-booking/historyBooking/detailBooking/{id}',[CheckoutController::class,'history_order_details']);
 
 Route::get('searchRoom',[CheckoutController::class,'search_room']);
 

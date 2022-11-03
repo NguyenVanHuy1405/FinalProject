@@ -33,4 +33,7 @@ class Room extends Model
     public function comments(){
         return $this->hasMany(Comment::class,'room_id','id')->orderBy('id','desc');
     }
+    public function Order_detail(){
+        return $this->belongsTo(Order_detail::class,'room_id','id');
+    }
 }

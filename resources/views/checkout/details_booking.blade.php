@@ -1,78 +1,96 @@
 @extends('layouts.main')
 @section('custom-css')
 <style>
-    @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600);
+    .gradient-custom {
+        /* fallback for old browsers */
+        background: #cd9cf2;
 
-*, *:before, *:after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: -webkit-linear-gradient(to top left, rgba(205, 156, 242, 1), rgba(246, 243, 255, 1));
 
-body {
-  background: ;
-  font-family: 'Open Sans', sans-serif;
-}
-table {
-  background: #012B39;
-  border-radius: 0.25em;
-  border-collapse: collapse;
-  margin: 1em;
-  padding-top:2em;
-  margin-top:120px;
-  margin-left:160px;
-  weight:1000px;
-  height: 100%;
-}
-th {
-  border-bottom: 1px solid #364043;
-  color: #E2B842;
-  font-size: 0.85em;
-  font-weight: 600;
-  padding: 0.5em 1em;
-  text-align: left;
-}
-td {
-  color: #fff;
-  font-weight: 400;
-  padding: 0.65em 1em;
-}
-.disabled td {
-  color: #4F5F64;
-}
-tbody tr {
-  transition: background 0.25s ease;
-}
-tbody tr:hover {
-  background: #014055;
-}
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        background: linear-gradient(to top left, rgba(205, 156, 242, 1), rgba(246, 243, 255, 1))
+    }
+
+    .bn39 {
+        background-image: linear-gradient(135deg, #008aff, #86d472);
+        border-radius: 6px;
+        box-sizing: border-box;
+        color: #ffffff;
+        display: block;
+        height: 50px;
+        font-size: 1.4em;
+        font-weight: 600;
+        padding: 4px;
+        position: relative;
+        text-decoration: none;
+        width: 5em;
+        z-index: 2;
+    }
+
+    .bn39:hover {
+        color: #fff;
+    }
+
+    .bn39 .bn39span {
+        align-items: center;
+        background: #0e0e10;
+        border-radius: 6px;
+        display: flex;
+        justify-content: center;
+        height: 100%;
+        transition: background 0.5s ease;
+        width: 100%;
+    }
+
+    .bn39:hover .bn39span {
+        background: transparent;
+    }
+
+    img.img-fluid {
+        border-radius: 15px;
+    }
+
+    div.px-4 {
+        margin-top: 40px;
+        text-align: center;
+    }
+
 </style>
 @endsection
 @section('content')
-<table>
-  <thead>
-    <tr>
-      <th>Stt</th>
-      <th>Room Name</th>
-      <th>Room Price</th>
-      <th>Day At Home</th>
-    </tr>
-  </thead>
-  <tbody>
-    @php
-    $i =0;
-    @endphp
-    @foreach($detail_order as $key => $value)
-    @php
-    $i ++;
-    @endphp 
-    <tr>
-      <td>{{$i}}</td>
-      <td>{{$value->room_name}}</td>
-      <td>{{$value->room_price}}</td>
-      <td>{{$value->room_sales_quantity}}</td>
-    </tr>  
-    @endforeach    
-  </tbody>
-</table>
+<section class="h-100 gradient-custom">
+    <div class="container history-booking">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-lg-12">
+                <div class="card" style="border-radius: 10px;">
+                    <div class="card-header px-4 py-5">
+                        <h5 class="text-muted thanks">Detail booking</h5>
+                    </div>
+                    <div class="card-body history">
+                        @foreach($detail_booking as $key => $value)
+                        <div class="card shadow-0 border mb-4">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-2 image">
+                                        <img src="{{URL::to('home/image/history_booking.jpg')}}" class="img-fluid" alt="Room Image">
+                                    </div>
+                                    <div class="col-md-3 text-center d-flex justify-content-center align-items-center">
+                                        <p class="text-muted mb-0"><b>Room Name: </b><br><br>{{$value->room_name}}</p>
+                                    </div>
+                                    <div class="col-md-3 text-center d-flex justify-content-center align-items-center">
+                                        <p class="text-muted mb-0"><b>Room Price: </b><br><br>{{number_format($value->room_price).''.' VND'}}</p>
+                                    </div>
+                                    <div class="col-md-3 text-center d-flex justify-content-center align-items-center">
+                                        <p class="text-muted mb-0"><b>Date At Home: </b><br><br>{{$value->room_sales_quantity}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
 @endsection

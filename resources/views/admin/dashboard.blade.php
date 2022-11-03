@@ -240,7 +240,7 @@
                 },
 
                 success: function(data) {
-                    chart.setData(data);
+                    chart_order.setData(data);
                 }
             });
         });

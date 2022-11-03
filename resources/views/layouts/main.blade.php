@@ -60,7 +60,6 @@
         <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
           <ul class="nav navbar-nav menu_nav ml-auto">
             <li class="nav-item active"><a class="nav-link" href="{{URL::to('/')}}">Home</a></li>
-            <li class="nav-item "><a class="nav-link" href="about.html">About us</a></li>
             <li class="nav-item"><a class="nav-link" href="{{URL::to('/bookingRoom')}}">Booking Room</a></li>
             @if (!auth()->user())
               <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Sign in</a></li>
@@ -68,7 +67,7 @@
             @if (auth()->user())
             @if (auth()->user()->hasRole('user'))
             <li class="nav-item "><a class="nav-link" href="{{URL::to('contactUs')}}">Contact us</a></li>
-            <li class="nav-item"><a href="{{ URL::to('historyBooking') }}" class="nav-link">History Booking</a></li>
+            <li class="nav-item"><a href="{{ URL::to('/view-booking/historyBooking') }}" class="nav-link">History Booking</a></li>
             @endif
             @endif
             @if (auth()->user())
@@ -163,13 +162,6 @@
             <h6 class="footer_title">Newsletter</h6>
             <p>For business professionals caught between high OEM price and mediocre print and graphic output, </p>
             <div id="mc_embed_signup">
-              <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get" class="subscribe_form relative">
-                <div class="input-group d-flex flex-row">
-                  <input name="EMAIL" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address '" required="" type="email">
-                  <button class="btn sub-btn"><span class="lnr lnr-location"></span></button>
-                </div>
-                <div class="mt-10 info"></div>
-              </form>
             </div>
           </div>
         </div>

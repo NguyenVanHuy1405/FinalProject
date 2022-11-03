@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Order_detail extends Model
 {
     use HasFactory;
-    protected $primaryKey = 'order_detail_id';
+    protected $primaryKey = 'id';
+    protected $table = "order_details";
     protected $fillable = [
         'order_id',
         'room_id',
@@ -18,5 +19,8 @@ class Order_detail extends Model
     ];
     public function order(){
         return $this->belongsTo('App\Models\Order');
+    }
+    public function Rooms(){
+        return $this->hasOne(Room::class);
     }
 }

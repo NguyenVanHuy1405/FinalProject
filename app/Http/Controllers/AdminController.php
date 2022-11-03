@@ -120,7 +120,7 @@ class AdminController extends Controller
                 return $data->booking->booking_address;
             })
             ->editColumn('order_total', function ($data) {
-                return $data->order_total;
+                return number_format($data->order_total).''.' VND';
             })
             ->editColumn('payment_method', function ($data) {
                 if ($data->payment->payment_method == 1) {
@@ -185,11 +185,8 @@ class AdminController extends Controller
         $get = Order::whereBetween('date_order', [$from_date, $to_date])->orderBy('date_order', 'ASC')->get();
         foreach ($get as $key => $value) {
             $chat_data[] = array(
-                'period' => $value->order_date,
-                'order' => $value->total_order,
-                'sales' => $value->sales,
-                'profit' => $value->profit,
-                'quantity' => $value->quantity,
+                'order_date'  => $value->date_order,
+                'order_total' => $value->order_total,
             );
         }
         echo $data = json_encode($chat_data);
@@ -217,7 +214,7 @@ class AdminController extends Controller
         foreach ($get as $key => $value) {
             $chat_data[] = array(
                 'order_date'  => $value->date_order,
-                 'order_total' => $value->order_total,
+                'order_total' => $value->order_total,
             );
         }
         echo $data = json_encode($chat_data);

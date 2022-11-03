@@ -15,7 +15,7 @@ class Payment extends Model
         'payment_status',
     ];
     public function order(){
-        return $this->belongsTo('App\Models\Order');
-    } 
+        return $this->belongsTo(Order::class,'payment_id','id')->orderBy('id','desc');
+    }
 
 }

@@ -229,7 +229,7 @@ class CheckoutController extends Controller
             return view('checkout.history',compact('meta_keywords', 'meta_description', 'url_canonical', 'meta_title','get_order'))->with('success','Thank you for booking with us. Below is your booking history.');
         }
         else{
-            return Redirect::to('/login')->with('message', 'Please try again');
+            return Redirect::to('/login')->with('message', 'Please try again with account user');
         }
     }
     public function history_order_details(Request $request,$id){
@@ -237,7 +237,7 @@ class CheckoutController extends Controller
         $meta_description = "Owning a chain of hotels stretching across Vietnam, meeting most of the needs of guests.";
         $url_canonical = $request->url();
         $meta_title = "Detail History Booking Rooms";
-        $detail_order = Order_detail::where('order_id',$id)->get();
-        return view('checkout.details_booking',compact('meta_keywords', 'meta_description', 'url_canonical', 'meta_title','detail_order'));
+        $detail_booking = Order_detail::where('order_id',$id)->get();
+        return view('checkout.details_booking',compact('meta_keywords', 'meta_description', 'url_canonical', 'meta_title','detail_booking'));
     }
 }
