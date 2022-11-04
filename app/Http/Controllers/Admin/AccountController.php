@@ -16,12 +16,9 @@ use Illuminate\Support\Facades\Redirect;
 class AccountController extends Controller
 {
     public function index(){
-        return view(
-            'admin.account.index',
-            [
-                'roles' => Role::all()
-            ]
-        );
+        $role_user_id = Role::where('role_name', Role::ROLE_USER)->first()->id;
+        $roles_id = Role::whereNot('id',$role_user_id)->get();
+        return view('admin.account.index',compact('roles_id'));
     }
     public function getDtRowData(Request $request)
     {
@@ -47,7 +44,19 @@ class AccountController extends Controller
                 }
             })
             ->editColumn('action', function ($data) {
-                return '
+                $role_user_id = Role::where('role_name', Role::ROLE_USER)->first()->id;
+                if($data->role_id == $role_user_id){
+                    return '
+                <a class="btn btn-warning btn-sm rounded-pill"><i class="fa-solid" title="Can not edit Account"></i>No Edit</a>
+                <form method="GET" action="' . route('admin.account.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
+                ' . method_field('GET') .
+                    '' . csrf_field() .
+                    '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this account ?\')"><i class="fa-solid fa-trash" title="Delete Account"></i>Delete</button>
+                </form>
+                ';
+                }
+                else{
+                    return '
                 <a class="btn btn-warning btn-sm rounded-pill" href="' . route("admin.account.update", $data->id) . '"><i class="fa-solid fa-pen-to-square" title="Edit Account"></i> Edit</a>
                 <form method="GET" action="' . route('admin.account.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
                 ' . method_field('GET') .
@@ -55,6 +64,7 @@ class AccountController extends Controller
                     '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this account ?\')"><i class="fa-solid fa-trash" title="Delete Account"></i>Delete</button>
                 </form>
                 ';
+                }
             })
             ->rawColumns(['action','is_lock'])
             ->setRowAttr([
@@ -96,8 +106,9 @@ class AccountController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        $role_id = Role::orderBy('id','desc')->get();
-        return view('admin.account.edit', compact('user', 'role_id'));
+        $role_user_id = Role::where('role_name', Role::ROLE_USER)->first()->id;
+        $roles_id = Role::whereNot('id',$role_user_id)->get();
+        return view('admin.account.edit', compact('user', 'roles_id'));
     }
 
     public function update(UpdateAccountRequest $request, $id)

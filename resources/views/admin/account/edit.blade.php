@@ -99,7 +99,7 @@ outline: 0;
                     <label for="exampleInputEmail1"><b>Role ID:</b></label>
                     </br>
                     <select name="role_id" class="classic">
-                        @foreach($role_id as $key =>$role)
+                        @foreach($roles_id as $key =>$role)
                         @if($role->id==$user->role_id)
                         <option selected value="{{$role->id}}">{{$role->role_name}}</option>
                         @else

@@ -112,7 +112,7 @@
                     <label for="exampleInputEmail1"><b>Role ID:</b></label>
                     </br>
                     <select name="role_id" class="classic">
-                        @foreach($roles as $key => $role) 
+                        @foreach($roles_id as $key => $role) 
                         <option value="{{$role->id}}">{{$role->role_name}}</option>
                         @endforeach
                     </select>
