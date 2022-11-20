@@ -109,8 +109,8 @@
 							If you have already account, please login.
 						</b></span>
 
-						<a href="{{URL::to('loginCustomer')}}" class="txt2">
-							Sign Up
+						<a href="{{URL::to('login')}}" class="txt2">
+							Sign in
 						</a>
 					</div>
 				</form>

@@ -92,10 +92,6 @@
 							<i class="fa fa-facebook"></i>
 						</a>
 
-						<a href="#" class="login100-social-item bg2">
-							<i class="fa fa-twitter"></i>
-						</a>
-
 						<a href="{{route('login_google')}}" class="login100-social-item bg3">
 							<i class="fa fa-google"></i>
 						</a>

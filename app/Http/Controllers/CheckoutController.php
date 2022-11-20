@@ -69,7 +69,9 @@ class CheckoutController extends Controller
             $after_total = (float) str_replace(',', '', $total_no_coupon);
             $order_data['order_total'] = $after_total;
         }
-        $order_data['coupon_booking'] = $request->coupon;
+        $code_coupon =  $request->coupon;
+        $after_coupon = (float) str_replace('.', '', $code_coupon);
+        $order_data['coupon_booking'] =  $after_coupon;
         $order_data['coupon_code'] = $request->coupon_code;
         if (Session::get('coupon')){
             $coupon = Coupon::where('coupon_code', $order_data['coupon_code'])->first();
@@ -91,20 +93,10 @@ class CheckoutController extends Controller
             Room::where('id', $order_d_data['room_id'])->update(['room_status' => 0]);
             Order_detail::insert($order_d_data);
         }
-         
-        $total_order = Order::where('id', $order_id)->get();
-        $total = 0;
-        foreach($total_order as $key ){
-            $total +=1;
-        }
-        $statistic_new = new Statistics();
-        $statistic_new->order_date = $order_date;
-        $statistic_new->total_order = $total;
-        $statistic_new->save();
         Cart::destroy();
         Session::forget('successTransaction');
         Session::forget('coupon');
-        return Redirect::to('historyBooking')->with('success','Booking rooms successfully');
+        return Redirect::to('/view-booking/historyBooking')->with('success','Booking rooms successfully');
     }
     public function order_place(Request $request)
     {
@@ -152,15 +144,23 @@ class CheckoutController extends Controller
     }
     public function vnpay_payment()
     {
+        $total = Session::get('total');
+        $code_cart = rand(00,9999);
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
         $vnp_Returnurl = "http://127.0.0.1:8000/checkout";
         $vnp_TmnCode = "S2XHU1MP"; 
         $vnp_HashSecret = "WDEHYLMTJRBDMPGXVEWWVABFQWBCOFEV";
 
-        $vnp_TxnRef = '14052001'; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
+        $vnp_TxnRef = $code_cart; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
         $vnp_OrderInfo = 'Thanh toán đơn hàng test';
         $vnp_OrderType = 'billpayment';
-        $vnp_Amount = 20000 * 100;
+        if (Session::get('coupon')) {
+            $vnp_Amount = $total * 100;
+        } else {
+            $total_no_coupon= Cart::total();
+            $after_total = (float) str_replace(',', '', $total_no_coupon);
+            $vnp_Amount = $after_total * 100;
+        }
         $vnp_Locale = 'vn';
         $vnp_BankCode = 'NCB';
         $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
@@ -213,6 +213,7 @@ class CheckoutController extends Controller
             , 'data' => $vnp_Url);
         if (isset($_POST['redirect'])) {
             header('Location: ' . $vnp_Url);
+            Session::put('PaymentWithVNPay', true);
             die();
         } else {
             echo json_encode($returnData);

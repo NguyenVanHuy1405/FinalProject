@@ -24,8 +24,9 @@
     <div class="head_container">
       <div class="box">
         <div class="text">
-          <h1>Hello.Salut.Hola</h1>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+          <h1>Hello Customer</h1>
+          <p>Royal Hotel is a lovely hotel in the heart of Da Nang city. The hotel is located in the Son Tra area where there are convenient traffic conditions. Besides, the hotel is surrounded by famous restaurants,
+           cafes and milk teas. Recently, our entire hotel has been completely refurbished.<p>
           <button>MORE INFO</button>
         </div>
       </div>
@@ -86,7 +87,7 @@
       <div class="right">
         <div class="heading">
           <h5>RAISING COMFOMRT TO THE HIGHEST LEVEL</h5>
-          <h2>Welcome to Royal Hotel Resort</h2>
+          <h2>Welcome to Royal Hotel</h2>
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
           <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
           <button class="btn1">READ MORE</button>
@@ -218,7 +219,7 @@
         </div>
         <div class="accordionWrapper">
           <div class="accordionItem open">
-            <h2 class="accordionIHeading">Italian Kitchen</h2>
+            <h2 class="accordionIHeading">Vietnamese Kitchen</h2>
             <div class="accordionItemContent">
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
               </p>
@@ -233,13 +234,6 @@
           </div>
           <div class="accordionItem close">
             <h2 class="accordionIHeading">Italian Kitchen</h2>
-            <div class="accordionItemContent">
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-              </p>
-            </div>
-          </div>
-          <div class="accordionItem close">
-            <h2 class="accordionIHeading">Mexican Kitchen</h2>
             <div class="accordionItemContent">
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
               </p>

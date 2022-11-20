@@ -271,8 +271,10 @@
                     _html_error += '</div>';
                     $('#error').html(_html_error);
                 } else {
-                    alert('Login Successfully');
+                   swal("Good job!", "Login Success", "success")
+                    .then((value) => {
                     location.reload();
+                    });
                 }
             }
         });

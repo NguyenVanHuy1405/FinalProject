@@ -258,6 +258,9 @@ p.total{
   font-weight: bold;
   color:red;
 }
+button.vnpay{
+  margin-top: -15px;
+}
 </style>
 @endsection
 @section('content')
@@ -460,11 +463,15 @@ p.total{
                         <br>
 
                         <td>
+                        @if(!Session::get('PaymentWithVNPay')==true)
                           <form action="{{url('vnpay_payment') }}" method="POST">
                             @csrf
-                            <button type="submit" name="redirect" class="btn btn-primary">VNPT</button> 
+                            <button type="submit" name="redirect" class="btn btn-primary vnpay">VNPT</button> 
                           </form>
                         </td> 
+                        @else
+                        <p class="payment_method">Successfully paid for the reservation with VNPA</p>
+                        @endif
                     </ul>
                 </div>
             </div>
