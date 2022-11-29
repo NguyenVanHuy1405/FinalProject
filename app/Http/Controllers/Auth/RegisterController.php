@@ -84,9 +84,9 @@ class RegisterController extends Controller
     {
         if ($user->token === $token) {
             $user->update(['is_lock' => 1, 'token' => null]);
-            return Redirect::to('/loginCustomer')->with('success', 'You have successfully activated your account');
+            return Redirect::to('/login')->with('success', 'You have successfully activated your account');
         } else {
-            return Redirect::to('/loginCustomer')->with('message', 'Your verification code is not valid.');
+            return Redirect::to('/login')->with('message', 'Your verification code is not valid.');
         }
     }
 

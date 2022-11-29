@@ -51,9 +51,14 @@ class UserController extends Controller
         User::where('id', $user->id)->update(['phone_number' => $user->phone_number]);
         return redirect()->back()->with('success','The phone number is updated!');
     }
-    public function changePassword()
+    public function changePassword(Request $request)
     {
-        return view('user.changepassword');
+        $user = Auth::user();
+        $meta_keywords = "Royal, Royal Hotel";
+        $meta_description ="Owning a chain of hotels stretching across Vietnam, meeting most of the needs of guests.";
+        $url_canonical = $request->url();
+        $meta_title = "Change password";
+        return view('user.changepassword',compact('user','meta_keywords','meta_description','url_canonical','meta_title'));
     }
 
     public function updatePassword(PasswordChangeRequest $request)

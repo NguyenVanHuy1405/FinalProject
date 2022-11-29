@@ -148,8 +148,6 @@
                             <ul class="blog_meta list_style">
                                 <li><a href="#">{{$value->count_views}} Views<i class="lnr lnr-eye"></i></a></li>
                                 <li><a href="#">{{$count_all_comment}} Comments<i class="lnr lnr-bubble"></i></a></li>
-                                <div class="fb-share-button" data-href="http://127.0.0.1:8000/detailRoom/5" data-layout="button_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{$url_canonical}}&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
-                                <div class="fb-like" data-href="{{$url_canonical}}" data-width="" data-layout="standard" data-action="like" data-size="large" data-share="false"></div>
                             </ul>
                             @endforeach
                         </div>

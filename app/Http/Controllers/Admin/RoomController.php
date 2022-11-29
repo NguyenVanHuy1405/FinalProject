@@ -68,7 +68,7 @@ class RoomController extends Controller
                 return $data->kindofroom->kindofroom_name;
             })
             ->editColumn('room_price', function ($data) {
-                return $data->room_price;
+                return number_format($data->room_price).''.' VND';
             })
             ->editColumn('room_image', function ($data) {
                 $url=asset("admin/uploads/room/$data->room_image"); 
@@ -140,7 +140,7 @@ class RoomController extends Controller
             $new_image = $name_image.rand(0,99).'.'.$get_image->getClientOriginalExtension();
             $get_image->move('admin/uploads/room',$new_image);
             $data['room_image'] = $new_image;
-            Room::where('room_id',$room_id)->update($data);
+            Room::where('id',$id)->update($data);
             return Redirect::to('/admin/room/index')->with('success','Update room successfully');
         }
         $data['room_image']='';

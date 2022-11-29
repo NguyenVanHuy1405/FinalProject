@@ -72,8 +72,8 @@ outline: 0;
             <div class="container-fluid">
                 <div class="row mb-2">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Edit account/</li>
+                        <li class="breadcrumb-item"><a href="{{ URL::to('admin/account/index') }}">List account</a></li>
+                        <li class="breadcrumb-item active">Edit account</li>
                     </ol>
                 </div>
             </div>

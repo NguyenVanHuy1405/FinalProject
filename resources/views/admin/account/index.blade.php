@@ -58,7 +58,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Create a new kind of room</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Create a new account</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="{{ URL::to('/admin/account/create') }}" method="POST">
@@ -120,7 +120,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" name="createkindofroom" id="createkindofroom" class="btn btn-primary">Add kind of room</button>
+                    <button type="submit" name="createkindofroom" id="createkindofroom" class="btn btn-primary">Add account</button>
                 </div>
         </div>
     </div>

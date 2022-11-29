@@ -157,7 +157,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" name="createkindofroom" id="createkindofroom" class="btn btn-primary">Add kind of room</button>
+                    <button type="submit" name="createkindofroom" id="createkindofroom" class="btn btn-primary">Add coupon</button>
                 </div>
         </div>
     </div>

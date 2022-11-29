@@ -74,7 +74,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{ URL::to('admin/room/index') }}">List room</a></li>
                         <li class="breadcrumb-item active">Edit a room</li>
                     </ol>
                 </div>
@@ -155,7 +155,7 @@
                     </br>
                     <select name="roomtype_id" class="classic">
                         @foreach($roomType as $key =>$type) 
-                        <option value="{{$type->roomtype_id}}">{{$type->roomtype_name}}</option>
+                        <option value="{{$type->id}}">{{$type->roomtype_name}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -164,7 +164,7 @@
                     </br>
                     <select name="kindofroom_id" class="classic">
                         @foreach($kindofRoom as $key =>$kind) 
-                        <option value="{{$kind->kindofroom_id}}">{{$kind->kindofroom_name}}</option>
+                        <option value="{{$kind->id}}">{{$kind->kindofroom_name}}</option>
                         @endforeach
                     </select>
                 </div>

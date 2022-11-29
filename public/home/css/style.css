@@ -3742,15 +3742,16 @@ button {
   position: relative;
 }
 
-.heading::after {
+/* .heading::after {
   position: absolute;
   top: 0;
   left: 0;
   content: '';
   width: 100px;
   height: 4px;
+  margin-bottom: 10px;
   background: #C1B086;
-}
+} */
 
 .heading h5 {
   font-weight: 400;
@@ -4136,6 +4137,7 @@ footer li:hover {
   position: absolute;
   top: 5px;
   left:48px;
+  margin-left: 20px;
 
 }
 

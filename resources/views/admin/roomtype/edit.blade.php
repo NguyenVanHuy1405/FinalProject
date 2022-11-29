@@ -19,7 +19,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{ URL::to('admin/roomtype/index') }}">List room type</a></li>
                         <li class="breadcrumb-item active">List room type</li>
                     </ol>
                 </div>

@@ -45,17 +45,30 @@
     h4.header-coupon {
         background: #FE980F;
         height: 50px;
-        margin-right: 170px;
         padding-top: 10px;
         padding-left: 15px;
+        margin-left:5px;
+        width: 1150px;
         color: white;
+    }
+    div.coupon{
+        margin-top:30px;
     }
 
     p.coupon-text {
         font-weight: bold;
         font-size: 16px;
+        margin-left: 20px;
     }
-
+    input.input_coupon{
+         margin-left:20px;
+    }
+    input.check_coupon{
+        margin-left:20px;
+    }
+    h6.error_coupon{
+         margin-left:20px;
+    }
     div.alert-danger {
         margin-right: 170px;
     }
@@ -148,11 +161,11 @@
     </div>
     <div class="coupon">
         <h4 class="header-coupon">Enter your coupon</h4>
-        @include('layouts.alertProfile')
-        <p class="coupon-text">Search or enter your coupon to get a discount.</p>
+        <h6 class="error_coupon">@include('layouts.alertProfile')</h6>
+        <p class="coupon-text">Enter your coupon to get a discount.</p>
         <form action="{{route('checkCoupon')}}" method="post">
             {{csrf_field()}}
-            <input type="text" class="form-control" name="coupon" placeholder="Enter code coupon">
+            <input type="text" class="form-control input_coupon" name="coupon" placeholder="Enter code coupon">
             <br>
             <input type="submit" class="btn btn-primary check_coupon" name="check_coupon" value="Submit coupon">
         </form>
@@ -163,8 +176,7 @@
 <section id="do_action">
     <div class="container">
         <div class="heading">
-            <h3>What would you like to do next?</h3>
-            <p>Choose if you have a discount code or reward points you want to use or would like to estimate your delivery cost.</p>
+            <h3>Below is the payment amount you need to pay</h3>
         </div>
         <div class="row">
             <div class="col-sm-6">
